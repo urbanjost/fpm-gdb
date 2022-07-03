@@ -14,6 +14,7 @@ integer ierr
    call set_args('gdb --width:w 80',help,version)
    verbose=lget('verbose')
 
+   call execute_command_line('fpm build')
    call process_open_read( 'fpm run --runner|grep build' ,fp,ierr) ! open process to read from
    if(ierr.eq.0)then
      call process_readline(line,fp,ierr) ! read a line from the process
