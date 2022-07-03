@@ -17,7 +17,7 @@ fpm gdb --help
 provides more information. *Assumes you are familiar with gdb(1)*.
 
 Basically, it figures out where the binary is and runs the vim(1)
-editor, launching the screen mode. For example:
+editor, launching the screen mode with the mouse activated. For example:
 ```bash
 fpm run --runner "vim -c 'set mouse=a'  -c 'packadd termdebug'  -c 'resize +10'  -c 'Termdebug build/gfortran_2A42023B310FA28D/app/fpm-gdb' app*.f90"
 ```
@@ -28,6 +28,11 @@ program, set some other breakpoint and then start running the program
 (with optional arguments).  Clicking on "next" would take you to the
 next breakpoint.
 
+Lets start in a terminal 132 characters wide and enter
+```text
+fpm gdb -w 132
+```
+and then in the gdb(1) command window enter
 ```text
 b main
 list
@@ -41,5 +46,12 @@ where
 info locals
 print i
 ```
+If you click mouse 3 in the code file you should get an option menu for
+setting and clearing breakpoints.
+
+Assuming your terminal window supports vim(1) mouse mode, you can use the
+mouse in various ways. For example, You can click on variables and the
+[eval] button.
+
 General gdb instructions are beyond the scope of this discussion, but
 "help" can get you started.
