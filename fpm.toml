@@ -1,0 +1,28 @@
+# TOML file for fpm as described at https://github.com/fortran-lang/fpm/blob/master/manifest-reference.md
+name = "fpm-gdb"
+version = "0.1.0"
+license = "MIT"
+author = "John S. Urban"
+maintainer = "urbanjost@comcast.net"
+copyright = "Copyright 2022, John S. Urban"
+description = "fpm(1) tool for launching gdb(1)"
+categories = ["debugging"]
+keywords = ["debugger", "fortran", "fpm", "gdb" ]
+homepage = "https://github.com/urbanjost/fpm-gdb"
+
+[build]
+auto-executables = true
+auto-tests = true
+auto-examples = true
+
+[install]
+library = false
+
+[[executable]]
+name="fpm-gdb"
+source-dir="app"
+main="fpm-gdb.f90"
+
+[dependencies]
+M_CLI2      =  {  git  =  "https://github.com/urbanjost/M_CLI2.git"     }
+M_process    =  {  git  =  "https://github.com/urbanjost/M_process.git"    }
