@@ -26,6 +26,6 @@ pandoc --from=man --to=markdown_mmd --output=docs/$NAME.md <man/man1/$NAME.1
 #export DEMO_OUTDIR=../../example
 #export DEMO_SUBDIR=FALSE
 
-man2html man/man1/$NAME.1 > docs/numdiff.1.html
+man2html man/man1/$NAME.1 > docs/$NAME.1.html
 gzip -f man/man1/$NAME.1
 exit
