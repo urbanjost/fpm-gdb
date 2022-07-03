@@ -22,3 +22,24 @@ editor, launching the screen mode. For example:
 fpm run --runner "vim -c 'set mouse=a'  -c 'packadd termdebug'  -c 'resize +10'  -c 'Termdebug build/gfortran_2A42023B310FA28D/app/fpm-gdb' app*.f90"
 ```
 ![gdb](docs/images/fpm-gdb.gif)
+
+You could set a breakpoint at the beginning of the program, list the
+program, set some other breakpoint and then start running the program
+(with optional arguments).  Clicking on "next" would take you to the
+next breakpoint.
+
+```text
+b main
+list
+b 40
+run  
+```
+Assuming you are at your next breakpoint, you can ask where you are,
+list local variables and print the value of some variable, like "i"
+```text
+where
+info locals
+print i
+```
+General gdb instructions are beyond the scope of this discussion, but
+"help" can get you started.
