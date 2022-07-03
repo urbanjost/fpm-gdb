@@ -2,10 +2,9 @@
 
 plugin on POSIX systems to launch gdb(1) on a simple fpm(1) project.
 
-A WIP (Work In Progress).
-if you build 
-and install this as "fpm-gdb" in your path, then in other simple fpm(1)
-projects that build an application you can enter:
+A WIP (Work In Progress). With simple fpm(1) projects if you build 
+and install this as "fpm-gdb" in your path, then in other fpm(1)
+projects you can enter:
 
 ```bash
 fpm gdb
