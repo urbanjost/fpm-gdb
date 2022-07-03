@@ -54,4 +54,5 @@ mouse in various ways. For example, You can click on variables and the
 [eval] button.
 
 General gdb instructions are beyond the scope of this discussion, but
-"help" can get you started.
+"help" can get you started. For the vim(1) terminal help go to the
+rightmost vim(1) window and enter ":help terminal-debug".
