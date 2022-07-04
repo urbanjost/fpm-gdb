@@ -10,16 +10,24 @@ integer :: i
 type(streampointer) :: fp ! C file pointer returned by process_open()
 character(len=4096) :: line
 integer ierr
-character(len=*),parameter :: run_options=' --example F '
 character(len=*),parameter :: common_options='&
- --no-prune F --link-flag " " --flag " " --directory:C " " --compiler "gfortran" --c-flag " " --c-compiler " " --archiver " " '
+ --example F &
+ --no-prune F &
+ --link-flag " " &
+ --flag " " &
+ --directory:C " " &
+ --compiler "gfortran" &
+ --c-flag " " &
+ --c-compiler " " &
+ --archiver " " '
 character(len=:),allocatable :: options
    ! process command-line options
    call setup()
-   call set_args('gdb --width:w 80 '//common_options//run_options,help,version)
+   call set_args('gdb --width:w 80 '//common_options,help,version)
    verbose=lget('verbose')
    options=''
    if(specified('no-prune'))options=options//' --noprune '
+   if(specified('example'))options=options//' --example '
    if(specified('directory'))options=options//' --directory '//sget('directory')
    if(specified('compiler'))options=options//' --compiler '//sget('compiler')
    if(specified('link-flag'))options=options//' --link-flag "'//sget('link-flag')//'"'

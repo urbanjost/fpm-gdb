@@ -181,8 +181,6 @@
       
       <a class="list-group-item" href="../program/gdb.html#variable-options">options</a>
       
-      <a class="list-group-item" href="../program/gdb.html#variable-run_options">run_options</a>
-      
       <a class="list-group-item" href="../program/gdb.html#variable-verbose">verbose</a>
       
       <a class="list-group-item" href="../program/gdb.html#variable-version">version</a>
@@ -294,8 +292,6 @@
       
       <a class="list-group-item" href="../program/gdb.html#variable-options">options</a>
       
-      <a class="list-group-item" href="../program/gdb.html#variable-run_options">run_options</a>
-      
       <a class="list-group-item" href="../program/gdb.html#variable-verbose">verbose</a>
       
       <a class="list-group-item" href="../program/gdb.html#variable-version">version</a>
@@ -388,7 +384,7 @@
   
   
   <td>parameter</td><td>::</td>
-  <td><strong>common_options</strong></td><td> =</td><td>' --no-prune F --link-flag " " --flag " " --directory:C " " --compiler "gfortran" --c-flag " " --c-compiler " " --archiver " " '</td><td></td>
+  <td><strong>common_options</strong></td><td> =</td><td>' --example F --no-prune F --link-flag " " --flag " " --directory:C " " --compiler "gfortran" --c-flag " " --c-compiler " " --archiver " " '</td><td></td>
   
 </tr>
 
@@ -473,20 +469,6 @@
   
   <td>allocatable</td><td>::</td>
   <td><strong>options</strong></td><td></td><td></td><td></td>
-  
-</tr>
-
-  
-  
-  
-  
-<tr>
-  
-  <td><span class="anchor" id="variable-run_options"></span>character(len=*),</td>
-  
-  
-  <td>parameter</td><td>::</td>
-  <td><strong>run_options</strong></td><td> =</td><td>' --example F '</td><td></td>
   
 </tr>
 
@@ -602,16 +584,24 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="k">type</span><span class="p">(</span><span class="n">streampointer</span><span class="p">)</span> <span class="kd">::</span> <span class="n">fp</span> <span class="c">! C file pointer returned by process_open()</span>
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span> <span class="kd">::</span> <span class="n">line</span>
 <span class="kt">integer </span><span class="n">ierr</span>
-<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">run_options</span><span class="o">=</span><span class="s1">&#39; --example F &#39;</span>
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">common_options</span><span class="o">=</span><span class="s1">&#39;&amp;</span>
-<span class="s1"> --no-prune F --link-flag &quot; &quot; --flag &quot; &quot; --directory:C &quot; &quot; --compiler &quot;gfortran&quot; --c-flag &quot; &quot; --c-compiler &quot; &quot; --archiver &quot; &quot; &#39;</span>
+<span class="s1"> --example F &amp;</span>
+<span class="s1"> --no-prune F &amp;</span>
+<span class="s1"> --link-flag &quot; &quot; &amp;</span>
+<span class="s1"> --flag &quot; &quot; &amp;</span>
+<span class="s1"> --directory:C &quot; &quot; &amp;</span>
+<span class="s1"> --compiler &quot;gfortran&quot; &amp;</span>
+<span class="s1"> --c-flag &quot; &quot; &amp;</span>
+<span class="s1"> --c-compiler &quot; &quot; &amp;</span>
+<span class="s1"> --archiver &quot; &quot; &#39;</span>
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="k">options</span>
    <span class="c">! process command-line options</span>
    <span class="k">call </span><span class="n">setup</span><span class="p">()</span>
-   <span class="k">call </span><span class="n">set_args</span><span class="p">(</span><span class="s1">&#39;gdb --width:w 80 &#39;</span><span class="o">//</span><span class="n">common_options</span><span class="o">//</span><span class="n">run_options</span><span class="p">,</span><span class="n">help</span><span class="p">,</span><span class="n">version</span><span class="p">)</span>
+   <span class="k">call </span><span class="n">set_args</span><span class="p">(</span><span class="s1">&#39;gdb --width:w 80 &#39;</span><span class="o">//</span><span class="n">common_options</span><span class="p">,</span><span class="n">help</span><span class="p">,</span><span class="n">version</span><span class="p">)</span>
    <span class="n">verbose</span><span class="o">=</span><span class="n">lget</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
    <span class="k">options</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
    <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;no-prune&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --noprune &#39;</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --example &#39;</span>
    <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;directory&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --directory &#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;directory&#39;</span><span class="p">)</span>
    <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;compiler&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --compiler &#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;compiler&#39;</span><span class="p">)</span>
    <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;link-flag&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --link-flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;link-flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
@@ -755,7 +745,7 @@ subroutine <a href='../proc/setup.html'>setup</a>()
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2022-07-03 23:16  
+             on 2022-07-03 23:22  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> fpm-gdb was developed by John S. Urban</p></div>
