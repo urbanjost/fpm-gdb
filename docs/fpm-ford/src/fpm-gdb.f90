@@ -134,16 +134,23 @@ help=[ CHARACTER(LEN=128) :: &
 '[eval] button.',&
 '',&
 'SCROLLING',&
-'The gdb and output windows will probably not be in Normal mode and so',&
-'will not scroll be default. When focus is on the window that will not',&
+'The gdb and output windows will not be in Normal mode and so',&
+'will not scroll by default. When focus is on the window that will not',&
 'scroll enter "ctrl-W N" to go to scrollable, and enter "i" to return',&
 'to the original mode.',&
 '',&
-'On some platforms instead of "ctrl-W" and capital "N" you can use the',&
-'escape keep to go to a scrollable mode.',&
+'On some platforms instead of "ctrl-W" followed by capital "N" you can',&
+'define which key goes to Normal mode.',&
+'',&
 '',&
 'In the gdb window in particular, you probably want to toggle between',&
 'the modes, because when scrolling is on command recall is not.',&
+'',&
+'When in Normal mode your interaction with the program is suspended,',&
+'so you want to return to the original mode or you cannot enter commands',&
+'in the gdb pane and cannot see new output or enter input in Normal mode.',&
+'To leave scrollable mode (enter "i") in the pane.',&
+'',&
 '# MORE INFO',&
 'General gdb instructions are beyond the scope of this discussion, but',&
 '"help" in the gdb pane can get you started.',&
@@ -223,16 +230,23 @@ help=[ CHARACTER(LEN=128) :: &
 !! [eval] button.
 !!
 !!##SCROLLING
-!! The gdb and output windows will probably not be in Normal mode and so
-!! will not scroll be default. When focus is on the window that will not
+!! The gdb and output windows will not be in Normal mode and so
+!! will not scroll by default. When focus is on the window that will not
 !! scroll enter "ctrl-W N" to go to scrollable, and enter "i" to return
 !! to the original mode.
 !!
-!! On some platforms instead of "ctrl-W" and capital "N" you can use the
-!! escape keep to go to a scrollable mode.
+!! On some platforms instead of "ctrl-W" followed by capital "N" you can
+!! define which key goes to Normal mode.
+!!
 !!
 !! In the gdb window in particular, you probably want to toggle between
 !! the modes, because when scrolling is on command recall is not.
+!!
+!! When in Normal mode your interaction with the program is suspended,
+!! so you want to return to the original mode or you cannot enter commands
+!! in the gdb pane and cannot see new output or enter input in Normal mode.
+!! To leave scrollable mode (enter "i") in the pane.
+!!
 !! # MORE INFO
 !! General gdb instructions are beyond the scope of this discussion, but
 !! "help" in the gdb pane can get you started.

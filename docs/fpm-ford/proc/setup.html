@@ -272,15 +272,19 @@ subroutine setup()
  mouse in various ways. For example, You can click on variables and the
  [eval] button.</p>
 <h2 id="scrolling">SCROLLING</h2>
-<p>The gdb and output windows will probably not be in Normal mode and so
- will not scroll be default. When focus is on the window that will not
+<p>The gdb and output windows will not be in Normal mode and so
+ will not scroll by default. When focus is on the window that will not
  scroll enter &ldquo;ctrl-W N&rdquo; to go to scrollable, and enter &ldquo;i&rdquo; to return
  to the original mode.</p>
-<p>On some platforms instead of &ldquo;ctrl-W&rdquo; and capital &ldquo;N&rdquo; you can use the
- escape keep to go to a scrollable mode.</p>
+<p>On some platforms instead of &ldquo;ctrl-W&rdquo; followed by capital &ldquo;N&rdquo; you can
+ define which key goes to Normal mode.</p>
 <p>In the gdb window in particular, you probably want to toggle between
- the modes, because when scrolling is on command recall is not.
- # MORE INFO
+ the modes, because when scrolling is on command recall is not.</p>
+<p>When in Normal mode your interaction with the program is suspended,
+ so you want to return to the original mode or you cannot enter commands
+ in the gdb pane and cannot see new output or enter input in Normal mode.
+ To leave scrollable mode (enter &ldquo;i&rdquo;) in the pane.</p>
+<p># MORE INFO
  General gdb instructions are beyond the scope of this discussion, but
  &ldquo;help&rdquo; in the gdb pane can get you started.</p>
 <p>For the vim(1) terminal help go to the rightmost vim(1) window and enter
@@ -427,16 +431,23 @@ subroutine setup()
 <span class="s1">&#39;[eval] button.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;SCROLLING&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;The gdb and output windows will probably not be in Normal mode and so&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;will not scroll be default. When focus is on the window that will not&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;The gdb and output windows will not be in Normal mode and so&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;will not scroll by default. When focus is on the window that will not&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;scroll enter &quot;ctrl-W N&quot; to go to scrollable, and enter &quot;i&quot; to return&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;to the original mode.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;On some platforms instead of &quot;ctrl-W&quot; and capital &quot;N&quot; you can use the&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;escape keep to go to a scrollable mode.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;On some platforms instead of &quot;ctrl-W&quot; followed by capital &quot;N&quot; you can&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;define which key goes to Normal mode.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;In the gdb window in particular, you probably want to toggle between&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;the modes, because when scrolling is on command recall is not.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;When in Normal mode your interaction with the program is suspended,&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;so you want to return to the original mode or you cannot enter commands&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;in the gdb pane and cannot see new output or enter input in Normal mode.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;To leave scrollable mode (enter &quot;i&quot;) in the pane.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;# MORE INFO&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;General gdb instructions are beyond the scope of this discussion, but&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&quot;help&quot; in the gdb pane can get you started.&#39;</span><span class="p">,&amp;</span>
@@ -516,16 +527,23 @@ subroutine setup()
 <span class="c">!! [eval] button.</span>
 <span class="c">!!</span>
 <span class="c">!!##SCROLLING</span>
-<span class="c">!! The gdb and output windows will probably not be in Normal mode and so</span>
-<span class="c">!! will not scroll be default. When focus is on the window that will not</span>
+<span class="c">!! The gdb and output windows will not be in Normal mode and so</span>
+<span class="c">!! will not scroll by default. When focus is on the window that will not</span>
 <span class="c">!! scroll enter &quot;ctrl-W N&quot; to go to scrollable, and enter &quot;i&quot; to return</span>
 <span class="c">!! to the original mode.</span>
 <span class="c">!!</span>
-<span class="c">!! On some platforms instead of &quot;ctrl-W&quot; and capital &quot;N&quot; you can use the</span>
-<span class="c">!! escape keep to go to a scrollable mode.</span>
+<span class="c">!! On some platforms instead of &quot;ctrl-W&quot; followed by capital &quot;N&quot; you can</span>
+<span class="c">!! define which key goes to Normal mode.</span>
+<span class="c">!!</span>
 <span class="c">!!</span>
 <span class="c">!! In the gdb window in particular, you probably want to toggle between</span>
 <span class="c">!! the modes, because when scrolling is on command recall is not.</span>
+<span class="c">!!</span>
+<span class="c">!! When in Normal mode your interaction with the program is suspended,</span>
+<span class="c">!! so you want to return to the original mode or you cannot enter commands</span>
+<span class="c">!! in the gdb pane and cannot see new output or enter input in Normal mode.</span>
+<span class="c">!! To leave scrollable mode (enter &quot;i&quot;) in the pane.</span>
+<span class="c">!!</span>
 <span class="c">!! # MORE INFO</span>
 <span class="c">!! General gdb instructions are beyond the scope of this discussion, but</span>
 <span class="c">!! &quot;help&quot; in the gdb pane can get you started.</span>
@@ -565,7 +583,7 @@ subroutine setup()
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2022-07-04 00:14  
+             on 2022-07-04 02:26  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> fpm-gdb was developed by John S. Urban</p></div>
