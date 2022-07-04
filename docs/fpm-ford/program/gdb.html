@@ -122,7 +122,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="100.0% of total for programs.">40 statements</a>
+    title="100.0% of total for programs.">56 statements</a>
      </li> 
      
      
@@ -167,13 +167,21 @@
       
       <a class="list-group-item" href="../program/gdb.html#variable-cmd">cmd</a>
       
+      <a class="list-group-item" href="../program/gdb.html#variable-common_options">common_options</a>
+      
       <a class="list-group-item" href="../program/gdb.html#variable-fp">fp</a>
       
       <a class="list-group-item" href="../program/gdb.html#variable-help">help</a>
       
+      <a class="list-group-item" href="../program/gdb.html#variable-i">i</a>
+      
       <a class="list-group-item" href="../program/gdb.html#variable-ierr">ierr</a>
       
       <a class="list-group-item" href="../program/gdb.html#variable-line">line</a>
+      
+      <a class="list-group-item" href="../program/gdb.html#variable-options">options</a>
+      
+      <a class="list-group-item" href="../program/gdb.html#variable-run_options">run_options</a>
       
       <a class="list-group-item" href="../program/gdb.html#variable-verbose">verbose</a>
       
@@ -272,13 +280,21 @@
       
       <a class="list-group-item" href="../program/gdb.html#variable-cmd">cmd</a>
       
+      <a class="list-group-item" href="../program/gdb.html#variable-common_options">common_options</a>
+      
       <a class="list-group-item" href="../program/gdb.html#variable-fp">fp</a>
       
       <a class="list-group-item" href="../program/gdb.html#variable-help">help</a>
       
+      <a class="list-group-item" href="../program/gdb.html#variable-i">i</a>
+      
       <a class="list-group-item" href="../program/gdb.html#variable-ierr">ierr</a>
       
       <a class="list-group-item" href="../program/gdb.html#variable-line">line</a>
+      
+      <a class="list-group-item" href="../program/gdb.html#variable-options">options</a>
+      
+      <a class="list-group-item" href="../program/gdb.html#variable-run_options">run_options</a>
       
       <a class="list-group-item" href="../program/gdb.html#variable-verbose">verbose</a>
       
@@ -368,6 +384,20 @@
   
 <tr>
   
+  <td><span class="anchor" id="variable-common_options"></span>character(len=*),</td>
+  
+  
+  <td>parameter</td><td>::</td>
+  <td><strong>common_options</strong></td><td> =</td><td>' --no-prune F --link-flag " " --flag " " --directory:C " " --compiler "gfortran" --c-flag " " --c-compiler " " --archiver " " '</td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
   <td><span class="anchor" id="variable-fp"></span>type(streampointer)</td>
   
   
@@ -396,6 +426,20 @@
   
 <tr>
   
+  <td><span class="anchor" id="variable-i"></span>integer</td>
+  
+  
+  <td></td><td>::</td>
+  <td><strong>i</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
   <td><span class="anchor" id="variable-ierr"></span>integer</td>
   
   
@@ -415,6 +459,34 @@
   
   <td></td><td>::</td>
   <td><strong>line</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-options"></span>character(len=:),</td>
+  
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>options</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-run_options"></span>character(len=*),</td>
+  
+  
+  <td>parameter</td><td>::</td>
+  <td><strong>run_options</strong></td><td> =</td><td>' --example F '</td><td></td>
   
 </tr>
 
@@ -526,34 +598,56 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">help</span><span class="p">(:),</span><span class="n">version</span><span class="p">(:)</span>
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">cmd</span>
 <span class="kt">integer</span> <span class="kd">::</span> <span class="n">width</span>
+<span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span>
 <span class="k">type</span><span class="p">(</span><span class="n">streampointer</span><span class="p">)</span> <span class="kd">::</span> <span class="n">fp</span> <span class="c">! C file pointer returned by process_open()</span>
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span> <span class="kd">::</span> <span class="n">line</span>
 <span class="kt">integer </span><span class="n">ierr</span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">run_options</span><span class="o">=</span><span class="s1">&#39; --example F &#39;</span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">common_options</span><span class="o">=</span><span class="s1">&#39;&amp;</span>
+<span class="s1"> --no-prune F --link-flag &quot; &quot; --flag &quot; &quot; --directory:C &quot; &quot; --compiler &quot;gfortran&quot; --c-flag &quot; &quot; --c-compiler &quot; &quot; --archiver &quot; &quot; &#39;</span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="k">options</span>
    <span class="c">! process command-line options</span>
    <span class="k">call </span><span class="n">setup</span><span class="p">()</span>
-   <span class="k">call </span><span class="n">set_args</span><span class="p">(</span><span class="s1">&#39;gdb --width:w 80&#39;</span><span class="p">,</span><span class="n">help</span><span class="p">,</span><span class="n">version</span><span class="p">)</span>
+   <span class="k">call </span><span class="n">set_args</span><span class="p">(</span><span class="s1">&#39;gdb --width:w 80 &#39;</span><span class="o">//</span><span class="n">common_options</span><span class="o">//</span><span class="n">run_options</span><span class="p">,</span><span class="n">help</span><span class="p">,</span><span class="n">version</span><span class="p">)</span>
    <span class="n">verbose</span><span class="o">=</span><span class="n">lget</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
+   <span class="k">options</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;no-prune&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --noprune &#39;</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;directory&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --directory &#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;directory&#39;</span><span class="p">)</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;compiler&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --compiler &#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;compiler&#39;</span><span class="p">)</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;link-flag&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --link-flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;link-flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;flag&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;c-flag&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --c-flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;c-flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;archiver&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --archiver &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;archiver&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
+   <span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;options=&#39;</span><span class="p">,</span><span class="k">options</span>
 
-   <span class="k">call </span><span class="nb">execute_command_line</span><span class="p">(</span><span class="s1">&#39;fpm build&#39;</span><span class="p">)</span>
-   <span class="k">call </span><span class="n">process_open_read</span><span class="p">(</span> <span class="s1">&#39;fpm run --runner|grep build&#39;</span> <span class="p">,</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span> <span class="c">! open process to read from</span>
-   <span class="k">if</span><span class="p">(</span><span class="n">ierr</span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="k">then</span>
-<span class="k">     call </span><span class="n">process_readline</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span> <span class="c">! read a line from the process</span>
-     <span class="k">if</span><span class="p">(</span><span class="n">ierr</span><span class="p">.</span><span class="n">ne</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span> <span class="k">stop</span> <span class="s1">&#39;error processing command&#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-     <span class="k">call </span><span class="n">process_close</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span>
-   <span class="k">endif</span>
-<span class="k">   </span><span class="n">cmd</span><span class="o">=</span><span class="s1">&#39;fpm run --runner &quot;&#39;</span>
-   <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot;vim -c &#39;set mouse=a&#39; &quot;</span>
-   <span class="k">if</span><span class="p">(</span><span class="n">iget</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">).</span><span class="n">ge</span><span class="p">.</span><span class="mi">132</span><span class="p">)</span><span class="k">then</span>
-<span class="k">       </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;let g:termdebug_wide=1&#39;&quot;</span>
-   <span class="k">endif</span>
-<span class="k">   </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;packadd termdebug&#39; &quot;</span>
-   <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;resize +10&#39; &quot;</span>
-   <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;Termdebug &quot;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">//</span><span class="s2">&quot;&#39;&quot;</span>
-   <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s1">&#39; app*.f90&quot;&#39;</span>
-   <span class="k">if</span><span class="p">(</span><span class="n">lget</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">))</span><span class="k">then</span>
-<span class="k">      write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="nb">trim</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-   <span class="k">endif</span>
-<span class="k">   call </span><span class="nb">execute_command_line</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+<span class="k">   if</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">leafs</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="n">leafs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
+   <span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="n">leafs</span><span class="p">)</span>
+
+      <span class="c">! need to make a call to the fpm API to get the program cleanly.</span>
+      <span class="n">cmd</span><span class="o">=</span><span class="s1">&#39;fpm run &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">leafs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">//</span><span class="k">options</span><span class="o">//</span><span class="s2">&quot; --profile debug --runner|grep &#39;^build&#39;&quot;</span>
+      <span class="c">! note the process_* procedures are currently available only on POSIX platforms</span>
+      <span class="c">! could use system commands based on OS or possibly get M_process to support</span>
+      <span class="c">! more platforms</span>
+      <span class="k">call </span><span class="n">process_open_read</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span> <span class="c">! open process to read from</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">ierr</span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="k">then</span>
+<span class="k">        call </span><span class="n">process_readline</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span> <span class="c">! read a line from the process</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">ierr</span><span class="p">.</span><span class="n">ne</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span> <span class="k">stop</span> <span class="s1">&#39;error processing command&#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+        <span class="k">call </span><span class="n">process_close</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span>
+      <span class="k">endif</span>
+<span class="k">      </span><span class="n">cmd</span><span class="o">=</span><span class="s1">&#39;fpm run &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">leafs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">//</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --profile debug --runner &quot;&#39;</span>
+      <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot;vim -c &#39;set mouse=a&#39; &quot;</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">iget</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">).</span><span class="n">ge</span><span class="p">.</span><span class="mi">132</span><span class="p">)</span><span class="k">then</span>
+<span class="k">          </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;let g:termdebug_wide=1&#39;&quot;</span>
+      <span class="k">endif</span>
+<span class="k">      </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;packadd termdebug&#39; &quot;</span>
+      <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;resize +10&#39; &quot;</span>
+      <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;Termdebug &quot;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">//</span><span class="s2">&quot;&#39;&quot;</span>
+      <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s1">&#39; app*.f90&quot;&#39;</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">lget</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">))</span><span class="k">then</span>
+<span class="k">         write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="nb">trim</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+      <span class="k">endif</span>
+<span class="k">      call </span><span class="nb">execute_command_line</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+   <span class="k">enddo</span>
 <span class="k">contains</span>
 <span class="k">subroutine </span><span class="n">setup</span><span class="p">()</span>
 <span class="n">help</span><span class="o">=</span><span class="p">[</span> <span class="kt">CHARACTER</span><span class="p">(</span><span class="nb">LEN</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span> <span class="kd">::</span> <span class="p">&amp;</span>
@@ -562,18 +656,30 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="s1">&#39;   (LICENSE:MIT)&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;SYNOPSIS&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    fpm-gdb [ --help|--version]&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;    fpm-gdb [PROGRAM][ --help|--version]&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;DESCRIPTION&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;   gdb(1f) is an fpm(1) plugin that starts up gdb(1).&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;OPTIONS&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    -w {80,132}   assumed screen width&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;    PROGRAM       if more than one application is build in the package&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;                  the name can be specified. Unlike with the &quot;fpm run&quot;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;                  command wildcards are not permitted.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;    -w {80,132}   assumed screen width. Anything from 132 up places the&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;                  code in a window on the left of the screen.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;    --verbose,-V  verbose mode&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;    --version,-v  Print version information on standard output then&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;                  exit successfully.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;    --help,-h     Print usage information on standard output then&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;                  exit successfully.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;   In addition, the following options from the fpm(1) &quot;run&quot; subcommand&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;   are supported, noting that &quot;--profile debug&quot; is always specified as&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;   well ...&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;       --example    --no-prune  --link-flag  --flag&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;       --directory  --compiler  --c-flag     --c-compiler&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;       --archiver&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;EXAMPLE&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;   Sample commands&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
@@ -588,18 +694,30 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="c">!!</span>
 <span class="c">!!##SYNOPSIS</span>
 <span class="c">!!</span>
-<span class="c">!!     fpm-gdb [ --help|--version]</span>
+<span class="c">!!     fpm-gdb [PROGRAM][ --help|--version]</span>
 <span class="c">!!</span>
 <span class="c">!!##DESCRIPTION</span>
 <span class="c">!!    gdb(1f) is an fpm(1) plugin that starts up gdb(1).</span>
 <span class="c">!!</span>
 <span class="c">!!##OPTIONS</span>
-<span class="c">!!     -w {80,132}   assumed screen width</span>
+<span class="c">!!     PROGRAM       if more than one application is build in the package</span>
+<span class="c">!!                   the name can be specified. Unlike with the &quot;fpm run&quot;</span>
+<span class="c">!!                   command wildcards are not permitted.</span>
+<span class="c">!!     -w {80,132}   assumed screen width. Anything from 132 up places the</span>
+<span class="c">!!                   code in a window on the left of the screen.</span>
 <span class="c">!!     --verbose,-V  verbose mode</span>
 <span class="c">!!     --version,-v  Print version information on standard output then</span>
 <span class="c">!!                   exit successfully.</span>
 <span class="c">!!     --help,-h     Print usage information on standard output then</span>
 <span class="c">!!                   exit successfully.</span>
+<span class="c">!!</span>
+<span class="c">!!    In addition, the following options from the fpm(1) &quot;run&quot; subcommand</span>
+<span class="c">!!    are supported, noting that &quot;--profile debug&quot; is always specified as</span>
+<span class="c">!!    well ...</span>
+<span class="c">!!</span>
+<span class="c">!!        --example    --no-prune  --link-flag  --flag</span>
+<span class="c">!!        --directory  --compiler  --c-flag     --c-compiler</span>
+<span class="c">!!        --archiver</span>
 <span class="c">!!##EXAMPLE</span>
 <span class="c">!!</span>
 <span class="c">!!    Sample commands</span>
@@ -637,7 +755,7 @@ subroutine <a href='../proc/setup.html'>setup</a>()
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2022-07-03 07:40  
+             on 2022-07-03 23:16  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> fpm-gdb was developed by John S. Urban</p></div>

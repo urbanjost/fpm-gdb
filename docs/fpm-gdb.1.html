@@ -71,7 +71,7 @@ a.existingWikiWord[title]{ //border: 1px dashed #BBB; }
 
 </A>
 <BLOCKQUOTE>
-<B>fpm-gdb</B> [ <B>--help</B>|<B>--version</B>]
+<B>fpm-gdb</B> [PROGRAM][ <B>--help</B>|<B>--version</B>]
 </BLOCKQUOTE>
 <A name=2>
 
@@ -89,8 +89,15 @@ a.existingWikiWord[title]{ //border: 1px dashed #BBB; }
 <BLOCKQUOTE>
 <TABLE cellpadding=3>
 <TR valign=top><TD colspan=2>
+<B></B><I>PROGRAM</I> </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
+if more than one application is build in the package
+the name can be specified. Unlike with the "fpm run"
+command wildcards are not permitted.
+</TD></TR>
+<TR valign=top><TD colspan=2>
 <B></B><B>-w</B> {80,132} </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
-assumed screen width
+assumed screen width. Anything from 132 up places the
+code in a window on the left of the screen.
 </TD></TR>
 <TR valign=top><TD colspan=2>
 <B></B><B>--verbose</B>,<B>-V</B> </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
@@ -107,6 +114,16 @@ Print usage information on standard output then
 exit successfully.
 </TD></TR>
 <TR></TR></TABLE></BLOCKQUOTE>
+<P>
+In addition, the following options from the <B>fpm</B>(1) "run" subcommand
+are supported, noting that "<B>--profile</B> debug" is always specified as
+well &#46;&#46;&#46;
+<P>
+<PRE>
+       --example    --no-prune  --link-flag  --flag
+       --directory  --compiler  --c-flag     --c-compiler
+       --archiver
+</PRE>
 <A name=4>
 
      <H3>EXAMPLE</H3>

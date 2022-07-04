@@ -40,6 +40,9 @@ list
 b 40
 run  
 ```
+For some compilers "b 1"(e.g. Intel) might be required instead of "b
+main"(e.g gfortran).
+
 Assuming you are at your next breakpoint, you can ask where you are,
 list local variables and print the value of some variable, like "i"
 ```text

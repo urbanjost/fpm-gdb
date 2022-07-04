@@ -122,7 +122,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="100.0% of total for source files.">40 statements</a>
+    title="100.0% of total for source files.">56 statements</a>
      </li> 
      
      
@@ -265,97 +265,143 @@
 <a name="ln-6"></a><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">help</span><span class="p">(:),</span><span class="n">version</span><span class="p">(:)</span>
 <a name="ln-7"></a><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">cmd</span>
 <a name="ln-8"></a><span class="kt">integer</span> <span class="kd">::</span> <span class="n">width</span>
-<a name="ln-9"></a><span class="k">type</span><span class="p">(</span><span class="n">streampointer</span><span class="p">)</span> <span class="kd">::</span> <span class="n">fp</span> <span class="c">! C file pointer returned by process_open()</span>
-<a name="ln-10"></a><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span> <span class="kd">::</span> <span class="n">line</span>
-<a name="ln-11"></a><span class="kt">integer </span><span class="n">ierr</span>
-<a name="ln-12"></a>   <span class="c">! process command-line options</span>
-<a name="ln-13"></a>   <span class="k">call </span><span class="n">setup</span><span class="p">()</span>
-<a name="ln-14"></a>   <span class="k">call </span><span class="n">set_args</span><span class="p">(</span><span class="s1">&#39;gdb --width:w 80&#39;</span><span class="p">,</span><span class="n">help</span><span class="p">,</span><span class="n">version</span><span class="p">)</span>
-<a name="ln-15"></a>   <span class="n">verbose</span><span class="o">=</span><span class="n">lget</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
-<a name="ln-16"></a>
-<a name="ln-17"></a>   <span class="k">call </span><span class="nb">execute_command_line</span><span class="p">(</span><span class="s1">&#39;fpm build&#39;</span><span class="p">)</span>
-<a name="ln-18"></a>   <span class="k">call </span><span class="n">process_open_read</span><span class="p">(</span> <span class="s1">&#39;fpm run --runner|grep build&#39;</span> <span class="p">,</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span> <span class="c">! open process to read from</span>
-<a name="ln-19"></a>   <span class="k">if</span><span class="p">(</span><span class="n">ierr</span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="k">then</span>
-<a name="ln-20"></a><span class="k">     call </span><span class="n">process_readline</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span> <span class="c">! read a line from the process</span>
-<a name="ln-21"></a>     <span class="k">if</span><span class="p">(</span><span class="n">ierr</span><span class="p">.</span><span class="n">ne</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span> <span class="k">stop</span> <span class="s1">&#39;error processing command&#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-<a name="ln-22"></a>     <span class="k">call </span><span class="n">process_close</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span>
-<a name="ln-23"></a>   <span class="k">endif</span>
-<a name="ln-24"></a><span class="k">   </span><span class="n">cmd</span><span class="o">=</span><span class="s1">&#39;fpm run --runner &quot;&#39;</span>
-<a name="ln-25"></a>   <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot;vim -c &#39;set mouse=a&#39; &quot;</span>
-<a name="ln-26"></a>   <span class="k">if</span><span class="p">(</span><span class="n">iget</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">).</span><span class="n">ge</span><span class="p">.</span><span class="mi">132</span><span class="p">)</span><span class="k">then</span>
-<a name="ln-27"></a><span class="k">       </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;let g:termdebug_wide=1&#39;&quot;</span>
-<a name="ln-28"></a>   <span class="k">endif</span>
-<a name="ln-29"></a><span class="k">   </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;packadd termdebug&#39; &quot;</span>
-<a name="ln-30"></a>   <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;resize +10&#39; &quot;</span>
-<a name="ln-31"></a>   <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;Termdebug &quot;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">//</span><span class="s2">&quot;&#39;&quot;</span>
-<a name="ln-32"></a>   <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s1">&#39; app*.f90&quot;&#39;</span>
-<a name="ln-33"></a>   <span class="k">if</span><span class="p">(</span><span class="n">lget</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">))</span><span class="k">then</span>
-<a name="ln-34"></a><span class="k">      write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="nb">trim</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-<a name="ln-35"></a>   <span class="k">endif</span>
-<a name="ln-36"></a><span class="k">   call </span><span class="nb">execute_command_line</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-<a name="ln-37"></a><span class="k">contains</span>
-<a name="ln-38"></a><span class="k">subroutine </span><span class="n">setup</span><span class="p">()</span>
-<a name="ln-39"></a><span class="n">help</span><span class="o">=</span><span class="p">[</span> <span class="kt">CHARACTER</span><span class="p">(</span><span class="nb">LEN</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span> <span class="kd">::</span> <span class="p">&amp;</span>
-<a name="ln-40"></a><span class="s1">&#39;NAME&#39;</span><span class="p">,&amp;</span>
-<a name="ln-41"></a><span class="s1">&#39;   fpm-gdb(1f) - [FUNIX:FILESYSTEM] simple launch of gdb(1) from fpm(1)&#39;</span><span class="p">,&amp;</span>
-<a name="ln-42"></a><span class="s1">&#39;   (LICENSE:MIT)&#39;</span><span class="p">,&amp;</span>
-<a name="ln-43"></a><span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<a name="ln-44"></a><span class="s1">&#39;SYNOPSIS&#39;</span><span class="p">,&amp;</span>
-<a name="ln-45"></a><span class="s1">&#39;    fpm-gdb [ --help|--version]&#39;</span><span class="p">,&amp;</span>
-<a name="ln-46"></a><span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<a name="ln-47"></a><span class="s1">&#39;DESCRIPTION&#39;</span><span class="p">,&amp;</span>
-<a name="ln-48"></a><span class="s1">&#39;   gdb(1f) is an fpm(1) plugin that starts up gdb(1).&#39;</span><span class="p">,&amp;</span>
-<a name="ln-49"></a><span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<a name="ln-50"></a><span class="s1">&#39;OPTIONS&#39;</span><span class="p">,&amp;</span>
-<a name="ln-51"></a><span class="s1">&#39;    -w {80,132}   assumed screen width&#39;</span><span class="p">,&amp;</span>
-<a name="ln-52"></a><span class="s1">&#39;    --verbose,-V  verbose mode&#39;</span><span class="p">,&amp;</span>
-<a name="ln-53"></a><span class="s1">&#39;    --version,-v  Print version information on standard output then&#39;</span><span class="p">,&amp;</span>
-<a name="ln-54"></a><span class="s1">&#39;                  exit successfully.&#39;</span><span class="p">,&amp;</span>
-<a name="ln-55"></a><span class="s1">&#39;    --help,-h     Print usage information on standard output then&#39;</span><span class="p">,&amp;</span>
-<a name="ln-56"></a><span class="s1">&#39;                  exit successfully.&#39;</span><span class="p">,&amp;</span>
-<a name="ln-57"></a><span class="s1">&#39;EXAMPLE&#39;</span><span class="p">,&amp;</span>
-<a name="ln-58"></a><span class="s1">&#39;   Sample commands&#39;</span><span class="p">,&amp;</span>
-<a name="ln-59"></a><span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<a name="ln-60"></a><span class="s1">&#39;    fpm gdb&#39;</span><span class="p">,&amp;</span>
-<a name="ln-61"></a><span class="s1">&#39;SEE ALSO&#39;</span><span class="p">,&amp;</span>
-<a name="ln-62"></a><span class="s1">&#39;    which(1)&#39;</span><span class="p">,&amp;</span>
-<a name="ln-63"></a><span class="s1">&#39;&#39;</span><span class="p">]</span>
-<a name="ln-64"></a><span class="c">!&gt;</span>
-<a name="ln-65"></a><span class="c">!!##NAME</span>
-<a name="ln-66"></a><span class="c">!!    fpm-gdb(1f) - [FUNIX:FILESYSTEM] simple launch of gdb(1) from fpm(1)</span>
-<a name="ln-67"></a><span class="c">!!    (LICENSE:MIT)</span>
-<a name="ln-68"></a><span class="c">!!</span>
-<a name="ln-69"></a><span class="c">!!##SYNOPSIS</span>
-<a name="ln-70"></a><span class="c">!!</span>
-<a name="ln-71"></a><span class="c">!!     fpm-gdb [ --help|--version]</span>
-<a name="ln-72"></a><span class="c">!!</span>
-<a name="ln-73"></a><span class="c">!!##DESCRIPTION</span>
-<a name="ln-74"></a><span class="c">!!    gdb(1f) is an fpm(1) plugin that starts up gdb(1).</span>
-<a name="ln-75"></a><span class="c">!!</span>
-<a name="ln-76"></a><span class="c">!!##OPTIONS</span>
-<a name="ln-77"></a><span class="c">!!     -w {80,132}   assumed screen width</span>
-<a name="ln-78"></a><span class="c">!!     --verbose,-V  verbose mode</span>
-<a name="ln-79"></a><span class="c">!!     --version,-v  Print version information on standard output then</span>
-<a name="ln-80"></a><span class="c">!!                   exit successfully.</span>
-<a name="ln-81"></a><span class="c">!!     --help,-h     Print usage information on standard output then</span>
-<a name="ln-82"></a><span class="c">!!                   exit successfully.</span>
-<a name="ln-83"></a><span class="c">!!##EXAMPLE</span>
-<a name="ln-84"></a><span class="c">!!</span>
-<a name="ln-85"></a><span class="c">!!    Sample commands</span>
-<a name="ln-86"></a><span class="c">!!</span>
-<a name="ln-87"></a><span class="c">!!     fpm gdb</span>
-<a name="ln-88"></a><span class="c">!!##SEE ALSO</span>
-<a name="ln-89"></a><span class="c">!!     which(1)</span>
-<a name="ln-90"></a><span class="n">version</span><span class="o">=</span><span class="p">[</span> <span class="kt">CHARACTER</span><span class="p">(</span><span class="nb">LEN</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span> <span class="kd">::</span> <span class="p">&amp;</span>
-<a name="ln-91"></a><span class="s1">&#39;PRODUCT:        GPF (General Purpose Fortran) utilities and examples&#39;</span><span class="p">,&amp;</span>
-<a name="ln-92"></a><span class="s1">&#39;PROGRAM:        fpm-gdb(1f)&#39;</span><span class="p">,&amp;</span>
-<a name="ln-93"></a><span class="s1">&#39;DESCRIPTION:    fpm(1) plugin that launches gdb(1)&#39;</span><span class="p">,&amp;</span>
-<a name="ln-94"></a><span class="s1">&#39;VERSION:        2.0, 2022-04-29&#39;</span><span class="p">,&amp;</span>
-<a name="ln-95"></a><span class="s1">&#39;AUTHOR:         John S. Urban&#39;</span><span class="p">,&amp;</span>
-<a name="ln-96"></a><span class="s1">&#39;LICENSE:        MIT&#39;</span><span class="p">,&amp;</span>
+<a name="ln-9"></a><span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span>
+<a name="ln-10"></a><span class="k">type</span><span class="p">(</span><span class="n">streampointer</span><span class="p">)</span> <span class="kd">::</span> <span class="n">fp</span> <span class="c">! C file pointer returned by process_open()</span>
+<a name="ln-11"></a><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span> <span class="kd">::</span> <span class="n">line</span>
+<a name="ln-12"></a><span class="kt">integer </span><span class="n">ierr</span>
+<a name="ln-13"></a><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">run_options</span><span class="o">=</span><span class="s1">&#39; --example F &#39;</span>
+<a name="ln-14"></a><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">common_options</span><span class="o">=</span><span class="s1">&#39;&amp;</span>
+<a name="ln-15"></a><span class="s1"> --no-prune F --link-flag &quot; &quot; --flag &quot; &quot; --directory:C &quot; &quot; --compiler &quot;gfortran&quot; --c-flag &quot; &quot; --c-compiler &quot; &quot; --archiver &quot; &quot; &#39;</span>
+<a name="ln-16"></a><span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="k">options</span>
+<a name="ln-17"></a>   <span class="c">! process command-line options</span>
+<a name="ln-18"></a>   <span class="k">call </span><span class="n">setup</span><span class="p">()</span>
+<a name="ln-19"></a>   <span class="k">call </span><span class="n">set_args</span><span class="p">(</span><span class="s1">&#39;gdb --width:w 80 &#39;</span><span class="o">//</span><span class="n">common_options</span><span class="o">//</span><span class="n">run_options</span><span class="p">,</span><span class="n">help</span><span class="p">,</span><span class="n">version</span><span class="p">)</span>
+<a name="ln-20"></a>   <span class="n">verbose</span><span class="o">=</span><span class="n">lget</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
+<a name="ln-21"></a>   <span class="k">options</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
+<a name="ln-22"></a>   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;no-prune&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --noprune &#39;</span>
+<a name="ln-23"></a>   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;directory&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --directory &#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;directory&#39;</span><span class="p">)</span>
+<a name="ln-24"></a>   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;compiler&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --compiler &#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;compiler&#39;</span><span class="p">)</span>
+<a name="ln-25"></a>   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;link-flag&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --link-flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;link-flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
+<a name="ln-26"></a>   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;flag&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
+<a name="ln-27"></a>   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;c-flag&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --c-flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;c-flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
+<a name="ln-28"></a>   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;archiver&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --archiver &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;archiver&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
+<a name="ln-29"></a>   <span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;options=&#39;</span><span class="p">,</span><span class="k">options</span>
+<a name="ln-30"></a>
+<a name="ln-31"></a><span class="k">   if</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">leafs</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="n">leafs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
+<a name="ln-32"></a>   <span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="n">leafs</span><span class="p">)</span>
+<a name="ln-33"></a>
+<a name="ln-34"></a>      <span class="c">! need to make a call to the fpm API to get the program cleanly.</span>
+<a name="ln-35"></a>      <span class="n">cmd</span><span class="o">=</span><span class="s1">&#39;fpm run &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">leafs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">//</span><span class="k">options</span><span class="o">//</span><span class="s2">&quot; --profile debug --runner|grep &#39;^build&#39;&quot;</span>
+<a name="ln-36"></a>      <span class="c">! note the process_* procedures are currently available only on POSIX platforms</span>
+<a name="ln-37"></a>      <span class="c">! could use system commands based on OS or possibly get M_process to support</span>
+<a name="ln-38"></a>      <span class="c">! more platforms</span>
+<a name="ln-39"></a>      <span class="k">call </span><span class="n">process_open_read</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span> <span class="c">! open process to read from</span>
+<a name="ln-40"></a>      <span class="k">if</span><span class="p">(</span><span class="n">ierr</span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="k">then</span>
+<a name="ln-41"></a><span class="k">        call </span><span class="n">process_readline</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span> <span class="c">! read a line from the process</span>
+<a name="ln-42"></a>        <span class="k">if</span><span class="p">(</span><span class="n">ierr</span><span class="p">.</span><span class="n">ne</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span> <span class="k">stop</span> <span class="s1">&#39;error processing command&#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+<a name="ln-43"></a>        <span class="k">call </span><span class="n">process_close</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span>
+<a name="ln-44"></a>      <span class="k">endif</span>
+<a name="ln-45"></a><span class="k">      </span><span class="n">cmd</span><span class="o">=</span><span class="s1">&#39;fpm run &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">leafs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">//</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --profile debug --runner &quot;&#39;</span>
+<a name="ln-46"></a>      <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot;vim -c &#39;set mouse=a&#39; &quot;</span>
+<a name="ln-47"></a>      <span class="k">if</span><span class="p">(</span><span class="n">iget</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">).</span><span class="n">ge</span><span class="p">.</span><span class="mi">132</span><span class="p">)</span><span class="k">then</span>
+<a name="ln-48"></a><span class="k">          </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;let g:termdebug_wide=1&#39;&quot;</span>
+<a name="ln-49"></a>      <span class="k">endif</span>
+<a name="ln-50"></a><span class="k">      </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;packadd termdebug&#39; &quot;</span>
+<a name="ln-51"></a>      <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;resize +10&#39; &quot;</span>
+<a name="ln-52"></a>      <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;Termdebug &quot;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">//</span><span class="s2">&quot;&#39;&quot;</span>
+<a name="ln-53"></a>      <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s1">&#39; app*.f90&quot;&#39;</span>
+<a name="ln-54"></a>      <span class="k">if</span><span class="p">(</span><span class="n">lget</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">))</span><span class="k">then</span>
+<a name="ln-55"></a><span class="k">         write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="nb">trim</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+<a name="ln-56"></a>      <span class="k">endif</span>
+<a name="ln-57"></a><span class="k">      call </span><span class="nb">execute_command_line</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+<a name="ln-58"></a>   <span class="k">enddo</span>
+<a name="ln-59"></a><span class="k">contains</span>
+<a name="ln-60"></a><span class="k">subroutine </span><span class="n">setup</span><span class="p">()</span>
+<a name="ln-61"></a><span class="n">help</span><span class="o">=</span><span class="p">[</span> <span class="kt">CHARACTER</span><span class="p">(</span><span class="nb">LEN</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span> <span class="kd">::</span> <span class="p">&amp;</span>
+<a name="ln-62"></a><span class="s1">&#39;NAME&#39;</span><span class="p">,&amp;</span>
+<a name="ln-63"></a><span class="s1">&#39;   fpm-gdb(1f) - [FUNIX:FILESYSTEM] simple launch of gdb(1) from fpm(1)&#39;</span><span class="p">,&amp;</span>
+<a name="ln-64"></a><span class="s1">&#39;   (LICENSE:MIT)&#39;</span><span class="p">,&amp;</span>
+<a name="ln-65"></a><span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<a name="ln-66"></a><span class="s1">&#39;SYNOPSIS&#39;</span><span class="p">,&amp;</span>
+<a name="ln-67"></a><span class="s1">&#39;    fpm-gdb [PROGRAM][ --help|--version]&#39;</span><span class="p">,&amp;</span>
+<a name="ln-68"></a><span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<a name="ln-69"></a><span class="s1">&#39;DESCRIPTION&#39;</span><span class="p">,&amp;</span>
+<a name="ln-70"></a><span class="s1">&#39;   gdb(1f) is an fpm(1) plugin that starts up gdb(1).&#39;</span><span class="p">,&amp;</span>
+<a name="ln-71"></a><span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<a name="ln-72"></a><span class="s1">&#39;OPTIONS&#39;</span><span class="p">,&amp;</span>
+<a name="ln-73"></a><span class="s1">&#39;    PROGRAM       if more than one application is build in the package&#39;</span><span class="p">,&amp;</span>
+<a name="ln-74"></a><span class="s1">&#39;                  the name can be specified. Unlike with the &quot;fpm run&quot;&#39;</span><span class="p">,&amp;</span>
+<a name="ln-75"></a><span class="s1">&#39;                  command wildcards are not permitted.&#39;</span><span class="p">,&amp;</span>
+<a name="ln-76"></a><span class="s1">&#39;    -w {80,132}   assumed screen width. Anything from 132 up places the&#39;</span><span class="p">,&amp;</span>
+<a name="ln-77"></a><span class="s1">&#39;                  code in a window on the left of the screen.&#39;</span><span class="p">,&amp;</span>
+<a name="ln-78"></a><span class="s1">&#39;    --verbose,-V  verbose mode&#39;</span><span class="p">,&amp;</span>
+<a name="ln-79"></a><span class="s1">&#39;    --version,-v  Print version information on standard output then&#39;</span><span class="p">,&amp;</span>
+<a name="ln-80"></a><span class="s1">&#39;                  exit successfully.&#39;</span><span class="p">,&amp;</span>
+<a name="ln-81"></a><span class="s1">&#39;    --help,-h     Print usage information on standard output then&#39;</span><span class="p">,&amp;</span>
+<a name="ln-82"></a><span class="s1">&#39;                  exit successfully.&#39;</span><span class="p">,&amp;</span>
+<a name="ln-83"></a><span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<a name="ln-84"></a><span class="s1">&#39;   In addition, the following options from the fpm(1) &quot;run&quot; subcommand&#39;</span><span class="p">,&amp;</span>
+<a name="ln-85"></a><span class="s1">&#39;   are supported, noting that &quot;--profile debug&quot; is always specified as&#39;</span><span class="p">,&amp;</span>
+<a name="ln-86"></a><span class="s1">&#39;   well ...&#39;</span><span class="p">,&amp;</span>
+<a name="ln-87"></a><span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<a name="ln-88"></a><span class="s1">&#39;       --example    --no-prune  --link-flag  --flag&#39;</span><span class="p">,&amp;</span>
+<a name="ln-89"></a><span class="s1">&#39;       --directory  --compiler  --c-flag     --c-compiler&#39;</span><span class="p">,&amp;</span>
+<a name="ln-90"></a><span class="s1">&#39;       --archiver&#39;</span><span class="p">,&amp;</span>
+<a name="ln-91"></a><span class="s1">&#39;EXAMPLE&#39;</span><span class="p">,&amp;</span>
+<a name="ln-92"></a><span class="s1">&#39;   Sample commands&#39;</span><span class="p">,&amp;</span>
+<a name="ln-93"></a><span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<a name="ln-94"></a><span class="s1">&#39;    fpm gdb&#39;</span><span class="p">,&amp;</span>
+<a name="ln-95"></a><span class="s1">&#39;SEE ALSO&#39;</span><span class="p">,&amp;</span>
+<a name="ln-96"></a><span class="s1">&#39;    which(1)&#39;</span><span class="p">,&amp;</span>
 <a name="ln-97"></a><span class="s1">&#39;&#39;</span><span class="p">]</span>
-<a name="ln-98"></a><span class="k">end subroutine </span><span class="n">setup</span>
-<a name="ln-99"></a><span class="k">end program </span><span class="n">gdb</span>
+<a name="ln-98"></a><span class="c">!&gt;</span>
+<a name="ln-99"></a><span class="c">!!##NAME</span>
+<a name="ln-100"></a><span class="c">!!    fpm-gdb(1f) - [FUNIX:FILESYSTEM] simple launch of gdb(1) from fpm(1)</span>
+<a name="ln-101"></a><span class="c">!!    (LICENSE:MIT)</span>
+<a name="ln-102"></a><span class="c">!!</span>
+<a name="ln-103"></a><span class="c">!!##SYNOPSIS</span>
+<a name="ln-104"></a><span class="c">!!</span>
+<a name="ln-105"></a><span class="c">!!     fpm-gdb [PROGRAM][ --help|--version]</span>
+<a name="ln-106"></a><span class="c">!!</span>
+<a name="ln-107"></a><span class="c">!!##DESCRIPTION</span>
+<a name="ln-108"></a><span class="c">!!    gdb(1f) is an fpm(1) plugin that starts up gdb(1).</span>
+<a name="ln-109"></a><span class="c">!!</span>
+<a name="ln-110"></a><span class="c">!!##OPTIONS</span>
+<a name="ln-111"></a><span class="c">!!     PROGRAM       if more than one application is build in the package</span>
+<a name="ln-112"></a><span class="c">!!                   the name can be specified. Unlike with the &quot;fpm run&quot;</span>
+<a name="ln-113"></a><span class="c">!!                   command wildcards are not permitted.</span>
+<a name="ln-114"></a><span class="c">!!     -w {80,132}   assumed screen width. Anything from 132 up places the</span>
+<a name="ln-115"></a><span class="c">!!                   code in a window on the left of the screen.</span>
+<a name="ln-116"></a><span class="c">!!     --verbose,-V  verbose mode</span>
+<a name="ln-117"></a><span class="c">!!     --version,-v  Print version information on standard output then</span>
+<a name="ln-118"></a><span class="c">!!                   exit successfully.</span>
+<a name="ln-119"></a><span class="c">!!     --help,-h     Print usage information on standard output then</span>
+<a name="ln-120"></a><span class="c">!!                   exit successfully.</span>
+<a name="ln-121"></a><span class="c">!!</span>
+<a name="ln-122"></a><span class="c">!!    In addition, the following options from the fpm(1) &quot;run&quot; subcommand</span>
+<a name="ln-123"></a><span class="c">!!    are supported, noting that &quot;--profile debug&quot; is always specified as</span>
+<a name="ln-124"></a><span class="c">!!    well ...</span>
+<a name="ln-125"></a><span class="c">!!</span>
+<a name="ln-126"></a><span class="c">!!        --example    --no-prune  --link-flag  --flag</span>
+<a name="ln-127"></a><span class="c">!!        --directory  --compiler  --c-flag     --c-compiler</span>
+<a name="ln-128"></a><span class="c">!!        --archiver</span>
+<a name="ln-129"></a><span class="c">!!##EXAMPLE</span>
+<a name="ln-130"></a><span class="c">!!</span>
+<a name="ln-131"></a><span class="c">!!    Sample commands</span>
+<a name="ln-132"></a><span class="c">!!</span>
+<a name="ln-133"></a><span class="c">!!     fpm gdb</span>
+<a name="ln-134"></a><span class="c">!!##SEE ALSO</span>
+<a name="ln-135"></a><span class="c">!!     which(1)</span>
+<a name="ln-136"></a><span class="n">version</span><span class="o">=</span><span class="p">[</span> <span class="kt">CHARACTER</span><span class="p">(</span><span class="nb">LEN</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span> <span class="kd">::</span> <span class="p">&amp;</span>
+<a name="ln-137"></a><span class="s1">&#39;PRODUCT:        GPF (General Purpose Fortran) utilities and examples&#39;</span><span class="p">,&amp;</span>
+<a name="ln-138"></a><span class="s1">&#39;PROGRAM:        fpm-gdb(1f)&#39;</span><span class="p">,&amp;</span>
+<a name="ln-139"></a><span class="s1">&#39;DESCRIPTION:    fpm(1) plugin that launches gdb(1)&#39;</span><span class="p">,&amp;</span>
+<a name="ln-140"></a><span class="s1">&#39;VERSION:        2.0, 2022-04-29&#39;</span><span class="p">,&amp;</span>
+<a name="ln-141"></a><span class="s1">&#39;AUTHOR:         John S. Urban&#39;</span><span class="p">,&amp;</span>
+<a name="ln-142"></a><span class="s1">&#39;LICENSE:        MIT&#39;</span><span class="p">,&amp;</span>
+<a name="ln-143"></a><span class="s1">&#39;&#39;</span><span class="p">]</span>
+<a name="ln-144"></a><span class="k">end subroutine </span><span class="n">setup</span>
+<a name="ln-145"></a><span class="k">end program </span><span class="n">gdb</span>
 </pre></div>
 
     </section>
@@ -374,7 +420,7 @@
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2022-07-03 07:40  
+             on 2022-07-03 23:16  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> fpm-gdb was developed by John S. Urban</p></div>

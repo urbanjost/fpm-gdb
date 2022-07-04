@@ -7,7 +7,7 @@ NAME
 SYNOPSIS
 ========
 
-**fpm-gdb** \[ **--help**\|**--version**\]
+**fpm-gdb** \[PROGRAM\]\[ **--help**\|**--version**\]
 
 DESCRIPTION
 ===========
@@ -17,9 +17,16 @@ DESCRIPTION
 OPTIONS
 =======
 
+***PROGRAM***
+
+:   if more than one application is build in the package the name can be
+    specified. Unlike with the "fpm run" command wildcards are not
+    permitted.
+
 ****-w** {80,132}**
 
-:   assumed screen width
+:   assumed screen width. Anything from 132 up places the code in a
+    window on the left of the screen.
 
 ****--verbose**,**-V****
 
@@ -32,6 +39,14 @@ OPTIONS
 ****--help**,**-h****
 
 :   Print usage information on standard output then exit successfully.
+
+In addition, the following options from the **fpm**(1) "run" subcommand
+are supported, noting that "**--profile** debug" is always specified as
+well \`\`\`
+
+           --example    --no-prune  --link-flag  --flag
+           --directory  --compiler  --c-flag     --c-compiler
+           --archiver
 
 EXAMPLE
 =======
