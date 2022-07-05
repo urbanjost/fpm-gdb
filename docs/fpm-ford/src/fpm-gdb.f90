@@ -6,6 +6,7 @@ logical                      :: verbose
 character(len=:),allocatable :: help(:),version(:)
 character(len=:),allocatable :: cmd
 character(len=:),allocatable :: dir
+character(len=:),allocatable :: cmd_gdb
 integer :: width
 integer :: i
 type(streampointer) :: fp ! C file pointer returned by process_open()
@@ -20,12 +21,14 @@ character(len=*),parameter :: common_options='&
  --compiler "gfortran" &
  --c-flag " " &
  --c-compiler " " &
- --archiver " " '
+ --archiver " " &
+ --gdb " " '
 character(len=:),allocatable :: options
    ! process command-line options
    call setup()
    call set_args('gdb --width:w 80 '//common_options,help,version)
    verbose=lget('verbose')
+   cmd_gdb=sget('gdb')
    options=''
    if(specified('no-prune'))options=options//' --noprune '
    if(specified('example'))options=options//' --example '
@@ -59,7 +62,10 @@ character(len=:),allocatable :: options
       cmd=cmd//" -c 'packadd termdebug' "
       cmd=cmd//" -c 'resize +10' "
       cmd=cmd//" -c ':tnoremap <F1> <C-W>N' "
-      cmd=cmd//" -c 'Termdebug "//trim(line)//"'"
+      cmd=cmd//" -c 'Termdebug "//trim(line)//"' "
+      if(cmd_gdb.ne.'')then
+         cmd=cmd//"-c \""call TermDebugSendCommand('"//cmd_gdb//"')\"" "
+      endif
       ! assuming in app/ and that a .f90 or .F90 file; could leave this off or generalize
       if(specified('example'))then
               dir='example'
@@ -101,6 +107,7 @@ help=[ CHARACTER(LEN=128) :: &
 '    PROGRAM       if more than one application is build in the package',&
 '                  the name can be specified. Unlike with the "fpm run"',&
 '                  command wildcards are not permitted.',&
+'    --gdb CMDS    pass initial commands to gdb(1)',&
 '    -w {80,132}   assumed screen width. Anything from 132 up places the',&
 '                  code in a window on the left of the screen.',&
 '    --verbose,-V  verbose mode',&
@@ -176,12 +183,24 @@ help=[ CHARACTER(LEN=128) :: &
 '',&
 '     :tnoremap <F1> <C-W>N',&
 '',&
+'Check out :help window-moving for more information on changing the',&
+'window layout.',&
+'',&
 '# MORE INFO',&
 'General gdb instructions are beyond the scope of this discussion, but',&
 '"help" in the gdb pane can get you started.',&
 '',&
 'For the vim(1) terminal help go to the rightmost vim(1) window and enter',&
 '":help terminal-debug".',&
+'',&
+'EXAMPLES',&
+'     fpm gdb',&
+'',&
+'     fpm gdb --compiler gfortran',&
+'',&
+'     fpm gdb -w 132 -gdb ''source mycmds.gdb''',&
+'',&
+'     fpm gdb --example demo1',&
 '',&
 'SEE ALSO',&
 '    gdb(1), fpm(1), vim(1)',&
@@ -210,6 +229,7 @@ help=[ CHARACTER(LEN=128) :: &
 !!     PROGRAM       if more than one application is build in the package
 !!                   the name can be specified. Unlike with the "fpm run"
 !!                   command wildcards are not permitted.
+!!     --gdb CMDS    pass initial commands to gdb(1)
 !!     -w {80,132}   assumed screen width. Anything from 132 up places the
 !!                   code in a window on the left of the screen.
 !!     --verbose,-V  verbose mode
@@ -285,12 +305,25 @@ help=[ CHARACTER(LEN=128) :: &
 !!
 !!      :tnoremap <F1> <C-W>N
 !!
+!! Check out :help window-moving for more information on changing the
+!! window layout.
+!!
 !! # MORE INFO
 !! General gdb instructions are beyond the scope of this discussion, but
 !! "help" in the gdb pane can get you started.
 !!
 !! For the vim(1) terminal help go to the rightmost vim(1) window and enter
 !! ":help terminal-debug".
+!!
+!!##EXAMPLES
+!!
+!!      fpm gdb
+!!
+!!      fpm gdb --compiler gfortran
+!!
+!!      fpm gdb -w 132 -gdb 'source mycmds.gdb'
+!!
+!!      fpm gdb --example demo1
 !!
 !!##SEE ALSO
 !!     gdb(1), fpm(1), vim(1)

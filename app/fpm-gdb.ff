@@ -7,6 +7,7 @@ logical                      :: verbose
 character(len=:),allocatable :: help(:),version(:)
 character(len=:),allocatable :: cmd
 character(len=:),allocatable :: dir
+character(len=:),allocatable :: cmd_gdb
 integer :: width
 integer :: i
 type(streampointer) :: fp ! C file pointer returned by process_open()
@@ -21,12 +22,14 @@ character(len=*),parameter :: common_options='&
  --compiler "gfortran" &
  --c-flag " " &
  --c-compiler " " &
- --archiver " " '
+ --archiver " " &
+ --gdb " " '
 character(len=:),allocatable :: options
    ! process command-line options
    call setup()
-   call set_args('gdb --width:w 80 '//common_options,help,version) 
+   call set_args('gdb --width:w 80 '//common_options,help,version)
    verbose=lget('verbose')
+   cmd_gdb=sget('gdb')
    options=''
    if(specified('no-prune'))options=options//' --noprune '
    if(specified('example'))options=options//' --example '
@@ -42,7 +45,7 @@ character(len=:),allocatable :: options
    do i=1,size(leafs)
 
       ! need to make a call to the fpm API to get the program cleanly.
-      cmd='fpm run '//trim(leafs(i))//options//" --profile debug --runner|grep '^build'" 
+      cmd='fpm run '//trim(leafs(i))//options//" --profile debug --runner|grep '^build'"
       ! note the process_* procedures are currently available only on POSIX platforms
       ! could use system commands based on OS or possibly get M_process to support
       ! more platforms
@@ -60,7 +63,10 @@ character(len=:),allocatable :: options
       cmd=cmd//" -c 'packadd termdebug' "
       cmd=cmd//" -c 'resize +10' "
       cmd=cmd//" -c ':tnoremap <F1> <C-W>N' "
-      cmd=cmd//" -c 'Termdebug "//trim(line)//"'"
+      cmd=cmd//" -c 'Termdebug "//trim(line)//"' "
+      if(cmd_gdb.ne.'')then
+         cmd=cmd//"-c \""call TermDebugSendCommand('"//cmd_gdb//"')\"" "
+      endif
       ! assuming in app/ and that a .f90 or .F90 file; could leave this off or generalize
       if(specified('example'))then
               dir='example'
@@ -92,7 +98,7 @@ DESCRIPTION
    gdb(1f) is an fpm(1) plugin that starts up gdb(1).
 
    It uses the vim(1) terminal feature. The terminal feature is optional.
-   Enter this in vim(1) to check if your version has it: 
+   Enter this in vim(1) to check if your version has it:
 
        :echo has('terminal')
 
@@ -103,6 +109,7 @@ OPTIONS
     PROGRAM       if more than one application is build in the package
                   the name can be specified. Unlike with the "fpm run"
                   command wildcards are not permitted.
+    --gdb CMDS    pass initial commands to gdb(1)
     -w {80,132}   assumed screen width. Anything from 132 up places the
                   code in a window on the left of the screen.
     --verbose,-V  verbose mode
@@ -134,7 +141,7 @@ and then in the gdb(1) command window enter
     b main
     list
     b 40
-    run  
+    run
 
 For some compilers "b 1"(e.g. Intel) might be required instead of "b
 main"(e.g gfortran).
@@ -174,9 +181,12 @@ in the gdb pane and cannot see new output or enter input in Normal mode.
 To leave scrollable mode (enter "i") in the pane.
 
 You can define a key to enter the scrollable Terminal-Normal mode.
-For example, to make F1 switch to Terminal-Normal mode: 
+For example, to make F1 switch to Terminal-Normal mode:
 
      :tnoremap <F1> <C-W>N
+
+Check out :help window-moving for more information on changing the
+window layout.
 
 # MORE INFO
 General gdb instructions are beyond the scope of this discussion, but
@@ -185,8 +195,18 @@ General gdb instructions are beyond the scope of this discussion, but
 For the vim(1) terminal help go to the rightmost vim(1) window and enter
 ":help terminal-debug".
 
+EXAMPLES
+     fpm gdb 
+
+     fpm gdb --compiler gfortran
+
+     fpm gdb -w 132 -gdb 'source mycmds.gdb'
+
+     fpm gdb --example demo1
+
 SEE ALSO
     gdb(1), fpm(1), vim(1)
+$ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 $BLOCK VARIABLE -varname version
 PRODUCT:        GPF (General Purpose Fortran) utilities and examples
@@ -195,7 +215,7 @@ DESCRIPTION:    fpm(1) plugin that launches gdb(1)
 VERSION:        2.0, 2022-04-29
 AUTHOR:         John S. Urban
 LICENSE:        MIT
-$BLOCK END
+$ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 end subroutine setup
 end program gdb

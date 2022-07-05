@@ -65,9 +65,10 @@ a.existingWikiWord[title]{ //border: 1px dashed #BBB; }
 <A HREF=#4>Getting Started</A><BR>
 <A HREF=#5>Using The Mouse To Set Break Points</A><BR>
 <A HREF=#6>Scrolling</A><BR>
-<A HREF=#7>See Also</A><BR>
+<A HREF=#7>Examples</A><BR>
+<A HREF=#8>See Also</A><BR>
 </BLOCKQUOTE>
-<A name=8>
+<A name=9>
 
      <H3>SYNOPSIS</H3>
 
@@ -106,6 +107,10 @@ If the result is "1" you have it.
 if more than one application is build in the package
 the name can be specified. Unlike with the "fpm run"
 command wildcards are not permitted.
+</TD></TR>
+<TR valign=top><TD colspan=2>
+<B></B><B>--gdb</B> CMDS </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
+pass initial commands to <B>gdb</B>(1)
 </TD></TR>
 <TR valign=top><TD colspan=2>
 <B></B><B>-w</B> {80,132} </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
@@ -234,6 +239,9 @@ For example, to make F1 switch to Terminal-Normal mode:
      :tnoremap &lt;F1&gt; &lt;C-W&gt;N
 <P>
 </PRE>
+Check out :help window-moving for more information on changing the
+window layout.
+<P>
 # MORE INFO
 General gdb instructions are beyond the scope of this discussion, but
 "help" in the gdb pane can get you started.
@@ -242,6 +250,20 @@ For the <B>vim</B>(1) terminal help go to the rightmost <B>vim</B>(1) window and
 ":help terminal-debug".
 </BLOCKQUOTE>
 <A name=7>
+
+     <H3>EXAMPLES</H3>
+
+</A>
+<BLOCKQUOTE>
+fpm gdb
+<P>
+fpm gdb <B>--compiler</B> gfortran
+<P>
+fpm gdb <B>-w</B> 132 <B>-gdb</B> &#146;source mycmds.gdb&#146;
+<P>
+fpm gdb <B>--example</B> demo1
+</BLOCKQUOTE>
+<A name=8>
 
      <H3>SEE ALSO</H3>
 

@@ -122,7 +122,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="100.0% of total for programs.">67 statements</a>
+    title="100.0% of total for programs.">72 statements</a>
      </li> 
      
      
@@ -166,6 +166,8 @@
     <div class="list-group">
       
       <a class="list-group-item" href="../program/gdb.html#variable-cmd">cmd</a>
+      
+      <a class="list-group-item" href="../program/gdb.html#variable-cmd_gdb">cmd_gdb</a>
       
       <a class="list-group-item" href="../program/gdb.html#variable-common_options">common_options</a>
       
@@ -280,6 +282,8 @@
       
       <a class="list-group-item" href="../program/gdb.html#variable-cmd">cmd</a>
       
+      <a class="list-group-item" href="../program/gdb.html#variable-cmd_gdb">cmd_gdb</a>
+      
       <a class="list-group-item" href="../program/gdb.html#variable-common_options">common_options</a>
       
       <a class="list-group-item" href="../program/gdb.html#variable-dir">dir</a>
@@ -384,11 +388,25 @@
   
 <tr>
   
+  <td><span class="anchor" id="variable-cmd_gdb"></span>character(len=:),</td>
+  
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>cmd_gdb</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
   <td><span class="anchor" id="variable-common_options"></span>character(len=*),</td>
   
   
   <td>parameter</td><td>::</td>
-  <td><strong>common_options</strong></td><td> =</td><td>' --example F --no-prune F --link-flag " " --flag " " --directory:C " " --compiler "gfortran" --c-flag " " --c-compiler " " --archiver " " '</td><td></td>
+  <td><strong>common_options</strong></td><td> =</td><td>' --example F --no-prune F --link-flag " " --flag " " --directory:C " " --compiler "gfortran" --c-flag " " --c-compiler " " --archiver " " --gdb " " '</td><td></td>
   
 </tr>
 
@@ -601,6 +619,7 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">help</span><span class="p">(:),</span><span class="n">version</span><span class="p">(:)</span>
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">cmd</span>
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">dir</span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">cmd_gdb</span>
 <span class="kt">integer</span> <span class="kd">::</span> <span class="n">width</span>
 <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span>
 <span class="k">type</span><span class="p">(</span><span class="n">streampointer</span><span class="p">)</span> <span class="kd">::</span> <span class="n">fp</span> <span class="c">! C file pointer returned by process_open()</span>
@@ -615,12 +634,14 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="s1"> --compiler &quot;gfortran&quot; &amp;</span>
 <span class="s1"> --c-flag &quot; &quot; &amp;</span>
 <span class="s1"> --c-compiler &quot; &quot; &amp;</span>
-<span class="s1"> --archiver &quot; &quot; &#39;</span>
+<span class="s1"> --archiver &quot; &quot; &amp;</span>
+<span class="s1"> --gdb &quot; &quot; &#39;</span>
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="k">options</span>
    <span class="c">! process command-line options</span>
    <span class="k">call </span><span class="n">setup</span><span class="p">()</span>
    <span class="k">call </span><span class="n">set_args</span><span class="p">(</span><span class="s1">&#39;gdb --width:w 80 &#39;</span><span class="o">//</span><span class="n">common_options</span><span class="p">,</span><span class="n">help</span><span class="p">,</span><span class="n">version</span><span class="p">)</span>
    <span class="n">verbose</span><span class="o">=</span><span class="n">lget</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
+   <span class="n">cmd_gdb</span><span class="o">=</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;gdb&#39;</span><span class="p">)</span>
    <span class="k">options</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
    <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;no-prune&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --noprune &#39;</span>
    <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --example &#39;</span>
@@ -654,191 +675,208 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="k">      </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;packadd termdebug&#39; &quot;</span>
       <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;resize +10&#39; &quot;</span>
       <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;:tnoremap &lt;F1&gt; &lt;C-W&gt;N&#39; &quot;</span>
-      <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;Termdebug &quot;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">//</span><span class="s2">&quot;&#39;&quot;</span>
-      <span class="c">! assuming in app/ and that a .f90 or .F90 file; could leave this off or generalize</span>
-      <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">))</span><span class="k">then</span>
-<span class="k">              </span><span class="n">dir</span><span class="o">=</span><span class="s1">&#39;example&#39;</span>
-      <span class="k">else</span>
-<span class="k">              </span><span class="n">dir</span><span class="o">=</span><span class="s1">&#39;app&#39;</span>
-      <span class="k">endif</span>
-<span class="k">      if</span><span class="p">(</span><span class="n">leafs</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="k">then</span>
-<span class="k">         </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s1">&#39; &#39;</span><span class="o">//</span><span class="n">dir</span><span class="o">//</span><span class="s1">&#39;/*.[fF]90&quot;&#39;</span>
-      <span class="k">else</span>
-<span class="k">         </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s1">&#39; &#39;</span><span class="o">//</span><span class="n">dir</span><span class="o">//</span><span class="s1">&#39;/&#39;</span><span class="o">//</span><span class="n">leafs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;.[fF]90&quot;&#39;</span>
-      <span class="k">endif</span>
-<span class="k">      if</span><span class="p">(</span><span class="n">lget</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">))</span><span class="k">then</span>
-<span class="k">         write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="nb">trim</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-      <span class="k">endif</span>
-<span class="k">      call </span><span class="nb">execute_command_line</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
-   <span class="k">enddo</span>
-<span class="k">contains</span>
-<span class="k">subroutine </span><span class="n">setup</span><span class="p">()</span>
-<span class="n">help</span><span class="o">=</span><span class="p">[</span> <span class="kt">CHARACTER</span><span class="p">(</span><span class="nb">LEN</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span> <span class="kd">::</span> <span class="p">&amp;</span>
-<span class="s1">&#39;NAME&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;   fpm-gdb(1f) - [FUNIX:FILESYSTEM] simple launch of gdb(1) from fpm(1)&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;   (LICENSE:MIT)&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;SYNOPSIS&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    fpm-gdb [PROGRAM][ --help|--version]&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;DESCRIPTION&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;   gdb(1f) is an fpm(1) plugin that starts up gdb(1).&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;   It uses the vim(1) terminal feature. The terminal feature is optional.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;   Enter this in vim(1) to check if your version has it:&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;       :echo has(&#39;&#39;terminal&#39;&#39;)&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;   If the result is &quot;1&quot; you have it.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;OPTIONS&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    PROGRAM       if more than one application is build in the package&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;                  the name can be specified. Unlike with the &quot;fpm run&quot;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;                  command wildcards are not permitted.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    -w {80,132}   assumed screen width. Anything from 132 up places the&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;                  code in a window on the left of the screen.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    --verbose,-V  verbose mode&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    --version,-v  Print version information on standard output then&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;                  exit successfully.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    --help,-h     Print usage information on standard output then&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;                  exit successfully.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;   In addition, the following options from the fpm(1) &quot;run&quot; subcommand&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;   are supported, noting that &quot;--profile debug&quot; is always specified as&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;   well ...&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;       --example    --no-prune  --link-flag  --flag&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;       --directory  --compiler  --c-flag     --c-compiler&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;       --archiver&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;GETTING STARTED&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;You could set a breakpoint at the beginning of the program, list the&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;program, set some other breakpoint and then start running the program&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;(with optional arguments).  Clicking on &quot;next&quot; would take you to the&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;next breakpoint.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;Lets start in a terminal 132 characters wide and enter&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    fpm gdb -w 132&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;and then in the gdb(1) command window enter&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    b main&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    list&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    b 40&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    run&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;For some compilers &quot;b 1&quot;(e.g. Intel) might be required instead of &quot;b&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;main&quot;(e.g gfortran).&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;Many other commands exist.  Assuming you are at your next breakpoint,&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;you can ask where you are, list local variables and print the value of&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;some variable, like &quot;i&quot;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    where&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    info locals&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    print i&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;USING THE MOUSE TO SET BREAK POINTS&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;If you click mouse 3 in the code file you should get an option menu for&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;setting and clearing breakpoints.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;Assuming your terminal window supports vim(1) mouse mode, you can use the&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;mouse in various ways. For example, You can click on variables and the&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;[eval] button.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;SCROLLING&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;The gdb and output windows will not be in Normal mode and so&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;will not scroll by default. When focus is on the window that will not&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;scroll enter &quot;ctrl-W N&quot; to go to scrollable, and enter &quot;i&quot; to return&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;to the original mode.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;On some platforms instead of &quot;ctrl-W&quot; followed by capital &quot;N&quot; you can&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;define which key goes to Normal mode.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;In the gdb window in particular, you probably want to toggle between&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;the modes, because when scrolling is on command recall is not.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;When in Normal mode your interaction with the program is suspended,&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;so you want to return to the original mode or you cannot enter commands&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;in the gdb pane and cannot see new output or enter input in Normal mode.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;To leave scrollable mode (enter &quot;i&quot;) in the pane.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;You can define a key to enter the scrollable Terminal-Normal mode.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;For example, to make F1 switch to Terminal-Normal mode:&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;     :tnoremap &lt;F1&gt; &lt;C-W&gt;N&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;# MORE INFO&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;General gdb instructions are beyond the scope of this discussion, but&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&quot;help&quot; in the gdb pane can get you started.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;For the vim(1) terminal help go to the rightmost vim(1) window and enter&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&quot;:help terminal-debug&quot;.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;SEE ALSO&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    gdb(1), fpm(1), vim(1)&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">]</span>
-<span class="c">!&gt;</span>
-<span class="c">!!##NAME</span>
-<span class="c">!!    fpm-gdb(1f) - [FUNIX:FILESYSTEM] simple launch of gdb(1) from fpm(1)</span>
-<span class="c">!!    (LICENSE:MIT)</span>
-<span class="c">!!</span>
-<span class="c">!!##SYNOPSIS</span>
-<span class="c">!!</span>
-<span class="c">!!     fpm-gdb [PROGRAM][ --help|--version]</span>
-<span class="c">!!</span>
-<span class="c">!!##DESCRIPTION</span>
-<span class="c">!!    gdb(1f) is an fpm(1) plugin that starts up gdb(1).</span>
-<span class="c">!!</span>
-<span class="c">!!    It uses the vim(1) terminal feature. The terminal feature is optional.</span>
-<span class="c">!!    Enter this in vim(1) to check if your version has it:</span>
-<span class="c">!!</span>
-<span class="c">!!        :echo has(&#39;terminal&#39;)</span>
-<span class="c">!!</span>
-<span class="c">!!    If the result is &quot;1&quot; you have it.</span>
-<span class="c">!!</span>
-<span class="c">!!</span>
-<span class="c">!!##OPTIONS</span>
-<span class="c">!!     PROGRAM       if more than one application is build in the package</span>
-<span class="c">!!                   the name can be specified. Unlike with the &quot;fpm run&quot;</span>
-<span class="c">!!                   command wildcards are not permitted.</span>
-<span class="c">!!     -w {80,132}   assumed screen width. Anything from 132 up places the</span>
-<span class="c">!!                   code in a window on the left of the screen.</span>
-<span class="c">!!     --verbose,-V  verbose mode</span>
-<span class="c">!!     --version,-v  Print version information on standard output then</span>
-<span class="c">!!                   exit successfully.</span>
-<span class="c">!!     --help,-h     Print usage information on standard output then</span>
-<span class="c">!!                   exit successfully.</span>
-<span class="c">!!</span>
-<span class="c">!!    In addition, the following options from the fpm(1) &quot;run&quot; subcommand</span>
-<span class="c">!!    are supported, noting that &quot;--profile debug&quot; is always specified as</span>
-<span class="c">!!    well ...</span>
-<span class="c">!!</span>
-<span class="c">!!        --example    --no-prune  --link-flag  --flag</span>
-<span class="c">!!        --directory  --compiler  --c-flag     --c-compiler</span>
-<span class="c">!!        --archiver</span>
-<span class="c">!!##GETTING STARTED</span>
-<span class="c">!!</span>
-<span class="c">!! You could set a breakpoint at the beginning of the program, list the</span>
-<span class="c">!! program, set some other breakpoint and then start running the program</span>
-<span class="c">!! (with optional arguments).  Clicking on &quot;next&quot; would take you to the</span>
-<span class="c">!! next breakpoint.</span>
-<span class="c">!!</span>
-<span class="c">!! Lets start in a terminal 132 characters wide and enter</span>
-<span class="c">!!</span>
-<span class="c">!!     fpm gdb -w 132</span>
-<span class="c">!!</span>
-<span class="c">!! and then in the gdb(1) command window enter</span>
-<span class="c">!!</span>
-<span class="c">!!     b main</span>
-<span class="c">!!     list</span>
-<span class="c">!!     b 40</span>
-<span class="c">!!     run</span>
-<span class="c">!!</span>
-<span class="c">!! For some compilers &quot;b 1&quot;(e.g. Intel) might be required instead of &quot;b</span>
+      <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;Termdebug &quot;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">//</span><span class="s2">&quot;&#39; &quot;</span>
+      <span class="k">if</span><span class="p">(</span><span class="n">cmd_gdb</span><span class="p">.</span><span class="n">ne</span><span class="p">.</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="k">then</span>
+<span class="k">         </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot;-c \&quot;&quot;</span><span class="k">call </span><span class="n">TermDebugSendCommand</span><span class="p">(</span><span class="s1">&#39;&quot;//cmd_gdb//&quot;&#39;</span><span class="p">)</span><span class="err">\</span><span class="s2">&quot;&quot;</span> <span class="s2">&quot;</span>
+<span class="s2">      endif</span>
+<span class="s2">      ! assuming in app/ and that a .f90 or .F90 file; could leave this off or generalize</span>
+<span class="s2">      if(specified(&#39;example&#39;))then</span>
+<span class="s2">              dir=&#39;example&#39;</span>
+<span class="s2">      else</span>
+<span class="s2">              dir=&#39;app&#39;</span>
+<span class="s2">      endif</span>
+<span class="s2">      if(leafs(i).eq.&#39;&#39;)then</span>
+<span class="s2">         cmd=cmd//&#39; &#39;//dir//&#39;/*.[fF]90&quot;</span><span class="s1">&#39;</span>
+<span class="s1">      else</span>
+<span class="s1">         cmd=cmd//&#39;</span> <span class="s1">&#39;//dir//&#39;</span><span class="o">/</span><span class="s1">&#39;//leafs(i)//&#39;</span><span class="p">.[</span><span class="n">fF</span><span class="p">]</span><span class="mi">90</span><span class="s2">&quot;&#39;</span>
+<span class="s2">      endif</span>
+<span class="s2">      if(lget(&#39;verbose&#39;))then</span>
+<span class="s2">         write(*,*)trim(cmd)</span>
+<span class="s2">      endif</span>
+<span class="s2">      call execute_command_line(cmd)</span>
+<span class="s2">   enddo</span>
+<span class="s2">contains</span>
+<span class="s2">subroutine setup()</span>
+<span class="s2">help=[ CHARACTER(LEN=128) :: &amp;</span>
+<span class="s2">&#39;NAME&#39;,&amp;</span>
+<span class="s2">&#39;   fpm-gdb(1f) - [FUNIX:FILESYSTEM] simple launch of gdb(1) from fpm(1)&#39;,&amp;</span>
+<span class="s2">&#39;   (LICENSE:MIT)&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;SYNOPSIS&#39;,&amp;</span>
+<span class="s2">&#39;    fpm-gdb [PROGRAM][ --help|--version]&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;DESCRIPTION&#39;,&amp;</span>
+<span class="s2">&#39;   gdb(1f) is an fpm(1) plugin that starts up gdb(1).&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;   It uses the vim(1) terminal feature. The terminal feature is optional.&#39;,&amp;</span>
+<span class="s2">&#39;   Enter this in vim(1) to check if your version has it:&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;       :echo has(&#39;&#39;terminal&#39;&#39;)&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;   If the result is &quot;</span><span class="mi">1</span><span class="s2">&quot; you have it.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;OPTIONS&#39;,&amp;</span>
+<span class="s2">&#39;    PROGRAM       if more than one application is build in the package&#39;,&amp;</span>
+<span class="s2">&#39;                  the name can be specified. Unlike with the &quot;</span><span class="n">fpm</span> <span class="n">run</span><span class="s2">&quot;&#39;,&amp;</span>
+<span class="s2">&#39;                  command wildcards are not permitted.&#39;,&amp;</span>
+<span class="s2">&#39;    --gdb CMDS    pass initial commands to gdb(1)&#39;,&amp;</span>
+<span class="s2">&#39;    -w {80,132}   assumed screen width. Anything from 132 up places the&#39;,&amp;</span>
+<span class="s2">&#39;                  code in a window on the left of the screen.&#39;,&amp;</span>
+<span class="s2">&#39;    --verbose,-V  verbose mode&#39;,&amp;</span>
+<span class="s2">&#39;    --version,-v  Print version information on standard output then&#39;,&amp;</span>
+<span class="s2">&#39;                  exit successfully.&#39;,&amp;</span>
+<span class="s2">&#39;    --help,-h     Print usage information on standard output then&#39;,&amp;</span>
+<span class="s2">&#39;                  exit successfully.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;   In addition, the following options from the fpm(1) &quot;</span><span class="n">run</span><span class="s2">&quot; subcommand&#39;,&amp;</span>
+<span class="s2">&#39;   are supported, noting that &quot;</span><span class="o">--</span><span class="n">profile</span> <span class="n">debug</span><span class="s2">&quot; is always specified as&#39;,&amp;</span>
+<span class="s2">&#39;   well ...&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;       --example    --no-prune  --link-flag  --flag&#39;,&amp;</span>
+<span class="s2">&#39;       --directory  --compiler  --c-flag     --c-compiler&#39;,&amp;</span>
+<span class="s2">&#39;       --archiver&#39;,&amp;</span>
+<span class="s2">&#39;GETTING STARTED&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;You could set a breakpoint at the beginning of the program, list the&#39;,&amp;</span>
+<span class="s2">&#39;program, set some other breakpoint and then start running the program&#39;,&amp;</span>
+<span class="s2">&#39;(with optional arguments).  Clicking on &quot;</span><span class="n">next</span><span class="s2">&quot; would take you to the&#39;,&amp;</span>
+<span class="s2">&#39;next breakpoint.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;Lets start in a terminal 132 characters wide and enter&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;    fpm gdb -w 132&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;and then in the gdb(1) command window enter&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;    b main&#39;,&amp;</span>
+<span class="s2">&#39;    list&#39;,&amp;</span>
+<span class="s2">&#39;    b 40&#39;,&amp;</span>
+<span class="s2">&#39;    run&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;For some compilers &quot;</span><span class="n">b</span> <span class="mi">1</span><span class="s2">&quot;(e.g. Intel) might be required instead of &quot;</span><span class="n">b</span><span class="s1">&#39;,&amp;</span>
+<span class="s1">&#39;</span><span class="n">main</span><span class="s2">&quot;(e.g gfortran).&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;Many other commands exist.  Assuming you are at your next breakpoint,&#39;,&amp;</span>
+<span class="s2">&#39;you can ask where you are, list local variables and print the value of&#39;,&amp;</span>
+<span class="s2">&#39;some variable, like &quot;</span><span class="n">i</span><span class="s2">&quot;&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;    where&#39;,&amp;</span>
+<span class="s2">&#39;    info locals&#39;,&amp;</span>
+<span class="s2">&#39;    print i&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;USING THE MOUSE TO SET BREAK POINTS&#39;,&amp;</span>
+<span class="s2">&#39;If you click mouse 3 in the code file you should get an option menu for&#39;,&amp;</span>
+<span class="s2">&#39;setting and clearing breakpoints.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;Assuming your terminal window supports vim(1) mouse mode, you can use the&#39;,&amp;</span>
+<span class="s2">&#39;mouse in various ways. For example, You can click on variables and the&#39;,&amp;</span>
+<span class="s2">&#39;[eval] button.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;SCROLLING&#39;,&amp;</span>
+<span class="s2">&#39;The gdb and output windows will not be in Normal mode and so&#39;,&amp;</span>
+<span class="s2">&#39;will not scroll by default. When focus is on the window that will not&#39;,&amp;</span>
+<span class="s2">&#39;scroll enter &quot;</span><span class="n">ctrl</span><span class="o">-</span><span class="n">W</span> <span class="n">N</span><span class="s2">&quot; to go to scrollable, and enter &quot;</span><span class="n">i</span><span class="s2">&quot; to return&#39;,&amp;</span>
+<span class="s2">&#39;to the original mode.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;On some platforms instead of &quot;</span><span class="n">ctrl</span><span class="o">-</span><span class="n">W</span><span class="s2">&quot; followed by capital &quot;</span><span class="n">N</span><span class="s2">&quot; you can&#39;,&amp;</span>
+<span class="s2">&#39;define which key goes to Normal mode.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;In the gdb window in particular, you probably want to toggle between&#39;,&amp;</span>
+<span class="s2">&#39;the modes, because when scrolling is on command recall is not.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;When in Normal mode your interaction with the program is suspended,&#39;,&amp;</span>
+<span class="s2">&#39;so you want to return to the original mode or you cannot enter commands&#39;,&amp;</span>
+<span class="s2">&#39;in the gdb pane and cannot see new output or enter input in Normal mode.&#39;,&amp;</span>
+<span class="s2">&#39;To leave scrollable mode (enter &quot;</span><span class="n">i</span><span class="s2">&quot;) in the pane.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;You can define a key to enter the scrollable Terminal-Normal mode.&#39;,&amp;</span>
+<span class="s2">&#39;For example, to make F1 switch to Terminal-Normal mode:&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;     :tnoremap &lt;F1&gt; &lt;C-W&gt;N&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;Check out :help window-moving for more information on changing the&#39;,&amp;</span>
+<span class="s2">&#39;window layout.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;# MORE INFO&#39;,&amp;</span>
+<span class="s2">&#39;General gdb instructions are beyond the scope of this discussion, but&#39;,&amp;</span>
+<span class="s2">&#39;&quot;</span><span class="n">help</span><span class="s2">&quot; in the gdb pane can get you started.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;For the vim(1) terminal help go to the rightmost vim(1) window and enter&#39;,&amp;</span>
+<span class="s2">&#39;&quot;</span><span class="p">:</span><span class="n">help</span> <span class="n">terminal</span><span class="o">-</span><span class="n">debug</span><span class="s2">&quot;.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;EXAMPLES&#39;,&amp;</span>
+<span class="s2">&#39;     fpm gdb&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;     fpm gdb --compiler gfortran&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;     fpm gdb -w 132 -gdb &#39;&#39;source mycmds.gdb&#39;&#39;&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;     fpm gdb --example demo1&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;SEE ALSO&#39;,&amp;</span>
+<span class="s2">&#39;    gdb(1), fpm(1), vim(1)&#39;,&amp;</span>
+<span class="s2">&#39;&#39;]</span>
+<span class="s2">!&gt;</span>
+<span class="s2">!!##NAME</span>
+<span class="s2">!!    fpm-gdb(1f) - [FUNIX:FILESYSTEM] simple launch of gdb(1) from fpm(1)</span>
+<span class="s2">!!    (LICENSE:MIT)</span>
+<span class="s2">!!</span>
+<span class="s2">!!##SYNOPSIS</span>
+<span class="s2">!!</span>
+<span class="s2">!!     fpm-gdb [PROGRAM][ --help|--version]</span>
+<span class="s2">!!</span>
+<span class="s2">!!##DESCRIPTION</span>
+<span class="s2">!!    gdb(1f) is an fpm(1) plugin that starts up gdb(1).</span>
+<span class="s2">!!</span>
+<span class="s2">!!    It uses the vim(1) terminal feature. The terminal feature is optional.</span>
+<span class="s2">!!    Enter this in vim(1) to check if your version has it:</span>
+<span class="s2">!!</span>
+<span class="s2">!!        :echo has(&#39;terminal&#39;)</span>
+<span class="s2">!!</span>
+<span class="s2">!!    If the result is &quot;</span><span class="mi">1</span><span class="s2">&quot; you have it.</span>
+<span class="s2">!!</span>
+<span class="s2">!!</span>
+<span class="s2">!!##OPTIONS</span>
+<span class="s2">!!     PROGRAM       if more than one application is build in the package</span>
+<span class="s2">!!                   the name can be specified. Unlike with the &quot;</span><span class="n">fpm</span> <span class="n">run</span><span class="s2">&quot;</span>
+<span class="s2">!!                   command wildcards are not permitted.</span>
+<span class="s2">!!     --gdb CMDS    pass initial commands to gdb(1)</span>
+<span class="s2">!!     -w {80,132}   assumed screen width. Anything from 132 up places the</span>
+<span class="s2">!!                   code in a window on the left of the screen.</span>
+<span class="s2">!!     --verbose,-V  verbose mode</span>
+<span class="s2">!!     --version,-v  Print version information on standard output then</span>
+<span class="s2">!!                   exit successfully.</span>
+<span class="s2">!!     --help,-h     Print usage information on standard output then</span>
+<span class="s2">!!                   exit successfully.</span>
+<span class="s2">!!</span>
+<span class="s2">!!    In addition, the following options from the fpm(1) &quot;</span><span class="n">run</span><span class="s2">&quot; subcommand</span>
+<span class="s2">!!    are supported, noting that &quot;</span><span class="o">--</span><span class="n">profile</span> <span class="n">debug</span><span class="s2">&quot; is always specified as</span>
+<span class="s2">!!    well ...</span>
+<span class="s2">!!</span>
+<span class="s2">!!        --example    --no-prune  --link-flag  --flag</span>
+<span class="s2">!!        --directory  --compiler  --c-flag     --c-compiler</span>
+<span class="s2">!!        --archiver</span>
+<span class="s2">!!##GETTING STARTED</span>
+<span class="s2">!!</span>
+<span class="s2">!! You could set a breakpoint at the beginning of the program, list the</span>
+<span class="s2">!! program, set some other breakpoint and then start running the program</span>
+<span class="s2">!! (with optional arguments).  Clicking on &quot;</span><span class="n">next</span><span class="s2">&quot; would take you to the</span>
+<span class="s2">!! next breakpoint.</span>
+<span class="s2">!!</span>
+<span class="s2">!! Lets start in a terminal 132 characters wide and enter</span>
+<span class="s2">!!</span>
+<span class="s2">!!     fpm gdb -w 132</span>
+<span class="s2">!!</span>
+<span class="s2">!! and then in the gdb(1) command window enter</span>
+<span class="s2">!!</span>
+<span class="s2">!!     b main</span>
+<span class="s2">!!     list</span>
+<span class="s2">!!     b 40</span>
+<span class="s2">!!     run</span>
+<span class="s2">!!</span>
+<span class="s2">!! For some compilers &quot;</span><span class="n">b</span> <span class="mi">1</span><span class="s2">&quot;(e.g. Intel) might be required instead of &quot;</span><span class="n">b</span>
 <span class="c">!! main&quot;(e.g gfortran).</span>
 <span class="c">!!</span>
 <span class="c">!! Many other commands exist.  Assuming you are at your next breakpoint,</span>
@@ -880,12 +918,25 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="c">!!</span>
 <span class="c">!!      :tnoremap &lt;F1&gt; &lt;C-W&gt;N</span>
 <span class="c">!!</span>
+<span class="c">!! Check out :help window-moving for more information on changing the</span>
+<span class="c">!! window layout.</span>
+<span class="c">!!</span>
 <span class="c">!! # MORE INFO</span>
 <span class="c">!! General gdb instructions are beyond the scope of this discussion, but</span>
 <span class="c">!! &quot;help&quot; in the gdb pane can get you started.</span>
 <span class="c">!!</span>
 <span class="c">!! For the vim(1) terminal help go to the rightmost vim(1) window and enter</span>
 <span class="c">!! &quot;:help terminal-debug&quot;.</span>
+<span class="c">!!</span>
+<span class="c">!!##EXAMPLES</span>
+<span class="c">!!</span>
+<span class="c">!!      fpm gdb</span>
+<span class="c">!!</span>
+<span class="c">!!      fpm gdb --compiler gfortran</span>
+<span class="c">!!</span>
+<span class="c">!!      fpm gdb -w 132 -gdb &#39;source mycmds.gdb&#39;</span>
+<span class="c">!!</span>
+<span class="c">!!      fpm gdb --example demo1</span>
 <span class="c">!!</span>
 <span class="c">!!##SEE ALSO</span>
 <span class="c">!!     gdb(1), fpm(1), vim(1)</span>
@@ -919,7 +970,7 @@ subroutine <a href='../proc/setup.html'>setup</a>()
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2022-07-05 08:57  
+             on 2022-07-05 10:07  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> fpm-gdb was developed by John S. Urban</p></div>

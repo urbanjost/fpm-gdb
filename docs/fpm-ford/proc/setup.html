@@ -229,6 +229,7 @@ subroutine setup()
 <div class="codehilite"><pre><span></span><code> <span class="nv">PROGRAM</span>       <span class="k">if</span> <span class="nv">more</span> <span class="nv">than</span> <span class="nv">one</span> <span class="nv">application</span> <span class="nv">is</span> <span class="nv">build</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">package</span>
                <span class="nv">the</span> <span class="nv">name</span> <span class="nv">can</span> <span class="nv">be</span> <span class="nv">specified</span>. <span class="nv">Unlike</span> <span class="nv">with</span> <span class="nv">the</span> <span class="s2">&quot;</span><span class="s">fpm run</span><span class="s2">&quot;</span>
                <span class="nv">command</span> <span class="nv">wildcards</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">permitted</span>.
+ <span class="o">--</span><span class="nv">gdb</span> <span class="nv">CMDS</span>    <span class="nv">pass</span> <span class="nv">initial</span> <span class="nv">commands</span> <span class="nv">to</span> <span class="nv">gdb</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>
  <span class="o">-</span><span class="nv">w</span> {<span class="mi">80</span>,<span class="mi">132</span>}   <span class="nv">assumed</span> <span class="nv">screen</span> <span class="nv">width</span>. <span class="nv">Anything</span> <span class="nv">from</span> <span class="mi">132</span> <span class="nv">up</span> <span class="nv">places</span> <span class="nv">the</span>
                <span class="nv">code</span> <span class="nv">in</span> <span class="nv">a</span> <span class="nv">window</span> <span class="nv">on</span> <span class="nv">the</span> <span class="nv">left</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">screen</span>.
  <span class="o">--</span><span class="nv">verbose</span>,<span class="o">-</span><span class="nv">V</span>  <span class="nv">verbose</span> <span class="nv">mode</span>
@@ -296,11 +297,23 @@ subroutine setup()
 <div class="codehilite"><pre><span></span><code>  :tnoremap &lt;F1&gt; &lt;C-W&gt;N
 </code></pre></div>
 
+<p>Check out :help window-moving for more information on changing the
+ window layout.</p>
 <p># MORE INFO
  General gdb instructions are beyond the scope of this discussion, but
  &ldquo;help&rdquo; in the gdb pane can get you started.</p>
 <p>For the vim(1) terminal help go to the rightmost vim(1) window and enter
  &ldquo;:help terminal-debug&rdquo;.</p>
+<h2 id="examples">EXAMPLES</h2>
+<div class="codehilite"><pre><span></span><code>  fpm gdb
+
+  fpm gdb --compiler gfortran
+
+  fpm gdb -w 132 -gdb &#39;source mycmds.gdb&#39;
+
+  fpm gdb --example demo1
+</code></pre></div>
+
 <h2 id="see-also">SEE ALSO</h2>
 <div class="codehilite"><pre><span></span><code> gdb(1), fpm(1), vim(1)
 </code></pre></div>
@@ -398,6 +411,7 @@ subroutine setup()
 <span class="s1">&#39;    PROGRAM       if more than one application is build in the package&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;                  the name can be specified. Unlike with the &quot;fpm run&quot;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;                  command wildcards are not permitted.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;    --gdb CMDS    pass initial commands to gdb(1)&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;    -w {80,132}   assumed screen width. Anything from 132 up places the&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;                  code in a window on the left of the screen.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;    --verbose,-V  verbose mode&#39;</span><span class="p">,&amp;</span>
@@ -473,12 +487,24 @@ subroutine setup()
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;     :tnoremap &lt;F1&gt; &lt;C-W&gt;N&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;Check out :help window-moving for more information on changing the&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;window layout.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;# MORE INFO&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;General gdb instructions are beyond the scope of this discussion, but&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&quot;help&quot; in the gdb pane can get you started.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;For the vim(1) terminal help go to the rightmost vim(1) window and enter&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&quot;:help terminal-debug&quot;.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;EXAMPLES&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;     fpm gdb&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;     fpm gdb --compiler gfortran&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;     fpm gdb -w 132 -gdb &#39;&#39;source mycmds.gdb&#39;&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;     fpm gdb --example demo1&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;SEE ALSO&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;    gdb(1), fpm(1), vim(1)&#39;</span><span class="p">,&amp;</span>
@@ -507,6 +533,7 @@ subroutine setup()
 <span class="c">!!     PROGRAM       if more than one application is build in the package</span>
 <span class="c">!!                   the name can be specified. Unlike with the &quot;fpm run&quot;</span>
 <span class="c">!!                   command wildcards are not permitted.</span>
+<span class="c">!!     --gdb CMDS    pass initial commands to gdb(1)</span>
 <span class="c">!!     -w {80,132}   assumed screen width. Anything from 132 up places the</span>
 <span class="c">!!                   code in a window on the left of the screen.</span>
 <span class="c">!!     --verbose,-V  verbose mode</span>
@@ -582,12 +609,25 @@ subroutine setup()
 <span class="c">!!</span>
 <span class="c">!!      :tnoremap &lt;F1&gt; &lt;C-W&gt;N</span>
 <span class="c">!!</span>
+<span class="c">!! Check out :help window-moving for more information on changing the</span>
+<span class="c">!! window layout.</span>
+<span class="c">!!</span>
 <span class="c">!! # MORE INFO</span>
 <span class="c">!! General gdb instructions are beyond the scope of this discussion, but</span>
 <span class="c">!! &quot;help&quot; in the gdb pane can get you started.</span>
 <span class="c">!!</span>
 <span class="c">!! For the vim(1) terminal help go to the rightmost vim(1) window and enter</span>
 <span class="c">!! &quot;:help terminal-debug&quot;.</span>
+<span class="c">!!</span>
+<span class="c">!!##EXAMPLES</span>
+<span class="c">!!</span>
+<span class="c">!!      fpm gdb</span>
+<span class="c">!!</span>
+<span class="c">!!      fpm gdb --compiler gfortran</span>
+<span class="c">!!</span>
+<span class="c">!!      fpm gdb -w 132 -gdb &#39;source mycmds.gdb&#39;</span>
+<span class="c">!!</span>
+<span class="c">!!      fpm gdb --example demo1</span>
 <span class="c">!!</span>
 <span class="c">!!##SEE ALSO</span>
 <span class="c">!!     gdb(1), fpm(1), vim(1)</span>
@@ -621,7 +661,7 @@ subroutine setup()
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2022-07-05 08:57  
+             on 2022-07-05 10:07  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> fpm-gdb was developed by John S. Urban</p></div>

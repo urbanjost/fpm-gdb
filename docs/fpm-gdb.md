@@ -30,6 +30,10 @@ OPTIONS
     specified. Unlike with the "fpm run" command wildcards are not
     permitted.
 
+****--gdb** CMDS**
+
+:   pass initial commands to **gdb**(1)
+
 ****-w** {80,132}**
 
 :   assumed screen width. Anything from 132 up places the code in a
@@ -124,11 +128,25 @@ define which key goes to Normal mode.
 >
 >          :tnoremap <F1> <C-W>N
 >
+> Check out :help window-moving for more information on changing the
+> window layout.
+>
 > \# MORE INFO General gdb instructions are beyond the scope of this
 > discussion, but "help" in the gdb pane can get you started.
 >
 > For the **vim**(1) terminal help go to the rightmost **vim**(1) window
 > and enter ":help terminal-debug".
+
+EXAMPLES
+========
+
+fpm gdb
+
+fpm gdb **--compiler** gfortran
+
+fpm gdb **-w** 132 **-gdb** 'source mycmds.gdb'
+
+fpm gdb **--example** demo1
 
 SEE ALSO
 ========
