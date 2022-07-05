@@ -14,6 +14,13 @@ DESCRIPTION
 
 **gdb**(1f) is an **fpm**(1) plugin that starts up **gdb**(1).
 
+It uses the **vim**(1) terminal feature. The terminal feature is
+optional. Enter this in **vim**(1) to check if your version has it:
+
+           :echo has('terminal')
+
+If the result is "1" you have it.
+
 OPTIONS
 =======
 
@@ -111,6 +118,11 @@ define which key goes to Normal mode.
 > you want to return to the original mode or you cannot enter commands
 > in the gdb pane and cannot see new output or enter input in Normal
 > mode. To leave scrollable mode (enter "i") in the pane.
+>
+> You can define a key to enter the scrollable Terminal-Normal mode. For
+> example, to make F1 switch to Terminal-Normal mode:
+>
+>          :tnoremap <F1> <C-W>N
 >
 > \# MORE INFO General gdb instructions are beyond the scope of this
 > discussion, but "help" in the gdb pane can get you started.

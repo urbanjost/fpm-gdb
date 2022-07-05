@@ -215,7 +215,14 @@ subroutine setup()
 </code></pre></div>
 
 <h2 id="description">DESCRIPTION</h2>
-<div class="codehilite"><pre><span></span><code>gdb(1f) is an fpm(1) plugin that starts up gdb(1).
+<div class="codehilite"><pre><span></span><code><span class="nv">gdb</span><span class="ss">(</span><span class="mi">1</span><span class="nv">f</span><span class="ss">)</span> <span class="nv">is</span> <span class="nv">an</span> <span class="nv">fpm</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span> <span class="nv">plugin</span> <span class="nv">that</span> <span class="nv">starts</span> <span class="nv">up</span> <span class="nv">gdb</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>.
+
+<span class="nv">It</span> <span class="nv">uses</span> <span class="nv">the</span> <span class="nv">vim</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span> <span class="nv">terminal</span> <span class="nv">feature</span>. <span class="nv">The</span> <span class="nv">terminal</span> <span class="nv">feature</span> <span class="nv">is</span> <span class="nv">optional</span>.
+<span class="nv">Enter</span> <span class="nv">this</span> <span class="nv">in</span> <span class="nv">vim</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span> <span class="nv">to</span> <span class="nv">check</span> <span class="k">if</span> <span class="nv">your</span> <span class="nv">version</span> <span class="nv">has</span> <span class="nv">it</span>:
+
+    :<span class="nv">echo</span> <span class="nv">has</span><span class="ss">(</span><span class="s1">&#39;</span><span class="s">terminal</span><span class="s1">&#39;</span><span class="ss">)</span>
+
+<span class="k">If</span> <span class="nv">the</span> <span class="nb">result</span> <span class="nv">is</span> <span class="s2">&quot;</span><span class="s">1</span><span class="s2">&quot;</span> <span class="nv">you</span> <span class="nv">have</span> <span class="nv">it</span>.
 </code></pre></div>
 
 <h2 id="options">OPTIONS</h2>
@@ -284,6 +291,11 @@ subroutine setup()
  so you want to return to the original mode or you cannot enter commands
  in the gdb pane and cannot see new output or enter input in Normal mode.
  To leave scrollable mode (enter &ldquo;i&rdquo;) in the pane.</p>
+<p>You can define a key to enter the scrollable Terminal-Normal mode.
+ For example, to make F1 switch to Terminal-Normal mode:</p>
+<div class="codehilite"><pre><span></span><code>  :tnoremap &lt;F1&gt; &lt;C-W&gt;N
+</code></pre></div>
+
 <p># MORE INFO
  General gdb instructions are beyond the scope of this discussion, but
  &ldquo;help&rdquo; in the gdb pane can get you started.</p>
@@ -374,6 +386,14 @@ subroutine setup()
 <span class="s1">&#39;DESCRIPTION&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;   gdb(1f) is an fpm(1) plugin that starts up gdb(1).&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;   It uses the vim(1) terminal feature. The terminal feature is optional.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;   Enter this in vim(1) to check if your version has it:&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;       :echo has(&#39;&#39;terminal&#39;&#39;)&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;   If the result is &quot;1&quot; you have it.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;OPTIONS&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;    PROGRAM       if more than one application is build in the package&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;                  the name can be specified. Unlike with the &quot;fpm run&quot;&#39;</span><span class="p">,&amp;</span>
@@ -448,6 +468,11 @@ subroutine setup()
 <span class="s1">&#39;in the gdb pane and cannot see new output or enter input in Normal mode.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;To leave scrollable mode (enter &quot;i&quot;) in the pane.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;You can define a key to enter the scrollable Terminal-Normal mode.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;For example, to make F1 switch to Terminal-Normal mode:&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;     :tnoremap &lt;F1&gt; &lt;C-W&gt;N&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;# MORE INFO&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;General gdb instructions are beyond the scope of this discussion, but&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&quot;help&quot; in the gdb pane can get you started.&#39;</span><span class="p">,&amp;</span>
@@ -469,6 +494,14 @@ subroutine setup()
 <span class="c">!!</span>
 <span class="c">!!##DESCRIPTION</span>
 <span class="c">!!    gdb(1f) is an fpm(1) plugin that starts up gdb(1).</span>
+<span class="c">!!</span>
+<span class="c">!!    It uses the vim(1) terminal feature. The terminal feature is optional.</span>
+<span class="c">!!    Enter this in vim(1) to check if your version has it:</span>
+<span class="c">!!</span>
+<span class="c">!!        :echo has(&#39;terminal&#39;)</span>
+<span class="c">!!</span>
+<span class="c">!!    If the result is &quot;1&quot; you have it.</span>
+<span class="c">!!</span>
 <span class="c">!!</span>
 <span class="c">!!##OPTIONS</span>
 <span class="c">!!     PROGRAM       if more than one application is build in the package</span>
@@ -544,6 +577,11 @@ subroutine setup()
 <span class="c">!! in the gdb pane and cannot see new output or enter input in Normal mode.</span>
 <span class="c">!! To leave scrollable mode (enter &quot;i&quot;) in the pane.</span>
 <span class="c">!!</span>
+<span class="c">!! You can define a key to enter the scrollable Terminal-Normal mode.</span>
+<span class="c">!! For example, to make F1 switch to Terminal-Normal mode:</span>
+<span class="c">!!</span>
+<span class="c">!!      :tnoremap &lt;F1&gt; &lt;C-W&gt;N</span>
+<span class="c">!!</span>
 <span class="c">!! # MORE INFO</span>
 <span class="c">!! General gdb instructions are beyond the scope of this discussion, but</span>
 <span class="c">!! &quot;help&quot; in the gdb pane can get you started.</span>
@@ -583,7 +621,7 @@ subroutine setup()
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2022-07-04 02:26  
+             on 2022-07-05 08:57  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> fpm-gdb was developed by John S. Urban</p></div>

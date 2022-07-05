@@ -5,6 +5,7 @@ implicit none
 logical                      :: verbose
 character(len=:),allocatable :: help(:),version(:)
 character(len=:),allocatable :: cmd
+character(len=:),allocatable :: dir
 integer :: width
 integer :: i
 type(streampointer) :: fp ! C file pointer returned by process_open()
@@ -57,8 +58,19 @@ character(len=:),allocatable :: options
       endif
       cmd=cmd//" -c 'packadd termdebug' "
       cmd=cmd//" -c 'resize +10' "
+      cmd=cmd//" -c ':tnoremap <F1> <C-W>N' "
       cmd=cmd//" -c 'Termdebug "//trim(line)//"'"
-      cmd=cmd//' app*.f90"'
+      ! assuming in app/ and that a .f90 or .F90 file; could leave this off or generalize
+      if(specified('example'))then
+              dir='example'
+      else
+              dir='app'
+      endif
+      if(leafs(i).eq.'')then
+         cmd=cmd//' '//dir//'/*.[fF]90"'
+      else
+         cmd=cmd//' '//dir//'/'//leafs(i)//'.[fF]90"'
+      endif
       if(lget('verbose'))then
          write(*,*)trim(cmd)
       endif
@@ -76,6 +88,14 @@ help=[ CHARACTER(LEN=128) :: &
 '',&
 'DESCRIPTION',&
 '   gdb(1f) is an fpm(1) plugin that starts up gdb(1).',&
+'',&
+'   It uses the vim(1) terminal feature. The terminal feature is optional.',&
+'   Enter this in vim(1) to check if your version has it:',&
+'',&
+'       :echo has(''terminal'')',&
+'',&
+'   If the result is "1" you have it.',&
+'',&
 '',&
 'OPTIONS',&
 '    PROGRAM       if more than one application is build in the package',&
@@ -151,6 +171,11 @@ help=[ CHARACTER(LEN=128) :: &
 'in the gdb pane and cannot see new output or enter input in Normal mode.',&
 'To leave scrollable mode (enter "i") in the pane.',&
 '',&
+'You can define a key to enter the scrollable Terminal-Normal mode.',&
+'For example, to make F1 switch to Terminal-Normal mode:',&
+'',&
+'     :tnoremap <F1> <C-W>N',&
+'',&
 '# MORE INFO',&
 'General gdb instructions are beyond the scope of this discussion, but',&
 '"help" in the gdb pane can get you started.',&
@@ -172,6 +197,14 @@ help=[ CHARACTER(LEN=128) :: &
 !!
 !!##DESCRIPTION
 !!    gdb(1f) is an fpm(1) plugin that starts up gdb(1).
+!!
+!!    It uses the vim(1) terminal feature. The terminal feature is optional.
+!!    Enter this in vim(1) to check if your version has it:
+!!
+!!        :echo has('terminal')
+!!
+!!    If the result is "1" you have it.
+!!
 !!
 !!##OPTIONS
 !!     PROGRAM       if more than one application is build in the package
@@ -246,6 +279,11 @@ help=[ CHARACTER(LEN=128) :: &
 !! so you want to return to the original mode or you cannot enter commands
 !! in the gdb pane and cannot see new output or enter input in Normal mode.
 !! To leave scrollable mode (enter "i") in the pane.
+!!
+!! You can define a key to enter the scrollable Terminal-Normal mode.
+!! For example, to make F1 switch to Terminal-Normal mode:
+!!
+!!      :tnoremap <F1> <C-W>N
 !!
 !! # MORE INFO
 !! General gdb instructions are beyond the scope of this discussion, but
