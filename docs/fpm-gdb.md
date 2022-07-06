@@ -139,7 +139,8 @@ leave scrollable mode (enter "i") in the pane.
 Check out :help window-moving for more information on changing the
 window layout.
 
-\# MORE INFO
+MORE INFO
+=========
 
 General gdb instructions are beyond the scope of this discussion, but
 "help" in the gdb pane can get you started.
