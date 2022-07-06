@@ -122,7 +122,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="100.0% of total for programs.">72 statements</a>
+    title="100.0% of total for programs.">71 statements</a>
      </li> 
      
      
@@ -189,7 +189,7 @@
       
       <a class="list-group-item" href="../program/gdb.html#variable-version">version</a>
       
-      <a class="list-group-item" href="../program/gdb.html#variable-width">width</a>
+      <a class="list-group-item" href="../program/gdb.html#variable-wide">wide</a>
       
     </div>
   </div>
@@ -304,7 +304,7 @@
       
       <a class="list-group-item" href="../program/gdb.html#variable-version">version</a>
       
-      <a class="list-group-item" href="../program/gdb.html#variable-width">width</a>
+      <a class="list-group-item" href="../program/gdb.html#variable-wide">wide</a>
       
     </div>
   </div>
@@ -542,11 +542,11 @@
   
 <tr>
   
-  <td><span class="anchor" id="variable-width"></span>integer</td>
+  <td><span class="anchor" id="variable-wide"></span>integer</td>
   
   
   <td></td><td>::</td>
-  <td><strong>width</strong></td><td></td><td></td><td></td>
+  <td><strong>wide</strong></td><td></td><td></td><td></td>
   
 </tr>
 
@@ -590,10 +590,7 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 
 
 
-<p>You could set a breakpoint at the beginning of the program, list the
- program, set some other breakpoint and then start running the program
- (with optional arguments).  Clicking on &ldquo;next&rdquo; would take you to the
- next breakpoint.</p><a href="../proc/setup.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+<p>Lets start in a terminal at least 132 characters wide and enter</p><a href="../proc/setup.html" class="pull-right"><emph>Read more&hellip;</emph></a>
     
     <h4>Arguments</h4>
     
@@ -620,7 +617,7 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">cmd</span>
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">dir</span>
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">cmd_gdb</span>
-<span class="kt">integer</span> <span class="kd">::</span> <span class="n">width</span>
+<span class="kt">integer</span> <span class="kd">::</span> <span class="n">wide</span>
 <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span>
 <span class="k">type</span><span class="p">(</span><span class="n">streampointer</span><span class="p">)</span> <span class="kd">::</span> <span class="n">fp</span> <span class="c">! C file pointer returned by process_open()</span>
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span> <span class="kd">::</span> <span class="n">line</span>
@@ -639,21 +636,20 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="k">options</span>
    <span class="c">! process command-line options</span>
    <span class="k">call </span><span class="n">setup</span><span class="p">()</span>
-   <span class="k">call </span><span class="n">set_args</span><span class="p">(</span><span class="s1">&#39; --width:w 80 &#39;</span><span class="o">//</span><span class="n">common_options</span><span class="p">,</span><span class="n">help</span><span class="p">,</span><span class="n">version</span><span class="p">)</span>
+   <span class="k">call </span><span class="n">set_args</span><span class="p">(</span><span class="s1">&#39; --wide:w F &#39;</span><span class="o">//</span><span class="n">common_options</span><span class="p">,</span><span class="n">help</span><span class="p">,</span><span class="n">version</span><span class="p">)</span>
    <span class="n">verbose</span><span class="o">=</span><span class="n">lget</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">)</span>
    <span class="n">cmd_gdb</span><span class="o">=</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;gdb&#39;</span><span class="p">)</span>
    <span class="k">options</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
-   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;no-prune&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --noprune &#39;</span>
-   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --example &#39;</span>
-   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;directory&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --directory &#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;directory&#39;</span><span class="p">)</span>
-   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;compiler&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --compiler &#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;compiler&#39;</span><span class="p">)</span>
-   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;link-flag&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --link-flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;link-flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
-   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;flag&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
-   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;c-flag&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --c-flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;c-flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
-   <span class="k">if</span><span class="p">(</span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;archiver&#39;</span><span class="p">))</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --archiver &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;archiver&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
-   <span class="k">write</span><span class="p">(</span><span class="o">*</span><span class="p">,</span><span class="o">*</span><span class="p">)</span><span class="s1">&#39;options=&#39;</span><span class="p">,</span><span class="k">options</span>
+   <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;no-prune&#39;</span><span class="p">)</span>  <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --noprune &#39;</span>
+   <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>   <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --example &#39;</span>
+   <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;directory&#39;</span><span class="p">)</span> <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --directory &#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;directory&#39;</span><span class="p">)</span>
+   <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;compiler&#39;</span><span class="p">)</span>  <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --compiler &#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;compiler&#39;</span><span class="p">)</span>
+   <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;link-flag&#39;</span><span class="p">)</span> <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --link-flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;link-flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
+   <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;flag&#39;</span><span class="p">)</span>      <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
+   <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;c-flag&#39;</span><span class="p">)</span>    <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --c-flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;c-flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
+   <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;archiver&#39;</span><span class="p">)</span>  <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --archiver &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;archiver&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
 
-<span class="k">   if</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">leafs</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="n">leafs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
+   <span class="k">if</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">leafs</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="n">leafs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
    <span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="n">leafs</span><span class="p">)</span>
 
       <span class="c">! need to make a call to the fpm API to get the program cleanly.</span>
@@ -669,28 +665,28 @@ subroutine <a href='../proc/setup.html'>setup</a>()
       <span class="k">endif</span>
 <span class="k">      </span><span class="n">cmd</span><span class="o">=</span><span class="s1">&#39;fpm run &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">leafs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">//</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --profile debug --runner &quot;&#39;</span>
       <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot;vim -c &#39;set mouse=a&#39; &quot;</span>
-      <span class="k">if</span><span class="p">(</span><span class="n">iget</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">).</span><span class="n">ge</span><span class="p">.</span><span class="mi">132</span><span class="p">)</span><span class="k">then</span>
+      <span class="k">if</span><span class="p">(</span> <span class="n">lget</span><span class="p">(</span><span class="s1">&#39;wide&#39;</span><span class="p">)</span> <span class="p">)</span><span class="k">then</span>
 <span class="k">          </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;let g:termdebug_wide=1&#39;&quot;</span>
       <span class="k">endif</span>
 <span class="k">      </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;packadd termdebug&#39; &quot;</span>
       <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;resize +10&#39; &quot;</span>
       <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;:tnoremap &lt;F1&gt; &lt;C-W&gt;N&#39; &quot;</span>
       <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;Termdebug &quot;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">//</span><span class="s2">&quot;&#39; &quot;</span>
-      <span class="k">if</span><span class="p">(</span><span class="n">cmd_gdb</span><span class="p">.</span><span class="n">ne</span><span class="p">.</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="k">then</span>
-<span class="k">         </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot;-c \&quot;&quot;</span><span class="k">call </span><span class="n">TermDebugSendCommand</span><span class="p">(</span><span class="s1">&#39;&quot;//cmd_gdb//&quot;&#39;</span><span class="p">)</span><span class="err">\</span><span class="s2">&quot;&quot;</span> <span class="s2">&quot;</span>
+      <span class="k">if</span><span class="p">(</span> <span class="n">cmd_gdb</span> <span class="p">.</span><span class="n">ne</span><span class="p">.</span> <span class="s1">&#39;&#39;</span> <span class="p">)</span><span class="k">then</span>
+<span class="k">         </span><span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">//</span><span class="s2">&quot;-c \&quot;&quot;</span><span class="k">call </span><span class="n">TermDebugSendCommand</span><span class="p">(</span><span class="s1">&#39;&quot;//cmd_gdb//&quot;&#39;</span><span class="p">)</span><span class="err">\</span><span class="s2">&quot;&quot;</span> <span class="s2">&quot;</span>
 <span class="s2">      endif</span>
-<span class="s2">      ! assuming in app/ and that a .f90 or .F90 file; could leave this off or generalize</span>
-<span class="s2">      if(specified(&#39;example&#39;))then</span>
+<span class="s2">      ! assuming in app/ and thatka .f90 or .F90 file; could leave this off or generalize</span>
+<span class="s2">      if( specified(&#39;example&#39;) )then</span>
 <span class="s2">              dir=&#39;example&#39;</span>
 <span class="s2">      else</span>
 <span class="s2">              dir=&#39;app&#39;</span>
 <span class="s2">      endif</span>
-<span class="s2">      if(leafs(i).eq.&#39;&#39;)then</span>
+<span class="s2">      if( leafs(i) .eq. &#39;&#39; )then</span>
 <span class="s2">         cmd=cmd//&#39; &#39;//dir//&#39;/*.[fF]90&quot;</span><span class="s1">&#39;</span>
 <span class="s1">      else</span>
 <span class="s1">         cmd=cmd//&#39;</span> <span class="s1">&#39;//dir//&#39;</span><span class="o">/</span><span class="s1">&#39;//leafs(i)//&#39;</span><span class="p">.[</span><span class="n">fF</span><span class="p">]</span><span class="mi">90</span><span class="s2">&quot;&#39;</span>
 <span class="s2">      endif</span>
-<span class="s2">      if(lget(&#39;verbose&#39;))then</span>
+<span class="s2">      if( lget(&#39;verbose&#39;) )then</span>
 <span class="s2">         write(*,*)trim(cmd)</span>
 <span class="s2">      endif</span>
 <span class="s2">      call execute_command_line(cmd)</span>
@@ -699,14 +695,15 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="s2">subroutine setup()</span>
 <span class="s2">help=[ CHARACTER(LEN=128) :: &amp;</span>
 <span class="s2">&#39;NAME&#39;,&amp;</span>
-<span class="s2">&#39;   fpm-gdb(1f) - [FUNIX:FILESYSTEM] simple launch of gdb(1) from fpm(1)&#39;,&amp;</span>
+<span class="s2">&#39;   fpm-gdb(1f) - [FUNIX:FILESYSTEM] launch gdb(1) in vim(1) from fpm(1)&#39;,&amp;</span>
 <span class="s2">&#39;   (LICENSE:MIT)&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;SYNOPSIS&#39;,&amp;</span>
-<span class="s2">&#39;    fpm-gdb [PROGRAM][ --help|--version]&#39;,&amp;</span>
+<span class="s2">&#39;    fpm-gdb [PROGRAM][OPTIONS][ --help|--version]&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;DESCRIPTION&#39;,&amp;</span>
-<span class="s2">&#39;   gdb(1f) is an fpm(1) plugin that starts up gdb(1).&#39;,&amp;</span>
+<span class="s2">&#39;   fpm-gdb(1f) is an fpm(1) plugin that starts up gdb(1) in the vim(1)&#39;,&amp;</span>
+<span class="s2">&#39;   editor.&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;   It uses the vim(1) terminal feature. The terminal feature is optional.&#39;,&amp;</span>
 <span class="s2">&#39;   Enter this in vim(1) to check if your version has it:&#39;,&amp;</span>
@@ -717,12 +714,15 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;OPTIONS&#39;,&amp;</span>
-<span class="s2">&#39;    PROGRAM       if more than one application is build in the package&#39;,&amp;</span>
-<span class="s2">&#39;                  the name can be specified. Unlike with the &quot;</span><span class="n">fpm</span> <span class="n">run</span><span class="s2">&quot;&#39;,&amp;</span>
+<span class="s2">&#39;    PROGRAM       if more than one application is built by the package&#39;,&amp;</span>
+<span class="s2">&#39;                  the name must be specified. Unlike with the &quot;</span><span class="n">fpm</span> <span class="n">run</span><span class="s2">&quot;&#39;,&amp;</span>
 <span class="s2">&#39;                  command wildcards are not permitted.&#39;,&amp;</span>
 <span class="s2">&#39;    --gdb CMDS    pass initial commands to gdb(1)&#39;,&amp;</span>
-<span class="s2">&#39;    -w {80,132}   assumed screen width. Anything from 132 up places the&#39;,&amp;</span>
-<span class="s2">&#39;                  code in a window on the left of the screen.&#39;,&amp;</span>
+<span class="s2">&#39;    -wide,-w      assume a wide screen width. Wide mode places the&#39;,&amp;</span>
+<span class="s2">&#39;                  code in a window on the left of the screen. &lt;C-W&gt;&#39;,&amp;</span>
+<span class="s2">&#39;                  followed by one of {RHKLJ} can change the window&#39;,&amp;</span>
+<span class="s2">&#39;                  layout.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;    --verbose,-V  verbose mode&#39;,&amp;</span>
 <span class="s2">&#39;    --version,-v  Print version information on standard output then&#39;,&amp;</span>
 <span class="s2">&#39;                  exit successfully.&#39;,&amp;</span>
@@ -736,16 +736,11 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="s2">&#39;       --example    --no-prune  --link-flag  --flag&#39;,&amp;</span>
 <span class="s2">&#39;       --directory  --compiler  --c-flag     --c-compiler&#39;,&amp;</span>
 <span class="s2">&#39;       --archiver&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;GETTING STARTED&#39;,&amp;</span>
+<span class="s2">&#39;Lets start in a terminal at least 132 characters wide and enter&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
-<span class="s2">&#39;You could set a breakpoint at the beginning of the program, list the&#39;,&amp;</span>
-<span class="s2">&#39;program, set some other breakpoint and then start running the program&#39;,&amp;</span>
-<span class="s2">&#39;(with optional arguments).  Clicking on &quot;</span><span class="n">next</span><span class="s2">&quot; would take you to the&#39;,&amp;</span>
-<span class="s2">&#39;next breakpoint.&#39;,&amp;</span>
-<span class="s2">&#39;&#39;,&amp;</span>
-<span class="s2">&#39;Lets start in a terminal 132 characters wide and enter&#39;,&amp;</span>
-<span class="s2">&#39;&#39;,&amp;</span>
-<span class="s2">&#39;    fpm gdb -w 132&#39;,&amp;</span>
+<span class="s2">&#39;     fpm gdb --wide&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;and then in the gdb(1) command window enter&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
@@ -753,6 +748,11 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="s2">&#39;    list&#39;,&amp;</span>
 <span class="s2">&#39;    b 40&#39;,&amp;</span>
 <span class="s2">&#39;    run&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;This will set a breakpoint at the beginning of the program, start listing&#39;,&amp;</span>
+<span class="s2">&#39;the program, set some other breakpoint and then start running the program&#39;,&amp;</span>
+<span class="s2">&#39;(with optional arguments).  Clicking on &quot;</span><span class="n">next</span><span class="s2">&quot; would take you to the&#39;,&amp;</span>
+<span class="s2">&#39;next breakpoint.&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;For some compilers &quot;</span><span class="n">b</span> <span class="mi">1</span><span class="s2">&quot;(e.g. Intel) might be required instead of &quot;</span><span class="n">b</span><span class="s1">&#39;,&amp;</span>
 <span class="s1">&#39;</span><span class="n">main</span><span class="s2">&quot;(e.g gfortran).&#39;,&amp;</span>
@@ -765,23 +765,32 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="s2">&#39;    info locals&#39;,&amp;</span>
 <span class="s2">&#39;    print i&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
-<span class="s2">&#39;USING THE MOUSE TO SET BREAK POINTS&#39;,&amp;</span>
-<span class="s2">&#39;If you click mouse 3 in the code file you should get an option menu for&#39;,&amp;</span>
-<span class="s2">&#39;setting and clearing breakpoints.&#39;,&amp;</span>
+<span class="s2">&#39;USING THE MOUSE&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
-<span class="s2">&#39;Assuming your terminal window supports vim(1) mouse mode, you can use the&#39;,&amp;</span>
-<span class="s2">&#39;mouse in various ways. For example, You can click on variables and the&#39;,&amp;</span>
-<span class="s2">&#39;[eval] button.&#39;,&amp;</span>
+<span class="s2">&#39;Assuming your terminal window supports vim(1) mouse mode, you can use&#39;,&amp;</span>
+<span class="s2">&#39;the mouse in various ways. For example&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;   TO SET BREAK POINTS&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;   If you click the right mouse in the code file you should get an option&#39;,&amp;</span>
+<span class="s2">&#39;   menu for setting and clearing breakpoints.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;   TO EVALATE VARIABLES&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;   click on variables to highlight them and click the [eval] icon.&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;SCROLLING&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;The gdb and output windows will not be in Normal mode and so&#39;,&amp;</span>
 <span class="s2">&#39;will not scroll by default. When focus is on the window that will not&#39;,&amp;</span>
 <span class="s2">&#39;scroll enter &quot;</span><span class="n">ctrl</span><span class="o">-</span><span class="n">W</span> <span class="n">N</span><span class="s2">&quot; to go to scrollable, and enter &quot;</span><span class="n">i</span><span class="s2">&quot; to return&#39;,&amp;</span>
 <span class="s2">&#39;to the original mode.&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;On some platforms instead of &quot;</span><span class="n">ctrl</span><span class="o">-</span><span class="n">W</span><span class="s2">&quot; followed by capital &quot;</span><span class="n">N</span><span class="s2">&quot; you can&#39;,&amp;</span>
-<span class="s2">&#39;define which key goes to Normal mode.&#39;,&amp;</span>
+<span class="s2">&#39;define which key goes to Normal mode. For example, to define F1 to&#39;,&amp;</span>
+<span class="s2">&#39;switch to Terminal-Normal mode:&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;     :tnoremap &lt;F1&gt; &lt;C-W&gt;N&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;In the gdb window in particular, you probably want to toggle between&#39;,&amp;</span>
 <span class="s2">&#39;the modes, because when scrolling is on command recall is not.&#39;,&amp;</span>
@@ -791,15 +800,11 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="s2">&#39;in the gdb pane and cannot see new output or enter input in Normal mode.&#39;,&amp;</span>
 <span class="s2">&#39;To leave scrollable mode (enter &quot;</span><span class="n">i</span><span class="s2">&quot;) in the pane.&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
-<span class="s2">&#39;You can define a key to enter the scrollable Terminal-Normal mode.&#39;,&amp;</span>
-<span class="s2">&#39;For example, to make F1 switch to Terminal-Normal mode:&#39;,&amp;</span>
-<span class="s2">&#39;&#39;,&amp;</span>
-<span class="s2">&#39;     :tnoremap &lt;F1&gt; &lt;C-W&gt;N&#39;,&amp;</span>
-<span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;Check out :help window-moving for more information on changing the&#39;,&amp;</span>
 <span class="s2">&#39;window layout.&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;# MORE INFO&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;General gdb instructions are beyond the scope of this discussion, but&#39;,&amp;</span>
 <span class="s2">&#39;&quot;</span><span class="n">help</span><span class="s2">&quot; in the gdb pane can get you started.&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
@@ -811,7 +816,8 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;     fpm gdb --compiler gfortran&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
-<span class="s2">&#39;     fpm gdb -w 132 -gdb &#39;&#39;source mycmds.gdb&#39;&#39;&#39;,&amp;</span>
+<span class="s2">&#39;     # run with initial gdb(1) commands in a file&#39;,&amp;</span>
+<span class="s2">&#39;     fpm gdb -wide -gdb &#39;&#39;source mycmds.gdb&#39;&#39;&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;     fpm gdb --example demo1&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
@@ -820,15 +826,16 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="s2">&#39;&#39;]</span>
 <span class="s2">!&gt;</span>
 <span class="s2">!!##NAME</span>
-<span class="s2">!!    fpm-gdb(1f) - [FUNIX:FILESYSTEM] simple launch of gdb(1) from fpm(1)</span>
+<span class="s2">!!    fpm-gdb(1f) - [FUNIX:FILESYSTEM] launch gdb(1) in vim(1) from fpm(1)</span>
 <span class="s2">!!    (LICENSE:MIT)</span>
 <span class="s2">!!</span>
 <span class="s2">!!##SYNOPSIS</span>
 <span class="s2">!!</span>
-<span class="s2">!!     fpm-gdb [PROGRAM][ --help|--version]</span>
+<span class="s2">!!     fpm-gdb [PROGRAM][OPTIONS][ --help|--version]</span>
 <span class="s2">!!</span>
 <span class="s2">!!##DESCRIPTION</span>
-<span class="s2">!!    gdb(1f) is an fpm(1) plugin that starts up gdb(1).</span>
+<span class="s2">!!    fpm-gdb(1f) is an fpm(1) plugin that starts up gdb(1) in the vim(1)</span>
+<span class="s2">!!    editor.</span>
 <span class="s2">!!</span>
 <span class="s2">!!    It uses the vim(1) terminal feature. The terminal feature is optional.</span>
 <span class="s2">!!    Enter this in vim(1) to check if your version has it:</span>
@@ -839,12 +846,15 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="s2">!!</span>
 <span class="s2">!!</span>
 <span class="s2">!!##OPTIONS</span>
-<span class="s2">!!     PROGRAM       if more than one application is build in the package</span>
-<span class="s2">!!                   the name can be specified. Unlike with the &quot;</span><span class="n">fpm</span> <span class="n">run</span><span class="s2">&quot;</span>
+<span class="s2">!!     PROGRAM       if more than one application is built by the package</span>
+<span class="s2">!!                   the name must be specified. Unlike with the &quot;</span><span class="n">fpm</span> <span class="n">run</span><span class="s2">&quot;</span>
 <span class="s2">!!                   command wildcards are not permitted.</span>
 <span class="s2">!!     --gdb CMDS    pass initial commands to gdb(1)</span>
-<span class="s2">!!     -w {80,132}   assumed screen width. Anything from 132 up places the</span>
-<span class="s2">!!                   code in a window on the left of the screen.</span>
+<span class="s2">!!     -wide,-w      assume a wide screen width. Wide mode places the</span>
+<span class="s2">!!                   code in a window on the left of the screen. &lt;C-W&gt;</span>
+<span class="s2">!!                   followed by one of {RHKLJ} can change the window</span>
+<span class="s2">!!                   layout.</span>
+<span class="s2">!!</span>
 <span class="s2">!!     --verbose,-V  verbose mode</span>
 <span class="s2">!!     --version,-v  Print version information on standard output then</span>
 <span class="s2">!!                   exit successfully.</span>
@@ -858,16 +868,11 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="s2">!!        --example    --no-prune  --link-flag  --flag</span>
 <span class="s2">!!        --directory  --compiler  --c-flag     --c-compiler</span>
 <span class="s2">!!        --archiver</span>
+<span class="s2">!!</span>
 <span class="s2">!!##GETTING STARTED</span>
+<span class="s2">!! Lets start in a terminal at least 132 characters wide and enter</span>
 <span class="s2">!!</span>
-<span class="s2">!! You could set a breakpoint at the beginning of the program, list the</span>
-<span class="s2">!! program, set some other breakpoint and then start running the program</span>
-<span class="s2">!! (with optional arguments).  Clicking on &quot;</span><span class="n">next</span><span class="s2">&quot; would take you to the</span>
-<span class="s2">!! next breakpoint.</span>
-<span class="s2">!!</span>
-<span class="s2">!! Lets start in a terminal 132 characters wide and enter</span>
-<span class="s2">!!</span>
-<span class="s2">!!     fpm gdb -w 132</span>
+<span class="s2">!!      fpm gdb --wide</span>
 <span class="s2">!!</span>
 <span class="s2">!! and then in the gdb(1) command window enter</span>
 <span class="s2">!!</span>
@@ -875,6 +880,11 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="s2">!!     list</span>
 <span class="s2">!!     b 40</span>
 <span class="s2">!!     run</span>
+<span class="s2">!!</span>
+<span class="s2">!! This will set a breakpoint at the beginning of the program, start listing</span>
+<span class="s2">!! the program, set some other breakpoint and then start running the program</span>
+<span class="s2">!! (with optional arguments).  Clicking on &quot;</span><span class="n">next</span><span class="s2">&quot; would take you to the</span>
+<span class="s2">!! next breakpoint.</span>
 <span class="s2">!!</span>
 <span class="s2">!! For some compilers &quot;</span><span class="n">b</span> <span class="mi">1</span><span class="s2">&quot;(e.g. Intel) might be required instead of &quot;</span><span class="n">b</span>
 <span class="c">!! main&quot;(e.g gfortran).</span>
@@ -887,23 +897,32 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="c">!!     info locals</span>
 <span class="c">!!     print i</span>
 <span class="c">!!</span>
-<span class="c">!!##USING THE MOUSE TO SET BREAK POINTS</span>
-<span class="c">!! If you click mouse 3 in the code file you should get an option menu for</span>
-<span class="c">!! setting and clearing breakpoints.</span>
+<span class="c">!!##USING THE MOUSE</span>
 <span class="c">!!</span>
-<span class="c">!! Assuming your terminal window supports vim(1) mouse mode, you can use the</span>
-<span class="c">!! mouse in various ways. For example, You can click on variables and the</span>
-<span class="c">!! [eval] button.</span>
+<span class="c">!! Assuming your terminal window supports vim(1) mouse mode, you can use</span>
+<span class="c">!! the mouse in various ways. For example</span>
+<span class="c">!!</span>
+<span class="c">!!    TO SET BREAK POINTS</span>
+<span class="c">!!</span>
+<span class="c">!!    If you click the right mouse in the code file you should get an option</span>
+<span class="c">!!    menu for setting and clearing breakpoints.</span>
+<span class="c">!!</span>
+<span class="c">!!    TO EVALATE VARIABLES</span>
+<span class="c">!!</span>
+<span class="c">!!    click on variables to highlight them and click the [eval] icon.</span>
 <span class="c">!!</span>
 <span class="c">!!##SCROLLING</span>
+<span class="c">!!</span>
 <span class="c">!! The gdb and output windows will not be in Normal mode and so</span>
 <span class="c">!! will not scroll by default. When focus is on the window that will not</span>
 <span class="c">!! scroll enter &quot;ctrl-W N&quot; to go to scrollable, and enter &quot;i&quot; to return</span>
 <span class="c">!! to the original mode.</span>
 <span class="c">!!</span>
 <span class="c">!! On some platforms instead of &quot;ctrl-W&quot; followed by capital &quot;N&quot; you can</span>
-<span class="c">!! define which key goes to Normal mode.</span>
+<span class="c">!! define which key goes to Normal mode. For example, to define F1 to</span>
+<span class="c">!! switch to Terminal-Normal mode:</span>
 <span class="c">!!</span>
+<span class="c">!!      :tnoremap &lt;F1&gt; &lt;C-W&gt;N</span>
 <span class="c">!!</span>
 <span class="c">!! In the gdb window in particular, you probably want to toggle between</span>
 <span class="c">!! the modes, because when scrolling is on command recall is not.</span>
@@ -913,15 +932,11 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="c">!! in the gdb pane and cannot see new output or enter input in Normal mode.</span>
 <span class="c">!! To leave scrollable mode (enter &quot;i&quot;) in the pane.</span>
 <span class="c">!!</span>
-<span class="c">!! You can define a key to enter the scrollable Terminal-Normal mode.</span>
-<span class="c">!! For example, to make F1 switch to Terminal-Normal mode:</span>
-<span class="c">!!</span>
-<span class="c">!!      :tnoremap &lt;F1&gt; &lt;C-W&gt;N</span>
-<span class="c">!!</span>
 <span class="c">!! Check out :help window-moving for more information on changing the</span>
 <span class="c">!! window layout.</span>
 <span class="c">!!</span>
 <span class="c">!! # MORE INFO</span>
+<span class="c">!!</span>
 <span class="c">!! General gdb instructions are beyond the scope of this discussion, but</span>
 <span class="c">!! &quot;help&quot; in the gdb pane can get you started.</span>
 <span class="c">!!</span>
@@ -934,7 +949,8 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="c">!!</span>
 <span class="c">!!      fpm gdb --compiler gfortran</span>
 <span class="c">!!</span>
-<span class="c">!!      fpm gdb -w 132 -gdb &#39;source mycmds.gdb&#39;</span>
+<span class="c">!!      # run with initial gdb(1) commands in a file</span>
+<span class="c">!!      fpm gdb -wide -gdb &#39;source mycmds.gdb&#39;</span>
 <span class="c">!!</span>
 <span class="c">!!      fpm gdb --example demo1</span>
 <span class="c">!!</span>
@@ -970,7 +986,7 @@ subroutine <a href='../proc/setup.html'>setup</a>()
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2022-07-05 21:53  
+             on 2022-07-06 06:11  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> fpm-gdb was developed by John S. Urban</p></div>

@@ -53,7 +53,7 @@ a.existingWikiWord[title]{ //border: 1px dashed #BBB; }
 
 </A>
 <BLOCKQUOTE>
-<B>fpm-gdb</B>(1f) - [FUNIX:FILESYSTEM] simple launch of <B>gdb</B>(1) from <B>fpm</B>(1)
+<B>fpm-gdb</B>(1f) - [FUNIX:FILESYSTEM] launch <B>gdb</B>(1) in <B>vim</B>(1) from <B>fpm</B>(1)
 (LICENSE:MIT)
 <P>
 </BLOCKQUOTE>
@@ -63,7 +63,7 @@ a.existingWikiWord[title]{ //border: 1px dashed #BBB; }
 <A HREF=#2>Description</A><BR>
 <A HREF=#3>Options</A><BR>
 <A HREF=#4>Getting Started</A><BR>
-<A HREF=#5>Using The Mouse To Set Break Points</A><BR>
+<A HREF=#5>Using The Mouse</A><BR>
 <A HREF=#6>Scrolling</A><BR>
 <A HREF=#7>Examples</A><BR>
 <A HREF=#8>See Also</A><BR>
@@ -74,7 +74,7 @@ a.existingWikiWord[title]{ //border: 1px dashed #BBB; }
 
 </A>
 <BLOCKQUOTE>
-<B>fpm-gdb</B> [PROGRAM][ <B>--help</B>|<B>--version</B>]
+<B>fpm-gdb</B> [PROGRAM][OPTIONS][ <B>--help</B>|<B>--version</B>]
 </BLOCKQUOTE>
 <A name=2>
 
@@ -82,7 +82,8 @@ a.existingWikiWord[title]{ //border: 1px dashed #BBB; }
 
 </A>
 <BLOCKQUOTE>
-<B>gdb</B>(1f) is an <B>fpm</B>(1) plugin that starts up <B>gdb</B>(1).
+<B>fpm-gdb</B>(1f) is an <B>fpm</B>(1) plugin that starts up <B>gdb</B>(1) in the <B>vim</B>(1)
+editor.
 <P>
 It uses the <B>vim</B>(1) terminal feature. The terminal feature is optional.
 Enter this in <B>vim</B>(1) to check if your version has it:
@@ -103,9 +104,9 @@ If the result is "1" you have it.
 <BLOCKQUOTE>
 <TABLE cellpadding=3>
 <TR valign=top><TD colspan=2>
-<B></B><I>PROGRAM</I> </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
-if more than one application is build in the package
-the name can be specified. Unlike with the "fpm run"
+<B>PROGRAM</B> </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
+if more than one application is built by the package
+the name must be specified. Unlike with the "fpm run"
 command wildcards are not permitted.
 </TD></TR>
 <TR valign=top><TD colspan=2>
@@ -113,9 +114,11 @@ command wildcards are not permitted.
 pass initial commands to <B>gdb</B>(1)
 </TD></TR>
 <TR valign=top><TD colspan=2>
-<B></B><B>-w</B> {80,132} </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
-assumed screen width. Anything from 132 up places the
-code in a window on the left of the screen.
+<B></B><B>-wide</B>,<B>-w</B> </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
+assume a wide screen width. Wide mode places the
+code in a window on the left of the screen. &lt;C-W&gt;
+followed by one of {RHKLJ} can change the window
+layout.
 </TD></TR>
 <TR valign=top><TD colspan=2>
 <B></B><B>--verbose</B>,<B>-V</B> </TD></TR><TR valign=top><TD width=6%>&nbsp;</TD><TD>
@@ -141,6 +144,7 @@ well &#46;&#46;&#46;
        --example    --no-prune  --link-flag  --flag
        --directory  --compiler  --c-flag     --c-compiler
        --archiver
+<P>
 </PRE>
 <A name=4>
 
@@ -148,10 +152,24 @@ well &#46;&#46;&#46;
 
 </A>
 <BLOCKQUOTE>
+Lets start in a terminal at least 132 characters wide and enter
 <P>
-You could set a breakpoint at the beginning of the program, list the
-program, set some other breakpoint and then start running the program
-<TABLE cellpadding=3><!-- tsb: You could set a breakpoint at the beginning of the program, list the
+<PRE>
+     fpm gdb --wide
+<P>
+</PRE>
+and then in the <B>gdb</B>(1) command window enter
+<P>
+<PRE>
+    b main
+    list
+    b 40
+    run
+<P>
+</PRE>
+This will set a breakpoint at the beginning of the program, start listing
+the program, set some other breakpoint and then start running the program
+<TABLE cellpadding=3><!-- tsb: This will set a breakpoint at the beginning of the program, start listing
  -->
 <TR></TR><TR></TR>
 <TR valign=top><TD colspan=2>
@@ -160,23 +178,6 @@ Clicking on "next" would take you to the
 next breakpoint.
 </TD></TR>
 <TR><TD colspan=2>
-Lets start in a terminal 132 characters wide and enter
-</TD></TR>
-<TR><TD colspan=2>
-<PRE>
-    fpm gdb -w 132
-<P>
-</PRE>
-and then in the <B>gdb</B>(1) command window enter
-</TD></TR>
-<TR><TD colspan=2>
-<PRE>
-    b main
-    list
-    b 40
-    run
-<P>
-</PRE>
 For some compilers "b <B>1"</B>(e.g. Intel) might be required instead of "b
 <B>main"</B>(e.g gfortran).
 </TD></TR>
@@ -196,16 +197,30 @@ some variable, like "i"
 </BLOCKQUOTE>
 <A name=5>
 
-     <H3>USING THE MOUSE TO SET BREAK POINTS</H3>
+     <H3>USING THE MOUSE</H3>
 
 </A>
 <BLOCKQUOTE>
-If you click mouse 3 in the code file you should get an option menu for
-setting and clearing breakpoints.
 <P>
-Assuming your terminal window supports <B>vim</B>(1) mouse mode, you can use the
-mouse in various ways. For example, You can click on variables and the
-[eval] button.
+Assuming your terminal window supports <B>vim</B>(1) mouse mode, you can use
+the mouse in various ways. For example
+</BLOCKQUOTE>
+<A name=>
+
+    <H4>&nbsp; &nbsp; TO SET BREAK POINTS</H4>
+</A>
+<BLOCKQUOTE>
+<P>
+If you click the right mouse in the code file you should get an option
+menu for setting and clearing breakpoints.
+</BLOCKQUOTE>
+<A name=>
+
+    <H4>&nbsp; &nbsp; TO EVALATE VARIABLES</H4>
+</A>
+<BLOCKQUOTE>
+<P>
+click on variables to highlight them and click the [eval] icon.
 </BLOCKQUOTE>
 <A name=6>
 
@@ -213,17 +228,20 @@ mouse in various ways. For example, You can click on variables and the
 
 </A>
 <BLOCKQUOTE>
+<P>
 The gdb and output windows will not be in Normal mode and so
 will not scroll by default. When focus is on the window that will not
 scroll enter "ctrl-W N" to go to scrollable, and enter "i" to return
 to the original mode.
 <P>
 On some platforms instead of "ctrl-W" followed by capital "N" you can
-define which key goes to Normal mode.
-</BLOCKQUOTE>
+define which key goes to Normal mode. For example, to define F1 to
+switch to Terminal-Normal mode:
 <P>
+<PRE>
+     :tnoremap &lt;F1&gt; &lt;C-W&gt;N
 <P>
-<BLOCKQUOTE>
+</PRE>
 In the gdb window in particular, you probably want to toggle between
 the modes, because when scrolling is on command recall is not.
 <P>
@@ -232,17 +250,11 @@ so you want to return to the original mode or you cannot enter commands
 in the gdb pane and cannot see new output or enter input in Normal mode.
 To leave scrollable mode (enter "i") in the pane.
 <P>
-You can define a key to enter the scrollable Terminal-Normal mode.
-For example, to make F1 switch to Terminal-Normal mode:
-<P>
-<PRE>
-     :tnoremap &lt;F1&gt; &lt;C-W&gt;N
-<P>
-</PRE>
 Check out :help window-moving for more information on changing the
 window layout.
 <P>
 # MORE INFO
+<P>
 General gdb instructions are beyond the scope of this discussion, but
 "help" in the gdb pane can get you started.
 <P>
@@ -259,7 +271,8 @@ fpm gdb
 <P>
 fpm gdb <B>--compiler</B> gfortran
 <P>
-fpm gdb <B>-w</B> 132 <B>-gdb</B> &#146;source mycmds.gdb&#146;
+# run with initial <B>gdb</B>(1) commands in a file
+fpm gdb <B>-wide</B> <B>-gdb</B> &#146;source mycmds.gdb&#146;
 <P>
 fpm gdb <B>--example</B> demo1
 </BLOCKQUOTE>
@@ -272,7 +285,7 @@ fpm gdb <B>--example</B> demo1
 <B>gdb</B>(1), <B>fpm</B>(1), <B>vim</B>(1)
 </BLOCKQUOTE>
 <P><HR>
-<TABLE width=100%><TR> <TD width=33%><I>fpm-gdb-2.0,</I></TD> <TD width=33% align=center>fpm-gdb (1)</TD> <TD align=right width=33%><I>July 05, 2022</I></TD> </TR></TABLE><FONT SIZE=-1>Generated by <A HREF="http://www.squarebox.co.uk/download/manServer.shtml">manServer 1.08</A> from man/man1/fpm-gdb.1 using man macros.</FONT>
+<TABLE width=100%><TR> <TD width=33%><I>fpm-gdb-2.0,</I></TD> <TD width=33% align=center>fpm-gdb (1)</TD> <TD align=right width=33%><I>July 06, 2022</I></TD> </TR></TABLE><FONT SIZE=-1>Generated by <A HREF="http://www.squarebox.co.uk/download/manServer.shtml">manServer 1.08</A> from man/man1/fpm-gdb.1 using man macros.</FONT>
 <br><br><center><img src="images/fpm-gdb.1.gif"></center>
 </div>
 </div>

@@ -7,7 +7,7 @@ character(len=:),allocatable :: help(:),version(:)
 character(len=:),allocatable :: cmd
 character(len=:),allocatable :: dir
 character(len=:),allocatable :: cmd_gdb
-integer :: width
+integer :: wide
 integer :: i
 type(streampointer) :: fp ! C file pointer returned by process_open()
 character(len=4096) :: line
@@ -26,19 +26,18 @@ character(len=*),parameter :: common_options='&
 character(len=:),allocatable :: options
    ! process command-line options
    call setup()
-   call set_args(' --width:w 80 '//common_options,help,version)
+   call set_args(' --wide:w F '//common_options,help,version)
    verbose=lget('verbose')
    cmd_gdb=sget('gdb')
    options=''
-   if(specified('no-prune'))options=options//' --noprune '
-   if(specified('example'))options=options//' --example '
-   if(specified('directory'))options=options//' --directory '//sget('directory')
-   if(specified('compiler'))options=options//' --compiler '//sget('compiler')
-   if(specified('link-flag'))options=options//' --link-flag "'//sget('link-flag')//'"'
-   if(specified('flag'))options=options//' --flag "'//sget('flag')//'"'
-   if(specified('c-flag'))options=options//' --c-flag "'//sget('c-flag')//'"'
-   if(specified('archiver'))options=options//' --archiver "'//sget('archiver')//'"'
-   write(*,*)'options=',options
+   if( specified('no-prune')  )options=options//' --noprune '
+   if( specified('example')   )options=options//' --example '
+   if( specified('directory') )options=options//' --directory '//sget('directory')
+   if( specified('compiler')  )options=options//' --compiler '//sget('compiler')
+   if( specified('link-flag') )options=options//' --link-flag "'//sget('link-flag')//'"'
+   if( specified('flag')      )options=options//' --flag "'//sget('flag')//'"'
+   if( specified('c-flag')    )options=options//' --c-flag "'//sget('c-flag')//'"'
+   if( specified('archiver')  )options=options//' --archiver "'//sget('archiver')//'"'
 
    if(size(leafs).eq.0)leafs=['']
    do i=1,size(leafs)
@@ -56,28 +55,28 @@ character(len=:),allocatable :: options
       endif
       cmd='fpm run '//trim(leafs(i))//options//' --profile debug --runner "'
       cmd=cmd//"vim -c 'set mouse=a' "
-      if(iget('width').ge.132)then
+      if( lget('wide') )then
           cmd=cmd//" -c 'let g:termdebug_wide=1'"
       endif
       cmd=cmd//" -c 'packadd termdebug' "
       cmd=cmd//" -c 'resize +10' "
       cmd=cmd//" -c ':tnoremap <F1> <C-W>N' "
       cmd=cmd//" -c 'Termdebug "//trim(line)//"' "
-      if(cmd_gdb.ne.'')then
-         cmd=cmd//"-c \""call TermDebugSendCommand('"//cmd_gdb//"')\"" "
+      if( cmd_gdb .ne. '' )then
+         cmd = cmd//"-c \""call TermDebugSendCommand('"//cmd_gdb//"')\"" "
       endif
-      ! assuming in app/ and that a .f90 or .F90 file; could leave this off or generalize
-      if(specified('example'))then
+      ! assuming in app/ and thatka .f90 or .F90 file; could leave this off or generalize
+      if( specified('example') )then
               dir='example'
       else
               dir='app'
       endif
-      if(leafs(i).eq.'')then
+      if( leafs(i) .eq. '' )then
          cmd=cmd//' '//dir//'/*.[fF]90"'
       else
          cmd=cmd//' '//dir//'/'//leafs(i)//'.[fF]90"'
       endif
-      if(lget('verbose'))then
+      if( lget('verbose') )then
          write(*,*)trim(cmd)
       endif
       call execute_command_line(cmd)
@@ -86,14 +85,15 @@ contains
 subroutine setup()
 help=[ CHARACTER(LEN=128) :: &
 'NAME',&
-'   fpm-gdb(1f) - [FUNIX:FILESYSTEM] simple launch of gdb(1) from fpm(1)',&
+'   fpm-gdb(1f) - [FUNIX:FILESYSTEM] launch gdb(1) in vim(1) from fpm(1)',&
 '   (LICENSE:MIT)',&
 '',&
 'SYNOPSIS',&
-'    fpm-gdb [PROGRAM][ --help|--version]',&
+'    fpm-gdb [PROGRAM][OPTIONS][ --help|--version]',&
 '',&
 'DESCRIPTION',&
-'   gdb(1f) is an fpm(1) plugin that starts up gdb(1).',&
+'   fpm-gdb(1f) is an fpm(1) plugin that starts up gdb(1) in the vim(1)',&
+'   editor.',&
 '',&
 '   It uses the vim(1) terminal feature. The terminal feature is optional.',&
 '   Enter this in vim(1) to check if your version has it:',&
@@ -104,12 +104,15 @@ help=[ CHARACTER(LEN=128) :: &
 '',&
 '',&
 'OPTIONS',&
-'    PROGRAM       if more than one application is build in the package',&
-'                  the name can be specified. Unlike with the "fpm run"',&
+'    PROGRAM       if more than one application is built by the package',&
+'                  the name must be specified. Unlike with the "fpm run"',&
 '                  command wildcards are not permitted.',&
 '    --gdb CMDS    pass initial commands to gdb(1)',&
-'    -w {80,132}   assumed screen width. Anything from 132 up places the',&
-'                  code in a window on the left of the screen.',&
+'    -wide,-w      assume a wide screen width. Wide mode places the',&
+'                  code in a window on the left of the screen. <C-W>',&
+'                  followed by one of {RHKLJ} can change the window',&
+'                  layout.',&
+'',&
 '    --verbose,-V  verbose mode',&
 '    --version,-v  Print version information on standard output then',&
 '                  exit successfully.',&
@@ -123,16 +126,11 @@ help=[ CHARACTER(LEN=128) :: &
 '       --example    --no-prune  --link-flag  --flag',&
 '       --directory  --compiler  --c-flag     --c-compiler',&
 '       --archiver',&
+'',&
 'GETTING STARTED',&
+'Lets start in a terminal at least 132 characters wide and enter',&
 '',&
-'You could set a breakpoint at the beginning of the program, list the',&
-'program, set some other breakpoint and then start running the program',&
-'(with optional arguments).  Clicking on "next" would take you to the',&
-'next breakpoint.',&
-'',&
-'Lets start in a terminal 132 characters wide and enter',&
-'',&
-'    fpm gdb -w 132',&
+'     fpm gdb --wide',&
 '',&
 'and then in the gdb(1) command window enter',&
 '',&
@@ -140,6 +138,11 @@ help=[ CHARACTER(LEN=128) :: &
 '    list',&
 '    b 40',&
 '    run',&
+'',&
+'This will set a breakpoint at the beginning of the program, start listing',&
+'the program, set some other breakpoint and then start running the program',&
+'(with optional arguments).  Clicking on "next" would take you to the',&
+'next breakpoint.',&
 '',&
 'For some compilers "b 1"(e.g. Intel) might be required instead of "b',&
 'main"(e.g gfortran).',&
@@ -152,23 +155,32 @@ help=[ CHARACTER(LEN=128) :: &
 '    info locals',&
 '    print i',&
 '',&
-'USING THE MOUSE TO SET BREAK POINTS',&
-'If you click mouse 3 in the code file you should get an option menu for',&
-'setting and clearing breakpoints.',&
+'USING THE MOUSE',&
 '',&
-'Assuming your terminal window supports vim(1) mouse mode, you can use the',&
-'mouse in various ways. For example, You can click on variables and the',&
-'[eval] button.',&
+'Assuming your terminal window supports vim(1) mouse mode, you can use',&
+'the mouse in various ways. For example',&
+'',&
+'   TO SET BREAK POINTS',&
+'',&
+'   If you click the right mouse in the code file you should get an option',&
+'   menu for setting and clearing breakpoints.',&
+'',&
+'   TO EVALATE VARIABLES',&
+'',&
+'   click on variables to highlight them and click the [eval] icon.',&
 '',&
 'SCROLLING',&
+'',&
 'The gdb and output windows will not be in Normal mode and so',&
 'will not scroll by default. When focus is on the window that will not',&
 'scroll enter "ctrl-W N" to go to scrollable, and enter "i" to return',&
 'to the original mode.',&
 '',&
 'On some platforms instead of "ctrl-W" followed by capital "N" you can',&
-'define which key goes to Normal mode.',&
+'define which key goes to Normal mode. For example, to define F1 to',&
+'switch to Terminal-Normal mode:',&
 '',&
+'     :tnoremap <F1> <C-W>N',&
 '',&
 'In the gdb window in particular, you probably want to toggle between',&
 'the modes, because when scrolling is on command recall is not.',&
@@ -178,15 +190,11 @@ help=[ CHARACTER(LEN=128) :: &
 'in the gdb pane and cannot see new output or enter input in Normal mode.',&
 'To leave scrollable mode (enter "i") in the pane.',&
 '',&
-'You can define a key to enter the scrollable Terminal-Normal mode.',&
-'For example, to make F1 switch to Terminal-Normal mode:',&
-'',&
-'     :tnoremap <F1> <C-W>N',&
-'',&
 'Check out :help window-moving for more information on changing the',&
 'window layout.',&
 '',&
 '# MORE INFO',&
+'',&
 'General gdb instructions are beyond the scope of this discussion, but',&
 '"help" in the gdb pane can get you started.',&
 '',&
@@ -198,7 +206,8 @@ help=[ CHARACTER(LEN=128) :: &
 '',&
 '     fpm gdb --compiler gfortran',&
 '',&
-'     fpm gdb -w 132 -gdb ''source mycmds.gdb''',&
+'     # run with initial gdb(1) commands in a file',&
+'     fpm gdb -wide -gdb ''source mycmds.gdb''',&
 '',&
 '     fpm gdb --example demo1',&
 '',&
@@ -207,15 +216,16 @@ help=[ CHARACTER(LEN=128) :: &
 '']
 !>
 !!##NAME
-!!    fpm-gdb(1f) - [FUNIX:FILESYSTEM] simple launch of gdb(1) from fpm(1)
+!!    fpm-gdb(1f) - [FUNIX:FILESYSTEM] launch gdb(1) in vim(1) from fpm(1)
 !!    (LICENSE:MIT)
 !!
 !!##SYNOPSIS
 !!
-!!     fpm-gdb [PROGRAM][ --help|--version]
+!!     fpm-gdb [PROGRAM][OPTIONS][ --help|--version]
 !!
 !!##DESCRIPTION
-!!    gdb(1f) is an fpm(1) plugin that starts up gdb(1).
+!!    fpm-gdb(1f) is an fpm(1) plugin that starts up gdb(1) in the vim(1)
+!!    editor.
 !!
 !!    It uses the vim(1) terminal feature. The terminal feature is optional.
 !!    Enter this in vim(1) to check if your version has it:
@@ -226,12 +236,15 @@ help=[ CHARACTER(LEN=128) :: &
 !!
 !!
 !!##OPTIONS
-!!     PROGRAM       if more than one application is build in the package
-!!                   the name can be specified. Unlike with the "fpm run"
+!!     PROGRAM       if more than one application is built by the package
+!!                   the name must be specified. Unlike with the "fpm run"
 !!                   command wildcards are not permitted.
 !!     --gdb CMDS    pass initial commands to gdb(1)
-!!     -w {80,132}   assumed screen width. Anything from 132 up places the
-!!                   code in a window on the left of the screen.
+!!     -wide,-w      assume a wide screen width. Wide mode places the
+!!                   code in a window on the left of the screen. <C-W>
+!!                   followed by one of {RHKLJ} can change the window
+!!                   layout.
+!!
 !!     --verbose,-V  verbose mode
 !!     --version,-v  Print version information on standard output then
 !!                   exit successfully.
@@ -245,16 +258,11 @@ help=[ CHARACTER(LEN=128) :: &
 !!        --example    --no-prune  --link-flag  --flag
 !!        --directory  --compiler  --c-flag     --c-compiler
 !!        --archiver
+!!
 !!##GETTING STARTED
+!! Lets start in a terminal at least 132 characters wide and enter
 !!
-!! You could set a breakpoint at the beginning of the program, list the
-!! program, set some other breakpoint and then start running the program
-!! (with optional arguments).  Clicking on "next" would take you to the
-!! next breakpoint.
-!!
-!! Lets start in a terminal 132 characters wide and enter
-!!
-!!     fpm gdb -w 132
+!!      fpm gdb --wide
 !!
 !! and then in the gdb(1) command window enter
 !!
@@ -262,6 +270,11 @@ help=[ CHARACTER(LEN=128) :: &
 !!     list
 !!     b 40
 !!     run
+!!
+!! This will set a breakpoint at the beginning of the program, start listing
+!! the program, set some other breakpoint and then start running the program
+!! (with optional arguments).  Clicking on "next" would take you to the
+!! next breakpoint.
 !!
 !! For some compilers "b 1"(e.g. Intel) might be required instead of "b
 !! main"(e.g gfortran).
@@ -274,23 +287,32 @@ help=[ CHARACTER(LEN=128) :: &
 !!     info locals
 !!     print i
 !!
-!!##USING THE MOUSE TO SET BREAK POINTS
-!! If you click mouse 3 in the code file you should get an option menu for
-!! setting and clearing breakpoints.
+!!##USING THE MOUSE
 !!
-!! Assuming your terminal window supports vim(1) mouse mode, you can use the
-!! mouse in various ways. For example, You can click on variables and the
-!! [eval] button.
+!! Assuming your terminal window supports vim(1) mouse mode, you can use
+!! the mouse in various ways. For example
+!!
+!!    TO SET BREAK POINTS
+!!
+!!    If you click the right mouse in the code file you should get an option
+!!    menu for setting and clearing breakpoints.
+!!
+!!    TO EVALATE VARIABLES
+!!
+!!    click on variables to highlight them and click the [eval] icon.
 !!
 !!##SCROLLING
+!!
 !! The gdb and output windows will not be in Normal mode and so
 !! will not scroll by default. When focus is on the window that will not
 !! scroll enter "ctrl-W N" to go to scrollable, and enter "i" to return
 !! to the original mode.
 !!
 !! On some platforms instead of "ctrl-W" followed by capital "N" you can
-!! define which key goes to Normal mode.
+!! define which key goes to Normal mode. For example, to define F1 to
+!! switch to Terminal-Normal mode:
 !!
+!!      :tnoremap <F1> <C-W>N
 !!
 !! In the gdb window in particular, you probably want to toggle between
 !! the modes, because when scrolling is on command recall is not.
@@ -300,15 +322,11 @@ help=[ CHARACTER(LEN=128) :: &
 !! in the gdb pane and cannot see new output or enter input in Normal mode.
 !! To leave scrollable mode (enter "i") in the pane.
 !!
-!! You can define a key to enter the scrollable Terminal-Normal mode.
-!! For example, to make F1 switch to Terminal-Normal mode:
-!!
-!!      :tnoremap <F1> <C-W>N
-!!
 !! Check out :help window-moving for more information on changing the
 !! window layout.
 !!
 !! # MORE INFO
+!!
 !! General gdb instructions are beyond the scope of this discussion, but
 !! "help" in the gdb pane can get you started.
 !!
@@ -321,7 +339,8 @@ help=[ CHARACTER(LEN=128) :: &
 !!
 !!      fpm gdb --compiler gfortran
 !!
-!!      fpm gdb -w 132 -gdb 'source mycmds.gdb'
+!!      # run with initial gdb(1) commands in a file
+!!      fpm gdb -wide -gdb 'source mycmds.gdb'
 !!
 !!      fpm gdb --example demo1
 !!

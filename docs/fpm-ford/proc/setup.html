@@ -206,16 +206,17 @@ subroutine setup()
 
     
     <h2 id="name">NAME</h2>
-<div class="codehilite"><pre><span></span><code>fpm-gdb(1f) - [FUNIX:FILESYSTEM] simple launch of gdb(1) from fpm(1)
+<div class="codehilite"><pre><span></span><code>fpm-gdb(1f) - [FUNIX:FILESYSTEM] launch gdb(1) in vim(1) from fpm(1)
 (LICENSE:MIT)
 </code></pre></div>
 
 <h2 id="synopsis">SYNOPSIS</h2>
-<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="n">fpm</span><span class="o">-</span><span class="n">gdb</span><span class="w"> </span><span class="o">[</span><span class="n">PROGRAM</span><span class="o">][</span><span class="n"> --help|--version</span><span class="o">]</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="w"> </span><span class="n">fpm</span><span class="o">-</span><span class="n">gdb</span><span class="w"> </span><span class="o">[</span><span class="n">PROGRAM</span><span class="o">][</span><span class="n">OPTIONS</span><span class="o">][</span><span class="n"> --help|--version</span><span class="o">]</span><span class="w"></span>
 </code></pre></div>
 
 <h2 id="description">DESCRIPTION</h2>
-<div class="codehilite"><pre><span></span><code><span class="nv">gdb</span><span class="ss">(</span><span class="mi">1</span><span class="nv">f</span><span class="ss">)</span> <span class="nv">is</span> <span class="nv">an</span> <span class="nv">fpm</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span> <span class="nv">plugin</span> <span class="nv">that</span> <span class="nv">starts</span> <span class="nv">up</span> <span class="nv">gdb</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>.
+<div class="codehilite"><pre><span></span><code><span class="nv">fpm</span><span class="o">-</span><span class="nv">gdb</span><span class="ss">(</span><span class="mi">1</span><span class="nv">f</span><span class="ss">)</span> <span class="nv">is</span> <span class="nv">an</span> <span class="nv">fpm</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span> <span class="nv">plugin</span> <span class="nv">that</span> <span class="nv">starts</span> <span class="nv">up</span> <span class="nv">gdb</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">vim</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>
+<span class="nv">editor</span>.
 
 <span class="nv">It</span> <span class="nv">uses</span> <span class="nv">the</span> <span class="nv">vim</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span> <span class="nv">terminal</span> <span class="nv">feature</span>. <span class="nv">The</span> <span class="nv">terminal</span> <span class="nv">feature</span> <span class="nv">is</span> <span class="nv">optional</span>.
 <span class="nv">Enter</span> <span class="nv">this</span> <span class="nv">in</span> <span class="nv">vim</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span> <span class="nv">to</span> <span class="nv">check</span> <span class="k">if</span> <span class="nv">your</span> <span class="nv">version</span> <span class="nv">has</span> <span class="nv">it</span>:
@@ -226,12 +227,15 @@ subroutine setup()
 </code></pre></div>
 
 <h2 id="options">OPTIONS</h2>
-<div class="codehilite"><pre><span></span><code> <span class="nv">PROGRAM</span>       <span class="k">if</span> <span class="nv">more</span> <span class="nv">than</span> <span class="nv">one</span> <span class="nv">application</span> <span class="nv">is</span> <span class="nv">build</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">package</span>
-               <span class="nv">the</span> <span class="nv">name</span> <span class="nv">can</span> <span class="nv">be</span> <span class="nv">specified</span>. <span class="nv">Unlike</span> <span class="nv">with</span> <span class="nv">the</span> <span class="s2">&quot;</span><span class="s">fpm run</span><span class="s2">&quot;</span>
+<div class="codehilite"><pre><span></span><code> <span class="nv">PROGRAM</span>       <span class="k">if</span> <span class="nv">more</span> <span class="nv">than</span> <span class="nv">one</span> <span class="nv">application</span> <span class="nv">is</span> <span class="nv">built</span> <span class="nv">by</span> <span class="nv">the</span> <span class="nv">package</span>
+               <span class="nv">the</span> <span class="nv">name</span> <span class="nv">must</span> <span class="nv">be</span> <span class="nv">specified</span>. <span class="nv">Unlike</span> <span class="nv">with</span> <span class="nv">the</span> <span class="s2">&quot;</span><span class="s">fpm run</span><span class="s2">&quot;</span>
                <span class="nv">command</span> <span class="nv">wildcards</span> <span class="nv">are</span> <span class="nv">not</span> <span class="nv">permitted</span>.
  <span class="o">--</span><span class="nv">gdb</span> <span class="nv">CMDS</span>    <span class="nv">pass</span> <span class="nv">initial</span> <span class="nv">commands</span> <span class="nv">to</span> <span class="nv">gdb</span><span class="ss">(</span><span class="mi">1</span><span class="ss">)</span>
- <span class="o">-</span><span class="nv">w</span> {<span class="mi">80</span>,<span class="mi">132</span>}   <span class="nv">assumed</span> <span class="nv">screen</span> <span class="nv">width</span>. <span class="nv">Anything</span> <span class="nv">from</span> <span class="mi">132</span> <span class="nv">up</span> <span class="nv">places</span> <span class="nv">the</span>
-               <span class="nv">code</span> <span class="nv">in</span> <span class="nv">a</span> <span class="nv">window</span> <span class="nv">on</span> <span class="nv">the</span> <span class="nv">left</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">screen</span>.
+ <span class="o">-</span><span class="nv">wide</span>,<span class="o">-</span><span class="nv">w</span>      <span class="nv">assume</span> <span class="nv">a</span> <span class="nv">wide</span> <span class="nv">screen</span> <span class="nv">width</span>. <span class="nv">Wide</span> <span class="nv">mode</span> <span class="nv">places</span> <span class="nv">the</span>
+               <span class="nv">code</span> <span class="nv">in</span> <span class="nv">a</span> <span class="nv">window</span> <span class="nv">on</span> <span class="nv">the</span> <span class="nv">left</span> <span class="nv">of</span> <span class="nv">the</span> <span class="nv">screen</span>. <span class="o">&lt;</span><span class="nv">C</span><span class="o">-</span><span class="nv">W</span><span class="o">&gt;</span>
+               <span class="nv">followed</span> <span class="nv">by</span> <span class="nv">one</span> <span class="nv">of</span> {<span class="nv">RHKLJ</span>} <span class="nv">can</span> <span class="nv">change</span> <span class="nv">the</span> <span class="nv">window</span>
+               <span class="nv">layout</span>.
+
  <span class="o">--</span><span class="nv">verbose</span>,<span class="o">-</span><span class="nv">V</span>  <span class="nv">verbose</span> <span class="nv">mode</span>
  <span class="o">--</span><span class="nv">version</span>,<span class="o">-</span><span class="nv">v</span>  <span class="nv">Print</span> <span class="nv">version</span> <span class="nv">information</span> <span class="nv">on</span> <span class="nv">standard</span> <span class="nv">output</span> <span class="k">then</span>
                <span class="k">exit</span> <span class="nv">successfully</span>.
@@ -248,12 +252,8 @@ subroutine setup()
 </code></pre></div>
 
 <h2 id="getting-started">GETTING STARTED</h2>
-<p>You could set a breakpoint at the beginning of the program, list the
- program, set some other breakpoint and then start running the program
- (with optional arguments).  Clicking on &ldquo;next&rdquo; would take you to the
- next breakpoint.</p>
-<p>Lets start in a terminal 132 characters wide and enter</p>
-<div class="codehilite"><pre><span></span><code> fpm gdb -w 132
+<p>Lets start in a terminal at least 132 characters wide and enter</p>
+<div class="codehilite"><pre><span></span><code>  fpm gdb --wide
 </code></pre></div>
 
 <p>and then in the gdb(1) command window enter</p>
@@ -263,6 +263,10 @@ subroutine setup()
  run
 </code></pre></div>
 
+<p>This will set a breakpoint at the beginning of the program, start listing
+ the program, set some other breakpoint and then start running the program
+ (with optional arguments).  Clicking on &ldquo;next&rdquo; would take you to the
+ next breakpoint.</p>
 <p>For some compilers &ldquo;b 1&rdquo;(e.g. Intel) might be required instead of &ldquo;b
  main&rdquo;(e.g gfortran).</p>
 <p>Many other commands exist.  Assuming you are at your next breakpoint,
@@ -273,34 +277,40 @@ subroutine setup()
  print i
 </code></pre></div>
 
-<h2 id="using-the-mouse-to-set-break-points">USING THE MOUSE TO SET BREAK POINTS</h2>
-<p>If you click mouse 3 in the code file you should get an option menu for
- setting and clearing breakpoints.</p>
-<p>Assuming your terminal window supports vim(1) mouse mode, you can use the
- mouse in various ways. For example, You can click on variables and the
- [eval] button.</p>
+<h2 id="using-the-mouse">USING THE MOUSE</h2>
+<p>Assuming your terminal window supports vim(1) mouse mode, you can use
+ the mouse in various ways. For example</p>
+<div class="codehilite"><pre><span></span><code><span class="k">TO</span><span class="w"> </span><span class="k">SET</span><span class="w"> </span><span class="k">BREAK</span><span class="w"> </span><span class="n">POINTS</span><span class="w"></span>
+
+<span class="k">If</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">click</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="nf">right</span><span class="w"> </span><span class="n">mouse</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="k">file</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="k">option</span><span class="w"></span>
+<span class="n">menu</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">setting</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">clearing</span><span class="w"> </span><span class="n">breakpoints</span><span class="p">.</span><span class="w"></span>
+
+<span class="k">TO</span><span class="w"> </span><span class="n">EVALATE</span><span class="w"> </span><span class="n">VARIABLES</span><span class="w"></span>
+
+<span class="n">click</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">highlight</span><span class="w"> </span><span class="n">them</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">click</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="o">[</span><span class="n">eval</span><span class="o">]</span><span class="w"> </span><span class="n">icon</span><span class="p">.</span><span class="w"></span>
+</code></pre></div>
+
 <h2 id="scrolling">SCROLLING</h2>
 <p>The gdb and output windows will not be in Normal mode and so
  will not scroll by default. When focus is on the window that will not
  scroll enter &ldquo;ctrl-W N&rdquo; to go to scrollable, and enter &ldquo;i&rdquo; to return
  to the original mode.</p>
 <p>On some platforms instead of &ldquo;ctrl-W&rdquo; followed by capital &ldquo;N&rdquo; you can
- define which key goes to Normal mode.</p>
+ define which key goes to Normal mode. For example, to define F1 to
+ switch to Terminal-Normal mode:</p>
+<div class="codehilite"><pre><span></span><code>  :tnoremap &lt;F1&gt; &lt;C-W&gt;N
+</code></pre></div>
+
 <p>In the gdb window in particular, you probably want to toggle between
  the modes, because when scrolling is on command recall is not.</p>
 <p>When in Normal mode your interaction with the program is suspended,
  so you want to return to the original mode or you cannot enter commands
  in the gdb pane and cannot see new output or enter input in Normal mode.
  To leave scrollable mode (enter &ldquo;i&rdquo;) in the pane.</p>
-<p>You can define a key to enter the scrollable Terminal-Normal mode.
- For example, to make F1 switch to Terminal-Normal mode:</p>
-<div class="codehilite"><pre><span></span><code>  :tnoremap &lt;F1&gt; &lt;C-W&gt;N
-</code></pre></div>
-
 <p>Check out :help window-moving for more information on changing the
  window layout.</p>
-<p># MORE INFO
- General gdb instructions are beyond the scope of this discussion, but
+<p># MORE INFO</p>
+<p>General gdb instructions are beyond the scope of this discussion, but
  &ldquo;help&rdquo; in the gdb pane can get you started.</p>
 <p>For the vim(1) terminal help go to the rightmost vim(1) window and enter
  &ldquo;:help terminal-debug&rdquo;.</p>
@@ -309,7 +319,8 @@ subroutine setup()
 
   fpm gdb --compiler gfortran
 
-  fpm gdb -w 132 -gdb &#39;source mycmds.gdb&#39;
+  # run with initial gdb(1) commands in a file
+  fpm gdb -wide -gdb &#39;source mycmds.gdb&#39;
 
   fpm gdb --example demo1
 </code></pre></div>
@@ -390,14 +401,15 @@ subroutine setup()
     <div class="highlight"><pre><span></span><span class="k">subroutine </span><span class="n">setup</span><span class="p">()</span>
 <span class="n">help</span><span class="o">=</span><span class="p">[</span> <span class="kt">CHARACTER</span><span class="p">(</span><span class="nb">LEN</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span> <span class="kd">::</span> <span class="p">&amp;</span>
 <span class="s1">&#39;NAME&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;   fpm-gdb(1f) - [FUNIX:FILESYSTEM] simple launch of gdb(1) from fpm(1)&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;   fpm-gdb(1f) - [FUNIX:FILESYSTEM] launch gdb(1) in vim(1) from fpm(1)&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;   (LICENSE:MIT)&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;SYNOPSIS&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    fpm-gdb [PROGRAM][ --help|--version]&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;    fpm-gdb [PROGRAM][OPTIONS][ --help|--version]&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;DESCRIPTION&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;   gdb(1f) is an fpm(1) plugin that starts up gdb(1).&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;   fpm-gdb(1f) is an fpm(1) plugin that starts up gdb(1) in the vim(1)&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;   editor.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;   It uses the vim(1) terminal feature. The terminal feature is optional.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;   Enter this in vim(1) to check if your version has it:&#39;</span><span class="p">,&amp;</span>
@@ -408,12 +420,15 @@ subroutine setup()
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;OPTIONS&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    PROGRAM       if more than one application is build in the package&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;                  the name can be specified. Unlike with the &quot;fpm run&quot;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;    PROGRAM       if more than one application is built by the package&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;                  the name must be specified. Unlike with the &quot;fpm run&quot;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;                  command wildcards are not permitted.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;    --gdb CMDS    pass initial commands to gdb(1)&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    -w {80,132}   assumed screen width. Anything from 132 up places the&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;                  code in a window on the left of the screen.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;    -wide,-w      assume a wide screen width. Wide mode places the&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;                  code in a window on the left of the screen. &lt;C-W&gt;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;                  followed by one of {RHKLJ} can change the window&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;                  layout.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;    --verbose,-V  verbose mode&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;    --version,-v  Print version information on standard output then&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;                  exit successfully.&#39;</span><span class="p">,&amp;</span>
@@ -427,16 +442,11 @@ subroutine setup()
 <span class="s1">&#39;       --example    --no-prune  --link-flag  --flag&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;       --directory  --compiler  --c-flag     --c-compiler&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;       --archiver&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;GETTING STARTED&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;Lets start in a terminal at least 132 characters wide and enter&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;You could set a breakpoint at the beginning of the program, list the&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;program, set some other breakpoint and then start running the program&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;(with optional arguments).  Clicking on &quot;next&quot; would take you to the&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;next breakpoint.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;Lets start in a terminal 132 characters wide and enter&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;    fpm gdb -w 132&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;     fpm gdb --wide&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;and then in the gdb(1) command window enter&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
@@ -444,6 +454,11 @@ subroutine setup()
 <span class="s1">&#39;    list&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;    b 40&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;    run&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;This will set a breakpoint at the beginning of the program, start listing&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;the program, set some other breakpoint and then start running the program&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;(with optional arguments).  Clicking on &quot;next&quot; would take you to the&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;next breakpoint.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;For some compilers &quot;b 1&quot;(e.g. Intel) might be required instead of &quot;b&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;main&quot;(e.g gfortran).&#39;</span><span class="p">,&amp;</span>
@@ -456,23 +471,32 @@ subroutine setup()
 <span class="s1">&#39;    info locals&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;    print i&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;USING THE MOUSE TO SET BREAK POINTS&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;If you click mouse 3 in the code file you should get an option menu for&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;setting and clearing breakpoints.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;USING THE MOUSE&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;Assuming your terminal window supports vim(1) mouse mode, you can use the&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;mouse in various ways. For example, You can click on variables and the&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;[eval] button.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;Assuming your terminal window supports vim(1) mouse mode, you can use&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;the mouse in various ways. For example&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;   TO SET BREAK POINTS&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;   If you click the right mouse in the code file you should get an option&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;   menu for setting and clearing breakpoints.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;   TO EVALATE VARIABLES&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;   click on variables to highlight them and click the [eval] icon.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;SCROLLING&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;The gdb and output windows will not be in Normal mode and so&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;will not scroll by default. When focus is on the window that will not&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;scroll enter &quot;ctrl-W N&quot; to go to scrollable, and enter &quot;i&quot; to return&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;to the original mode.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;On some platforms instead of &quot;ctrl-W&quot; followed by capital &quot;N&quot; you can&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;define which key goes to Normal mode.&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;define which key goes to Normal mode. For example, to define F1 to&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;switch to Terminal-Normal mode:&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;     :tnoremap &lt;F1&gt; &lt;C-W&gt;N&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;In the gdb window in particular, you probably want to toggle between&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;the modes, because when scrolling is on command recall is not.&#39;</span><span class="p">,&amp;</span>
@@ -482,15 +506,11 @@ subroutine setup()
 <span class="s1">&#39;in the gdb pane and cannot see new output or enter input in Normal mode.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;To leave scrollable mode (enter &quot;i&quot;) in the pane.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;You can define a key to enter the scrollable Terminal-Normal mode.&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;For example, to make F1 switch to Terminal-Normal mode:&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;     :tnoremap &lt;F1&gt; &lt;C-W&gt;N&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;Check out :help window-moving for more information on changing the&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;window layout.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;# MORE INFO&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;General gdb instructions are beyond the scope of this discussion, but&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&quot;help&quot; in the gdb pane can get you started.&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
@@ -502,7 +522,8 @@ subroutine setup()
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;     fpm gdb --compiler gfortran&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
-<span class="s1">&#39;     fpm gdb -w 132 -gdb &#39;&#39;source mycmds.gdb&#39;&#39;&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;     # run with initial gdb(1) commands in a file&#39;</span><span class="p">,&amp;</span>
+<span class="s1">&#39;     fpm gdb -wide -gdb &#39;&#39;source mycmds.gdb&#39;&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;     fpm gdb --example demo1&#39;</span><span class="p">,&amp;</span>
 <span class="s1">&#39;&#39;</span><span class="p">,&amp;</span>
@@ -511,15 +532,16 @@ subroutine setup()
 <span class="s1">&#39;&#39;</span><span class="p">]</span>
 <span class="c">!&gt;</span>
 <span class="c">!!##NAME</span>
-<span class="c">!!    fpm-gdb(1f) - [FUNIX:FILESYSTEM] simple launch of gdb(1) from fpm(1)</span>
+<span class="c">!!    fpm-gdb(1f) - [FUNIX:FILESYSTEM] launch gdb(1) in vim(1) from fpm(1)</span>
 <span class="c">!!    (LICENSE:MIT)</span>
 <span class="c">!!</span>
 <span class="c">!!##SYNOPSIS</span>
 <span class="c">!!</span>
-<span class="c">!!     fpm-gdb [PROGRAM][ --help|--version]</span>
+<span class="c">!!     fpm-gdb [PROGRAM][OPTIONS][ --help|--version]</span>
 <span class="c">!!</span>
 <span class="c">!!##DESCRIPTION</span>
-<span class="c">!!    gdb(1f) is an fpm(1) plugin that starts up gdb(1).</span>
+<span class="c">!!    fpm-gdb(1f) is an fpm(1) plugin that starts up gdb(1) in the vim(1)</span>
+<span class="c">!!    editor.</span>
 <span class="c">!!</span>
 <span class="c">!!    It uses the vim(1) terminal feature. The terminal feature is optional.</span>
 <span class="c">!!    Enter this in vim(1) to check if your version has it:</span>
@@ -530,12 +552,15 @@ subroutine setup()
 <span class="c">!!</span>
 <span class="c">!!</span>
 <span class="c">!!##OPTIONS</span>
-<span class="c">!!     PROGRAM       if more than one application is build in the package</span>
-<span class="c">!!                   the name can be specified. Unlike with the &quot;fpm run&quot;</span>
+<span class="c">!!     PROGRAM       if more than one application is built by the package</span>
+<span class="c">!!                   the name must be specified. Unlike with the &quot;fpm run&quot;</span>
 <span class="c">!!                   command wildcards are not permitted.</span>
 <span class="c">!!     --gdb CMDS    pass initial commands to gdb(1)</span>
-<span class="c">!!     -w {80,132}   assumed screen width. Anything from 132 up places the</span>
-<span class="c">!!                   code in a window on the left of the screen.</span>
+<span class="c">!!     -wide,-w      assume a wide screen width. Wide mode places the</span>
+<span class="c">!!                   code in a window on the left of the screen. &lt;C-W&gt;</span>
+<span class="c">!!                   followed by one of {RHKLJ} can change the window</span>
+<span class="c">!!                   layout.</span>
+<span class="c">!!</span>
 <span class="c">!!     --verbose,-V  verbose mode</span>
 <span class="c">!!     --version,-v  Print version information on standard output then</span>
 <span class="c">!!                   exit successfully.</span>
@@ -549,16 +574,11 @@ subroutine setup()
 <span class="c">!!        --example    --no-prune  --link-flag  --flag</span>
 <span class="c">!!        --directory  --compiler  --c-flag     --c-compiler</span>
 <span class="c">!!        --archiver</span>
+<span class="c">!!</span>
 <span class="c">!!##GETTING STARTED</span>
+<span class="c">!! Lets start in a terminal at least 132 characters wide and enter</span>
 <span class="c">!!</span>
-<span class="c">!! You could set a breakpoint at the beginning of the program, list the</span>
-<span class="c">!! program, set some other breakpoint and then start running the program</span>
-<span class="c">!! (with optional arguments).  Clicking on &quot;next&quot; would take you to the</span>
-<span class="c">!! next breakpoint.</span>
-<span class="c">!!</span>
-<span class="c">!! Lets start in a terminal 132 characters wide and enter</span>
-<span class="c">!!</span>
-<span class="c">!!     fpm gdb -w 132</span>
+<span class="c">!!      fpm gdb --wide</span>
 <span class="c">!!</span>
 <span class="c">!! and then in the gdb(1) command window enter</span>
 <span class="c">!!</span>
@@ -566,6 +586,11 @@ subroutine setup()
 <span class="c">!!     list</span>
 <span class="c">!!     b 40</span>
 <span class="c">!!     run</span>
+<span class="c">!!</span>
+<span class="c">!! This will set a breakpoint at the beginning of the program, start listing</span>
+<span class="c">!! the program, set some other breakpoint and then start running the program</span>
+<span class="c">!! (with optional arguments).  Clicking on &quot;next&quot; would take you to the</span>
+<span class="c">!! next breakpoint.</span>
 <span class="c">!!</span>
 <span class="c">!! For some compilers &quot;b 1&quot;(e.g. Intel) might be required instead of &quot;b</span>
 <span class="c">!! main&quot;(e.g gfortran).</span>
@@ -578,23 +603,32 @@ subroutine setup()
 <span class="c">!!     info locals</span>
 <span class="c">!!     print i</span>
 <span class="c">!!</span>
-<span class="c">!!##USING THE MOUSE TO SET BREAK POINTS</span>
-<span class="c">!! If you click mouse 3 in the code file you should get an option menu for</span>
-<span class="c">!! setting and clearing breakpoints.</span>
+<span class="c">!!##USING THE MOUSE</span>
 <span class="c">!!</span>
-<span class="c">!! Assuming your terminal window supports vim(1) mouse mode, you can use the</span>
-<span class="c">!! mouse in various ways. For example, You can click on variables and the</span>
-<span class="c">!! [eval] button.</span>
+<span class="c">!! Assuming your terminal window supports vim(1) mouse mode, you can use</span>
+<span class="c">!! the mouse in various ways. For example</span>
+<span class="c">!!</span>
+<span class="c">!!    TO SET BREAK POINTS</span>
+<span class="c">!!</span>
+<span class="c">!!    If you click the right mouse in the code file you should get an option</span>
+<span class="c">!!    menu for setting and clearing breakpoints.</span>
+<span class="c">!!</span>
+<span class="c">!!    TO EVALATE VARIABLES</span>
+<span class="c">!!</span>
+<span class="c">!!    click on variables to highlight them and click the [eval] icon.</span>
 <span class="c">!!</span>
 <span class="c">!!##SCROLLING</span>
+<span class="c">!!</span>
 <span class="c">!! The gdb and output windows will not be in Normal mode and so</span>
 <span class="c">!! will not scroll by default. When focus is on the window that will not</span>
 <span class="c">!! scroll enter &quot;ctrl-W N&quot; to go to scrollable, and enter &quot;i&quot; to return</span>
 <span class="c">!! to the original mode.</span>
 <span class="c">!!</span>
 <span class="c">!! On some platforms instead of &quot;ctrl-W&quot; followed by capital &quot;N&quot; you can</span>
-<span class="c">!! define which key goes to Normal mode.</span>
+<span class="c">!! define which key goes to Normal mode. For example, to define F1 to</span>
+<span class="c">!! switch to Terminal-Normal mode:</span>
 <span class="c">!!</span>
+<span class="c">!!      :tnoremap &lt;F1&gt; &lt;C-W&gt;N</span>
 <span class="c">!!</span>
 <span class="c">!! In the gdb window in particular, you probably want to toggle between</span>
 <span class="c">!! the modes, because when scrolling is on command recall is not.</span>
@@ -604,15 +638,11 @@ subroutine setup()
 <span class="c">!! in the gdb pane and cannot see new output or enter input in Normal mode.</span>
 <span class="c">!! To leave scrollable mode (enter &quot;i&quot;) in the pane.</span>
 <span class="c">!!</span>
-<span class="c">!! You can define a key to enter the scrollable Terminal-Normal mode.</span>
-<span class="c">!! For example, to make F1 switch to Terminal-Normal mode:</span>
-<span class="c">!!</span>
-<span class="c">!!      :tnoremap &lt;F1&gt; &lt;C-W&gt;N</span>
-<span class="c">!!</span>
 <span class="c">!! Check out :help window-moving for more information on changing the</span>
 <span class="c">!! window layout.</span>
 <span class="c">!!</span>
 <span class="c">!! # MORE INFO</span>
+<span class="c">!!</span>
 <span class="c">!! General gdb instructions are beyond the scope of this discussion, but</span>
 <span class="c">!! &quot;help&quot; in the gdb pane can get you started.</span>
 <span class="c">!!</span>
@@ -625,7 +655,8 @@ subroutine setup()
 <span class="c">!!</span>
 <span class="c">!!      fpm gdb --compiler gfortran</span>
 <span class="c">!!</span>
-<span class="c">!!      fpm gdb -w 132 -gdb &#39;source mycmds.gdb&#39;</span>
+<span class="c">!!      # run with initial gdb(1) commands in a file</span>
+<span class="c">!!      fpm gdb -wide -gdb &#39;source mycmds.gdb&#39;</span>
 <span class="c">!!</span>
 <span class="c">!!      fpm gdb --example demo1</span>
 <span class="c">!!</span>
@@ -661,7 +692,7 @@ subroutine setup()
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2022-07-05 21:53  
+             on 2022-07-06 06:11  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> fpm-gdb was developed by John S. Urban</p></div>

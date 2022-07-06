@@ -25,14 +25,14 @@ fpm run --runner "vim -c 'set mouse=a'  -c 'packadd termdebug'  -c 'resize +10' 
 ![gdb](docs/images/fpm-gdb.gif)
 
 # GETTING STARTED
-You could set a breakpoint at the beginning of the program, list the
+We will set a breakpoint at the beginning of the program, list the
 program, set some other breakpoint and then start running the program
 (with optional arguments).  Clicking on "next" would take you to the
 next breakpoint.
 
 Lets start in a terminal 132 characters wide and enter
 ```text
-fpm gdb -w 132
+fpm gdb --wide 
 ```
 and then in the gdb(1) command window enter
 ```text
@@ -53,8 +53,8 @@ info locals
 print i
 ```
 # USING THE MOUSE TO SET BREAK POINTS
-If you click mouse 3 in the code file you should get an option menu for
-setting and clearing breakpoints.
+If you click the right mouse in the code file you should get an option
+menu for setting and clearing breakpoints.
 
 Assuming your terminal window supports vim(1) mouse mode, you can use the
 mouse in various ways. For example, You can click on variables and the
