@@ -27,7 +27,7 @@ character(len=*),parameter :: common_options='&
 character(len=:),allocatable :: options
    ! process command-line options
    call setup()
-   call set_args('gdb --width:w 80 '//common_options,help,version)
+   call set_args(' --width:w 80 '//common_options,help,version)
    verbose=lget('verbose')
    cmd_gdb=sget('gdb')
    options=''
