@@ -93,7 +93,7 @@ or clone the repository and use fpm(1) to build and install the application.
 git clone https://github.com/urbanjost/fpm-gdb.git
 cd fpm-gdb
 # assuming the default installation directory is OK; otherwise see 
-#    "fpm install help".
+#    "fpm help install ".
 fpm install
 # and then you may remove the fpm-gdb directory
 ```
