@@ -2,10 +2,8 @@
 
 plugin on POSIX systems to launch gdb(1) on a simple fpm(1) project.
 
-A WIP (Work In Progress).
-if you build 
-and install this as "fpm-gdb" in your path, then in other simple fpm(1)
-projects that build an application you can enter:
+if you build and install this as "fpm-gdb" in your path, then in other
+simple fpm(1) projects that build an application you can enter:
 
 ```bash
 fpm gdb
@@ -24,7 +22,7 @@ fpm run --runner "vim -c 'set mouse=a'  -c 'packadd termdebug'  -c 'resize +10' 
 ```
 ![gdb](docs/images/fpm-gdb.1.gif)
 
-# GETTING STARTED
+# Getting started
 We will set a breakpoint at the beginning of the program, list the
 program, set some other breakpoint and then start running the program
 (with optional arguments).  Clicking on "next" would take you to the
@@ -52,7 +50,7 @@ where
 info locals
 print i
 ```
-# USING THE MOUSE TO SET BREAK POINTS
+# Using the mouse to set break points
 If you click the right mouse in the code file you should get an option
 menu for setting and clearing breakpoints.
 
@@ -74,8 +72,9 @@ vim(1) command
 
       :tnoremap <F1> <C-W>N
 
-Note that whether this example works depends on your keyboard layout
-and your terminfo file for the terminal emulator you are using.
+Note that whether this example key definition works depends on your
+keyboard layout and your terminfo file for the terminal emulator you
+are using.
 
 In the gdb window in particular, you probably want to toggle between
 the modes, because when scrolling is on command recall is not.
@@ -84,10 +83,24 @@ When in Normal mode your interaction with the program is suspended,
 so you want to return to the original mode or you cannot enter commands
 in the gdb pane and cannot see new output or enter input in Normal mode.
 To leave scrollable mode (enter "i") in the pane.
+# Installation
+If you have the fpm-tools(1) plugin enter:
+```bash
+   fpm tools urbanjost/fpm-gdb
+```
+or clone the repository and use fpm(1) to build and install the application.
+```bash
+git clone https://github.com/urbanjost/fpm-gdb.git
+cd fpm-gdb
+# assuming the default installation directory is OK; otherwise see 
+#    "fpm install help".
+fpm install
+# and then you may remove the fpm-gdb directory
+```
 
-# MORE INFO
-General gdb instructions are beyond the scope of this discussion, but
-"help" in the gdb pane can get you started.
+# More info
+General gdb(1) instructions are beyond the scope of this discussion, but
+"help" in the gdb(1) pane can get you started.
 
 For the vim(1) terminal help go to the rightmost vim(1) window and enter
 ":help terminal-debug".
