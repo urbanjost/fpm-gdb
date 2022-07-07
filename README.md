@@ -69,6 +69,13 @@ to the original mode.
 On some platforms instead of "ctrl-W" followed by capital "N" you can
 define which key goes to Normal mode.
 
+As an example function key 1 has been defined to do that using the
+vim(1) command 
+
+      :tnoremap <F1> <C-W>N
+
+Note that whether this example works depends on your keyboard layout
+and your terminfo file for the terminal emulator you are using.
 
 In the gdb window in particular, you probably want to toggle between
 the modes, because when scrolling is on command recall is not.
