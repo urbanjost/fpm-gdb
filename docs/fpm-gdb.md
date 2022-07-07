@@ -41,6 +41,12 @@ OPTIONS
     the left of the screen. \<C-W\> followed by one of {RHKLJ} can
     change the window layout.
 
+****--test****
+
+:   use subcommand "test" instead of the default "run" in order to
+    select test programs. If **--test** is specified **--example** is
+    ignored.
+
 ****--verbose**,**-V****
 
 :   verbose mode

@@ -7,6 +7,7 @@ character(len=:),allocatable :: help(:),version(:)
 character(len=:),allocatable :: cmd
 character(len=:),allocatable :: dir
 character(len=:),allocatable :: cmd_gdb
+character(len=:),allocatable :: sub_command
 integer :: wide
 integer :: i
 type(streampointer) :: fp ! C file pointer returned by process_open()
@@ -14,6 +15,7 @@ character(len=4096) :: line
 integer ierr
 character(len=*),parameter :: common_options='&
  --example F &
+ --test F &
  --no-prune F &
  --link-flag " " &
  --flag " " &
@@ -31,29 +33,34 @@ character(len=:),allocatable :: options
    cmd_gdb=sget('gdb')
    options=''
    if( specified('no-prune')  )options=options//' --noprune '
-   if( specified('example')   )options=options//' --example '
    if( specified('directory') )options=options//' --directory '//sget('directory')
    if( specified('compiler')  )options=options//' --compiler '//sget('compiler')
    if( specified('link-flag') )options=options//' --link-flag "'//sget('link-flag')//'"'
    if( specified('flag')      )options=options//' --flag "'//sget('flag')//'"'
    if( specified('c-flag')    )options=options//' --c-flag "'//sget('c-flag')//'"'
    if( specified('archiver')  )options=options//' --archiver "'//sget('archiver')//'"'
+   if( lget('test') )then
+      sub_command='test'
+   else
+      sub_command='run'
+      if( specified('example')   )options=options//' --example '
+   endif
 
-   if(size(leafs).eq.0)leafs=['']
-   do i=1,size(leafs)
+   if( size(leafs) == 0 )leafs=['']
+   do i = 1, size(leafs)
 
       ! need to make a call to the fpm API to get the program cleanly.
-      cmd='fpm run '//trim(leafs(i))//options//" --profile debug --runner|grep '^build'"
+      cmd = 'fpm '//sub_command//' '//trim(leafs(i) )//options//" --profile debug --runner|grep '^build'"
       ! note the process_* procedures are currently available only on POSIX platforms
       ! could use system commands based on OS or possibly get M_process to support
       ! more platforms
       call process_open_read(cmd,fp,ierr) ! open process to read from
-      if(ierr.eq.0)then
+      if( ierr == 0 )then
         call process_readline(line,fp,ierr) ! read a line from the process
-        if(ierr.ne.0) stop 'error processing command'//trim(cmd)
+        if( ierr /= 0 ) stop 'error processing command'//trim(cmd)
         call process_close(fp,ierr)
       endif
-      cmd='fpm run '//trim(leafs(i))//options//' --profile debug --runner "'
+      cmd='fpm '//sub_command//' '//trim(leafs(i) )//options//' --profile debug --runner "'
       cmd=cmd//"vim -c 'set mouse=a' "
       if( lget('wide') )then
           cmd=cmd//" -c 'let g:termdebug_wide=1'"
@@ -62,16 +69,18 @@ character(len=:),allocatable :: options
       cmd=cmd//" -c 'resize +10' "
       cmd=cmd//" -c ':tnoremap <F1> <C-W>N' "
       cmd=cmd//" -c 'Termdebug "//trim(line)//"' "
-      if( cmd_gdb .ne. '' )then
+      if( cmd_gdb /= '' )then
          cmd = cmd//"-c \""call TermDebugSendCommand('"//cmd_gdb//"')\"" "
       endif
-      ! assuming in app/ and thatka .f90 or .F90 file; could leave this off or generalize
-      if( specified('example') )then
+      ! assuming in app/ and that .f90 or .F90 file; could leave this off or generalize
+      if( sub_command == 'test' )then
+              dir='test'
+      elseif( specified('example') )then
               dir='example'
       else
               dir='app'
       endif
-      if( leafs(i) .eq. '' )then
+      if( leafs(i) == '' )then
          cmd=cmd//' '//dir//'/*.[fF]90"'
       else
          cmd=cmd//' '//dir//'/'//leafs(i)//'.[fF]90"'
@@ -112,6 +121,9 @@ help=[ CHARACTER(LEN=128) :: &
 '                  code in a window on the left of the screen. <C-W>',&
 '                  followed by one of {RHKLJ} can change the window',&
 '                  layout.',&
+'    --test        use subcommand "test" instead of the default "run"',&
+'                  in order to select test programs. If --test is specified',&
+'                  --example is ignored.',&
 '',&
 '    --verbose,-V  verbose mode',&
 '    --version,-v  Print version information on standard output then',&
@@ -244,6 +256,9 @@ help=[ CHARACTER(LEN=128) :: &
 !!                   code in a window on the left of the screen. <C-W>
 !!                   followed by one of {RHKLJ} can change the window
 !!                   layout.
+!!     --test        use subcommand "test" instead of the default "run"
+!!                   in order to select test programs. If --test is specified
+!!                   --example is ignored.
 !!
 !!     --verbose,-V  verbose mode
 !!     --version,-v  Print version information on standard output then

@@ -122,7 +122,7 @@
      <li><i class="fa fa-list-ol"></i>
        <a data-toggle="tooltip"
     data-placement="bottom" data-html="true"
-    title="100.0% of total for programs.">71 statements</a>
+    title="100.0% of total for programs.">79 statements</a>
      </li> 
      
      
@@ -184,6 +184,8 @@
       <a class="list-group-item" href="../program/gdb.html#variable-line">line</a>
       
       <a class="list-group-item" href="../program/gdb.html#variable-options">options</a>
+      
+      <a class="list-group-item" href="../program/gdb.html#variable-sub_command">sub_command</a>
       
       <a class="list-group-item" href="../program/gdb.html#variable-verbose">verbose</a>
       
@@ -300,6 +302,8 @@
       
       <a class="list-group-item" href="../program/gdb.html#variable-options">options</a>
       
+      <a class="list-group-item" href="../program/gdb.html#variable-sub_command">sub_command</a>
+      
       <a class="list-group-item" href="../program/gdb.html#variable-verbose">verbose</a>
       
       <a class="list-group-item" href="../program/gdb.html#variable-version">version</a>
@@ -406,7 +410,7 @@
   
   
   <td>parameter</td><td>::</td>
-  <td><strong>common_options</strong></td><td> =</td><td>' --example F --no-prune F --link-flag " " --flag " " --directory:C " " --compiler "gfortran" --c-flag " " --c-compiler " " --archiver " " --gdb " " '</td><td></td>
+  <td><strong>common_options</strong></td><td> =</td><td>' --example F --test F --no-prune F --link-flag " " --flag " " --directory:C " " --compiler "gfortran" --c-flag " " --c-compiler " " --archiver " " --gdb " " '</td><td></td>
   
 </tr>
 
@@ -505,6 +509,20 @@
   
   <td>allocatable</td><td>::</td>
   <td><strong>options</strong></td><td></td><td></td><td></td>
+  
+</tr>
+
+  
+  
+  
+  
+<tr>
+  
+  <td><span class="anchor" id="variable-sub_command"></span>character(len=:),</td>
+  
+  
+  <td>allocatable</td><td>::</td>
+  <td><strong>sub_command</strong></td><td></td><td></td><td></td>
   
 </tr>
 
@@ -617,6 +635,7 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">cmd</span>
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">dir</span>
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">cmd_gdb</span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span> <span class="kd">::</span> <span class="n">sub_command</span>
 <span class="kt">integer</span> <span class="kd">::</span> <span class="n">wide</span>
 <span class="kt">integer</span> <span class="kd">::</span> <span class="n">i</span>
 <span class="k">type</span><span class="p">(</span><span class="n">streampointer</span><span class="p">)</span> <span class="kd">::</span> <span class="n">fp</span> <span class="c">! C file pointer returned by process_open()</span>
@@ -624,6 +643,7 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="kt">integer </span><span class="n">ierr</span>
 <span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span> <span class="kd">::</span> <span class="n">common_options</span><span class="o">=</span><span class="s1">&#39;&amp;</span>
 <span class="s1"> --example F &amp;</span>
+<span class="s1"> --test F &amp;</span>
 <span class="s1"> --no-prune F &amp;</span>
 <span class="s1"> --link-flag &quot; &quot; &amp;</span>
 <span class="s1"> --flag &quot; &quot; &amp;</span>
@@ -641,29 +661,34 @@ subroutine <a href='../proc/setup.html'>setup</a>()
    <span class="n">cmd_gdb</span><span class="o">=</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;gdb&#39;</span><span class="p">)</span>
    <span class="k">options</span><span class="o">=</span><span class="s1">&#39;&#39;</span>
    <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;no-prune&#39;</span><span class="p">)</span>  <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --noprune &#39;</span>
-   <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>   <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --example &#39;</span>
    <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;directory&#39;</span><span class="p">)</span> <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --directory &#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;directory&#39;</span><span class="p">)</span>
    <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;compiler&#39;</span><span class="p">)</span>  <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --compiler &#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;compiler&#39;</span><span class="p">)</span>
    <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;link-flag&#39;</span><span class="p">)</span> <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --link-flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;link-flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
    <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;flag&#39;</span><span class="p">)</span>      <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
    <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;c-flag&#39;</span><span class="p">)</span>    <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --c-flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;c-flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
    <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;archiver&#39;</span><span class="p">)</span>  <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --archiver &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;archiver&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span>
+   <span class="k">if</span><span class="p">(</span> <span class="n">lget</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span> <span class="p">)</span><span class="k">then</span>
+<span class="k">      </span><span class="n">sub_command</span><span class="o">=</span><span class="s1">&#39;test&#39;</span>
+   <span class="k">else</span>
+<span class="k">      </span><span class="n">sub_command</span><span class="o">=</span><span class="s1">&#39;run&#39;</span>
+      <span class="k">if</span><span class="p">(</span> <span class="n">specified</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span>   <span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --example &#39;</span>
+   <span class="k">endif</span>
 
-   <span class="k">if</span><span class="p">(</span><span class="n">size</span><span class="p">(</span><span class="n">leafs</span><span class="p">).</span><span class="n">eq</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="n">leafs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
-   <span class="k">do </span><span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="n">size</span><span class="p">(</span><span class="n">leafs</span><span class="p">)</span>
+<span class="k">   if</span><span class="p">(</span> <span class="n">size</span><span class="p">(</span><span class="n">leafs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">)</span><span class="n">leafs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span>
+   <span class="k">do </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">(</span><span class="n">leafs</span><span class="p">)</span>
 
       <span class="c">! need to make a call to the fpm API to get the program cleanly.</span>
-      <span class="n">cmd</span><span class="o">=</span><span class="s1">&#39;fpm run &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">leafs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">//</span><span class="k">options</span><span class="o">//</span><span class="s2">&quot; --profile debug --runner|grep &#39;^build&#39;&quot;</span>
+      <span class="n">cmd</span> <span class="o">=</span> <span class="s1">&#39;fpm &#39;</span><span class="o">//</span><span class="n">sub_command</span><span class="o">//</span><span class="s1">&#39; &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">leafs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">)</span><span class="o">//</span><span class="k">options</span><span class="o">//</span><span class="s2">&quot; --profile debug --runner|grep &#39;^build&#39;&quot;</span>
       <span class="c">! note the process_* procedures are currently available only on POSIX platforms</span>
       <span class="c">! could use system commands based on OS or possibly get M_process to support</span>
       <span class="c">! more platforms</span>
       <span class="k">call </span><span class="n">process_open_read</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span> <span class="c">! open process to read from</span>
-      <span class="k">if</span><span class="p">(</span><span class="n">ierr</span><span class="p">.</span><span class="n">eq</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="k">then</span>
+      <span class="k">if</span><span class="p">(</span> <span class="n">ierr</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">)</span><span class="k">then</span>
 <span class="k">        call </span><span class="n">process_readline</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span> <span class="c">! read a line from the process</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">ierr</span><span class="p">.</span><span class="n">ne</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span> <span class="k">stop</span> <span class="s1">&#39;error processing command&#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+        <span class="k">if</span><span class="p">(</span> <span class="n">ierr</span> <span class="o">/=</span> <span class="mi">0</span> <span class="p">)</span> <span class="k">stop</span> <span class="s1">&#39;error processing command&#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
         <span class="k">call </span><span class="n">process_close</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span>
       <span class="k">endif</span>
-<span class="k">      </span><span class="n">cmd</span><span class="o">=</span><span class="s1">&#39;fpm run &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">leafs</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="o">//</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --profile debug --runner &quot;&#39;</span>
+<span class="k">      </span><span class="n">cmd</span><span class="o">=</span><span class="s1">&#39;fpm &#39;</span><span class="o">//</span><span class="n">sub_command</span><span class="o">//</span><span class="s1">&#39; &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">leafs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="p">)</span><span class="o">//</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --profile debug --runner &quot;&#39;</span>
       <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot;vim -c &#39;set mouse=a&#39; &quot;</span>
       <span class="k">if</span><span class="p">(</span> <span class="n">lget</span><span class="p">(</span><span class="s1">&#39;wide&#39;</span><span class="p">)</span> <span class="p">)</span><span class="k">then</span>
 <span class="k">          </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;let g:termdebug_wide=1&#39;&quot;</span>
@@ -672,16 +697,18 @@ subroutine <a href='../proc/setup.html'>setup</a>()
       <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;resize +10&#39; &quot;</span>
       <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;:tnoremap &lt;F1&gt; &lt;C-W&gt;N&#39; &quot;</span>
       <span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;Termdebug &quot;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">//</span><span class="s2">&quot;&#39; &quot;</span>
-      <span class="k">if</span><span class="p">(</span> <span class="n">cmd_gdb</span> <span class="p">.</span><span class="n">ne</span><span class="p">.</span> <span class="s1">&#39;&#39;</span> <span class="p">)</span><span class="k">then</span>
+      <span class="k">if</span><span class="p">(</span> <span class="n">cmd_gdb</span> <span class="o">/=</span> <span class="s1">&#39;&#39;</span> <span class="p">)</span><span class="k">then</span>
 <span class="k">         </span><span class="n">cmd</span> <span class="o">=</span> <span class="n">cmd</span><span class="o">//</span><span class="s2">&quot;-c \&quot;&quot;</span><span class="k">call </span><span class="n">TermDebugSendCommand</span><span class="p">(</span><span class="s1">&#39;&quot;//cmd_gdb//&quot;&#39;</span><span class="p">)</span><span class="err">\</span><span class="s2">&quot;&quot;</span> <span class="s2">&quot;</span>
 <span class="s2">      endif</span>
-<span class="s2">      ! assuming in app/ and thatka .f90 or .F90 file; could leave this off or generalize</span>
-<span class="s2">      if( specified(&#39;example&#39;) )then</span>
+<span class="s2">      ! assuming in app/ and that .f90 or .F90 file; could leave this off or generalize</span>
+<span class="s2">      if( sub_command == &#39;test&#39; )then</span>
+<span class="s2">              dir=&#39;test&#39;</span>
+<span class="s2">      elseif( specified(&#39;example&#39;) )then</span>
 <span class="s2">              dir=&#39;example&#39;</span>
 <span class="s2">      else</span>
 <span class="s2">              dir=&#39;app&#39;</span>
 <span class="s2">      endif</span>
-<span class="s2">      if( leafs(i) .eq. &#39;&#39; )then</span>
+<span class="s2">      if( leafs(i) == &#39;&#39; )then</span>
 <span class="s2">         cmd=cmd//&#39; &#39;//dir//&#39;/*.[fF]90&quot;</span><span class="s1">&#39;</span>
 <span class="s1">      else</span>
 <span class="s1">         cmd=cmd//&#39;</span> <span class="s1">&#39;//dir//&#39;</span><span class="o">/</span><span class="s1">&#39;//leafs(i)//&#39;</span><span class="p">.[</span><span class="n">fF</span><span class="p">]</span><span class="mi">90</span><span class="s2">&quot;&#39;</span>
@@ -722,6 +749,9 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="s2">&#39;                  code in a window on the left of the screen. &lt;C-W&gt;&#39;,&amp;</span>
 <span class="s2">&#39;                  followed by one of {RHKLJ} can change the window&#39;,&amp;</span>
 <span class="s2">&#39;                  layout.&#39;,&amp;</span>
+<span class="s2">&#39;    --test        use subcommand &quot;</span><span class="n">test</span><span class="s2">&quot; instead of the default &quot;</span><span class="n">run</span><span class="s2">&quot;&#39;,&amp;</span>
+<span class="s2">&#39;                  in order to select test programs. If --test is specified&#39;,&amp;</span>
+<span class="s2">&#39;                  --example is ignored.&#39;,&amp;</span>
 <span class="s2">&#39;&#39;,&amp;</span>
 <span class="s2">&#39;    --verbose,-V  verbose mode&#39;,&amp;</span>
 <span class="s2">&#39;    --version,-v  Print version information on standard output then&#39;,&amp;</span>
@@ -854,6 +884,9 @@ subroutine <a href='../proc/setup.html'>setup</a>()
 <span class="s2">!!                   code in a window on the left of the screen. &lt;C-W&gt;</span>
 <span class="s2">!!                   followed by one of {RHKLJ} can change the window</span>
 <span class="s2">!!                   layout.</span>
+<span class="s2">!!     --test        use subcommand &quot;</span><span class="n">test</span><span class="s2">&quot; instead of the default &quot;</span><span class="n">run</span><span class="s2">&quot;</span>
+<span class="s2">!!                   in order to select test programs. If --test is specified</span>
+<span class="s2">!!                   --example is ignored.</span>
 <span class="s2">!!</span>
 <span class="s2">!!     --verbose,-V  verbose mode</span>
 <span class="s2">!!     --version,-v  Print version information on standard output then</span>
@@ -986,7 +1019,7 @@ subroutine <a href='../proc/setup.html'>setup</a>()
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2022-07-06 06:33  
+             on 2022-07-06 20:41  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> fpm-gdb was developed by John S. Urban</p></div>
