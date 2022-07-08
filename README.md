@@ -1,7 +1,8 @@
 ### [fpm-tools](https://github.com/search?q="fpm-tools"%20in:topic%20language:fortran):[fpm-gdb](https://urbanjost.github.io/fpm-gdb/fpm-gdb.1.html)
 
-fpm(1) plugin on POSIX systems to launch gdb(1) on a simple fpm(1) project.
+This is a fpm(1) plugin for POSIX systems. 
 
+It launchs the GNU debugger gdb(1) on a simple fpm(1) project.
 
 if you build and install this as "fpm-gdb" in your path, then in other
 simple fpm(1) projects that build an application you can enter:
