@@ -2,10 +2,9 @@
 
 plugin on POSIX systems to launch gdb(1) on a simple fpm(1) project.
 
+
 if you build and install this as "fpm-gdb" in your path, then in other
 simple fpm(1) projects that build an application you can enter:
-
-The man-page is available on-line at [fpm-gdb](https://urbanjost.github.io/fpm-gdb/fpm-gdb.1.html)
 
 ```bash
 fpm gdb
@@ -23,6 +22,13 @@ editor, launching the screen mode with the mouse activated. For example:
 fpm run --runner "vim -c 'set mouse=a'  -c 'packadd termdebug'  -c 'resize +10'  -c 'Termdebug build/gfortran_2A42023B310FA28D/app/fpm-gdb' app*.f90"
 ```
 ![gdb](docs/images/fpm-gdb.1.gif)
+
+The man-page is available on-line at [fpm-gdb](https://urbanjost.github.io/fpm-gdb/fpm-gdb.1.html)
+
+Please leave usage tips on the [wiki](https://github.com/urbanjost/fpm-gdb/wiki); 
+[discuss](https://github.com/urbanjost/fpm-gdb/discussions) general possibilities for the plug-in;
+and report [issues](https://github.com/urbanjost/fpm-gdb/issues).
+
 
 # Getting started
 We will set a breakpoint at the beginning of the program, list the
