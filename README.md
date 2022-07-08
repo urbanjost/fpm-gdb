@@ -5,6 +5,8 @@ plugin on POSIX systems to launch gdb(1) on a simple fpm(1) project.
 if you build and install this as "fpm-gdb" in your path, then in other
 simple fpm(1) projects that build an application you can enter:
 
+The man-page is available on-line at [fpm-gdb](https://urbanjost.github.io/fpm-gdb/fpm-gdb.1.html)
+
 ```bash
 fpm gdb
 ```
@@ -58,7 +60,7 @@ Assuming your terminal window supports vim(1) mouse mode, you can use the
 mouse in various ways. For example, You can click on variables and the
 [eval] button.
 
-SCROLLING
+# Scrolling
 The gdb and output windows will not be in Normal mode and so
 will not scroll by default. When focus is on the window that will not
 scroll enter "ctrl-W N" to go to scrollable, and enter "i" to return
@@ -79,10 +81,11 @@ are using.
 In the gdb window in particular, you probably want to toggle between
 the modes, because when scrolling is on command recall is not.
 
-When in Normal mode your interaction with the program is suspended,
-so you want to return to the original mode or you cannot enter commands
-in the gdb pane and cannot see new output or enter input in Normal mode.
+When in Normal mode your interaction with the program is suspended, so
+you want to return to the original mode or you cannot enter commands in
+the gdb pane and cannot see new output or enter input in Normal mode.
 To leave scrollable mode (enter "i") in the pane.
+
 # Installation
 If you have the fpm-tools(1) plugin enter:
 ```bash
