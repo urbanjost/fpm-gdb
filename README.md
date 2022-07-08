@@ -114,3 +114,8 @@ General gdb(1) instructions are beyond the scope of this discussion, but
 
 For the vim(1) terminal help go to the rightmost vim(1) window and enter
 ":help terminal-debug".
+
+## References
+   + [Fortran Package Manager](https://github.com/fortran-lang/fpm) 
+   + [vim](https://www.vim.org/)
+   + [gdb](https://www.sourceware.org/gdb/)
