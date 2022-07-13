@@ -77,15 +77,17 @@ Lets start in a terminal at least 132 characters wide and enter
 and then in the **gdb**(1) command window enter
 
         b main
-        list
-        b 40
+        info sources
+        info functions
+        b file.F90:routine
         run
 
-This will set a breakpoint at the beginning of the program, start
-listing the program, set some other breakpoint and then start running
-the program
+This will set a breakpoint at the beginning of the program, list the
+files in scope for debugging, list the procedures, set some other
+breakpoint in file "file.F90" at top of procedure "routine" and then
+start running
 
-**(with optional arguments).**
+**the program (with optional arguments).**
 
 :   Clicking on "next" would take you to the next breakpoint.
 

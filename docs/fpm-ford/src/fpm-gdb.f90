@@ -147,14 +147,16 @@ help=[ CHARACTER(LEN=128) :: &
 'and then in the gdb(1) command window enter',&
 '',&
 '    b main',&
-'    list',&
-'    b 40',&
+'    info sources',&
+'    info functions',&
+'    b file.F90:routine',&
 '    run',&
 '',&
-'This will set a breakpoint at the beginning of the program, start listing',&
-'the program, set some other breakpoint and then start running the program',&
-'(with optional arguments).  Clicking on "next" would take you to the',&
-'next breakpoint.',&
+'This will set a breakpoint at the beginning of the program, list the files',&
+'in scope for debugging, list the procedures, set some other breakpoint',&
+'in file "file.F90" at top of procedure "routine" and then start running',&
+'the program (with optional arguments).  Clicking on "next" would take',&
+'you to the next breakpoint.',&
 '',&
 'For some compilers "b 1"(e.g. Intel) might be required instead of "b',&
 'main"(e.g gfortran).',&
@@ -282,14 +284,16 @@ help=[ CHARACTER(LEN=128) :: &
 !! and then in the gdb(1) command window enter
 !!
 !!     b main
-!!     list
-!!     b 40
+!!     info sources
+!!     info functions
+!!     b file.F90:routine
 !!     run
 !!
-!! This will set a breakpoint at the beginning of the program, start listing
-!! the program, set some other breakpoint and then start running the program
-!! (with optional arguments).  Clicking on "next" would take you to the
-!! next breakpoint.
+!! This will set a breakpoint at the beginning of the program, list the files
+!! in scope for debugging, list the procedures, set some other breakpoint
+!! in file "file.F90" at top of procedure "routine" and then start running
+!! the program (with optional arguments).  Clicking on "next" would take
+!! you to the next breakpoint.
 !!
 !! For some compilers "b 1"(e.g. Intel) might be required instead of "b
 !! main"(e.g gfortran).

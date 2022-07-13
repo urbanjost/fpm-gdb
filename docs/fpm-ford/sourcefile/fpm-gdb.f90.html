@@ -406,230 +406,234 @@
 <a name="ln-147"></a><span class="s2">&#39;and then in the gdb(1) command window enter&#39;,&amp;</span>
 <a name="ln-148"></a><span class="s2">&#39;&#39;,&amp;</span>
 <a name="ln-149"></a><span class="s2">&#39;    b main&#39;,&amp;</span>
-<a name="ln-150"></a><span class="s2">&#39;    list&#39;,&amp;</span>
-<a name="ln-151"></a><span class="s2">&#39;    b 40&#39;,&amp;</span>
-<a name="ln-152"></a><span class="s2">&#39;    run&#39;,&amp;</span>
-<a name="ln-153"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-154"></a><span class="s2">&#39;This will set a breakpoint at the beginning of the program, start listing&#39;,&amp;</span>
-<a name="ln-155"></a><span class="s2">&#39;the program, set some other breakpoint and then start running the program&#39;,&amp;</span>
-<a name="ln-156"></a><span class="s2">&#39;(with optional arguments).  Clicking on &quot;</span><span class="n">next</span><span class="s2">&quot; would take you to the&#39;,&amp;</span>
-<a name="ln-157"></a><span class="s2">&#39;next breakpoint.&#39;,&amp;</span>
-<a name="ln-158"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-159"></a><span class="s2">&#39;For some compilers &quot;</span><span class="n">b</span> <span class="mi">1</span><span class="s2">&quot;(e.g. Intel) might be required instead of &quot;</span><span class="n">b</span><span class="s1">&#39;,&amp;</span>
-<a name="ln-160"></a><span class="s1">&#39;</span><span class="n">main</span><span class="s2">&quot;(e.g gfortran).&#39;,&amp;</span>
-<a name="ln-161"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-162"></a><span class="s2">&#39;Many other commands exist.  Assuming you are at your next breakpoint,&#39;,&amp;</span>
-<a name="ln-163"></a><span class="s2">&#39;you can ask where you are, list local variables and print the value of&#39;,&amp;</span>
-<a name="ln-164"></a><span class="s2">&#39;some variable, like &quot;</span><span class="n">i</span><span class="s2">&quot;&#39;,&amp;</span>
-<a name="ln-165"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-166"></a><span class="s2">&#39;    where&#39;,&amp;</span>
-<a name="ln-167"></a><span class="s2">&#39;    info locals&#39;,&amp;</span>
-<a name="ln-168"></a><span class="s2">&#39;    print i&#39;,&amp;</span>
-<a name="ln-169"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-170"></a><span class="s2">&#39;USING THE MOUSE&#39;,&amp;</span>
+<a name="ln-150"></a><span class="s2">&#39;    info sources&#39;,&amp;</span>
+<a name="ln-151"></a><span class="s2">&#39;    info functions&#39;,&amp;</span>
+<a name="ln-152"></a><span class="s2">&#39;    b file.F90:routine&#39;,&amp;</span>
+<a name="ln-153"></a><span class="s2">&#39;    run&#39;,&amp;</span>
+<a name="ln-154"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-155"></a><span class="s2">&#39;This will set a breakpoint at the beginning of the program, list the files&#39;,&amp;</span>
+<a name="ln-156"></a><span class="s2">&#39;in scope for debugging, list the procedures, set some other breakpoint&#39;,&amp;</span>
+<a name="ln-157"></a><span class="s2">&#39;in file &quot;</span><span class="k">file</span><span class="p">.</span><span class="n">F90</span><span class="s2">&quot; at top of procedure &quot;</span><span class="n">routine</span><span class="s2">&quot; and then start running&#39;,&amp;</span>
+<a name="ln-158"></a><span class="s2">&#39;the program (with optional arguments).  Clicking on &quot;</span><span class="n">next</span><span class="s2">&quot; would take&#39;,&amp;</span>
+<a name="ln-159"></a><span class="s2">&#39;you to the next breakpoint.&#39;,&amp;</span>
+<a name="ln-160"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-161"></a><span class="s2">&#39;For some compilers &quot;</span><span class="n">b</span> <span class="mi">1</span><span class="s2">&quot;(e.g. Intel) might be required instead of &quot;</span><span class="n">b</span><span class="s1">&#39;,&amp;</span>
+<a name="ln-162"></a><span class="s1">&#39;</span><span class="n">main</span><span class="s2">&quot;(e.g gfortran).&#39;,&amp;</span>
+<a name="ln-163"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-164"></a><span class="s2">&#39;Many other commands exist.  Assuming you are at your next breakpoint,&#39;,&amp;</span>
+<a name="ln-165"></a><span class="s2">&#39;you can ask where you are, list local variables and print the value of&#39;,&amp;</span>
+<a name="ln-166"></a><span class="s2">&#39;some variable, like &quot;</span><span class="n">i</span><span class="s2">&quot;&#39;,&amp;</span>
+<a name="ln-167"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-168"></a><span class="s2">&#39;    where&#39;,&amp;</span>
+<a name="ln-169"></a><span class="s2">&#39;    info locals&#39;,&amp;</span>
+<a name="ln-170"></a><span class="s2">&#39;    print i&#39;,&amp;</span>
 <a name="ln-171"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-172"></a><span class="s2">&#39;Assuming your terminal window supports vim(1) mouse mode, you can use&#39;,&amp;</span>
-<a name="ln-173"></a><span class="s2">&#39;the mouse in various ways. For example&#39;,&amp;</span>
-<a name="ln-174"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-175"></a><span class="s2">&#39;   TO SET BREAK POINTS&#39;,&amp;</span>
+<a name="ln-172"></a><span class="s2">&#39;USING THE MOUSE&#39;,&amp;</span>
+<a name="ln-173"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-174"></a><span class="s2">&#39;Assuming your terminal window supports vim(1) mouse mode, you can use&#39;,&amp;</span>
+<a name="ln-175"></a><span class="s2">&#39;the mouse in various ways. For example&#39;,&amp;</span>
 <a name="ln-176"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-177"></a><span class="s2">&#39;   If you click the right mouse in the code file you should get an option&#39;,&amp;</span>
-<a name="ln-178"></a><span class="s2">&#39;   menu for setting and clearing breakpoints.&#39;,&amp;</span>
-<a name="ln-179"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-180"></a><span class="s2">&#39;   TO EVALATE VARIABLES&#39;,&amp;</span>
+<a name="ln-177"></a><span class="s2">&#39;   TO SET BREAK POINTS&#39;,&amp;</span>
+<a name="ln-178"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-179"></a><span class="s2">&#39;   If you click the right mouse in the code file you should get an option&#39;,&amp;</span>
+<a name="ln-180"></a><span class="s2">&#39;   menu for setting and clearing breakpoints.&#39;,&amp;</span>
 <a name="ln-181"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-182"></a><span class="s2">&#39;   click on variables to highlight them and click the [eval] icon.&#39;,&amp;</span>
+<a name="ln-182"></a><span class="s2">&#39;   TO EVALATE VARIABLES&#39;,&amp;</span>
 <a name="ln-183"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-184"></a><span class="s2">&#39;SCROLLING&#39;,&amp;</span>
+<a name="ln-184"></a><span class="s2">&#39;   click on variables to highlight them and click the [eval] icon.&#39;,&amp;</span>
 <a name="ln-185"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-186"></a><span class="s2">&#39;The gdb and output windows will not be in Normal mode and so&#39;,&amp;</span>
-<a name="ln-187"></a><span class="s2">&#39;will not scroll by default. When focus is on the window that will not&#39;,&amp;</span>
-<a name="ln-188"></a><span class="s2">&#39;scroll enter &quot;</span><span class="n">ctrl</span><span class="o">-</span><span class="n">W</span> <span class="n">N</span><span class="s2">&quot; to go to scrollable, and enter &quot;</span><span class="n">i</span><span class="s2">&quot; to return&#39;,&amp;</span>
-<a name="ln-189"></a><span class="s2">&#39;to the original mode.&#39;,&amp;</span>
-<a name="ln-190"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-191"></a><span class="s2">&#39;On some platforms instead of &quot;</span><span class="n">ctrl</span><span class="o">-</span><span class="n">W</span><span class="s2">&quot; followed by capital &quot;</span><span class="n">N</span><span class="s2">&quot; you can&#39;,&amp;</span>
-<a name="ln-192"></a><span class="s2">&#39;define which key goes to Normal mode. For example, to define F1 to&#39;,&amp;</span>
-<a name="ln-193"></a><span class="s2">&#39;switch to Terminal-Normal mode:&#39;,&amp;</span>
-<a name="ln-194"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-195"></a><span class="s2">&#39;     :tnoremap &lt;F1&gt; &lt;C-W&gt;N&#39;,&amp;</span>
+<a name="ln-186"></a><span class="s2">&#39;SCROLLING&#39;,&amp;</span>
+<a name="ln-187"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-188"></a><span class="s2">&#39;The gdb and output windows will not be in Normal mode and so&#39;,&amp;</span>
+<a name="ln-189"></a><span class="s2">&#39;will not scroll by default. When focus is on the window that will not&#39;,&amp;</span>
+<a name="ln-190"></a><span class="s2">&#39;scroll enter &quot;</span><span class="n">ctrl</span><span class="o">-</span><span class="n">W</span> <span class="n">N</span><span class="s2">&quot; to go to scrollable, and enter &quot;</span><span class="n">i</span><span class="s2">&quot; to return&#39;,&amp;</span>
+<a name="ln-191"></a><span class="s2">&#39;to the original mode.&#39;,&amp;</span>
+<a name="ln-192"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-193"></a><span class="s2">&#39;On some platforms instead of &quot;</span><span class="n">ctrl</span><span class="o">-</span><span class="n">W</span><span class="s2">&quot; followed by capital &quot;</span><span class="n">N</span><span class="s2">&quot; you can&#39;,&amp;</span>
+<a name="ln-194"></a><span class="s2">&#39;define which key goes to Normal mode. For example, to define F1 to&#39;,&amp;</span>
+<a name="ln-195"></a><span class="s2">&#39;switch to Terminal-Normal mode:&#39;,&amp;</span>
 <a name="ln-196"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-197"></a><span class="s2">&#39;In the gdb window in particular, you probably want to toggle between&#39;,&amp;</span>
-<a name="ln-198"></a><span class="s2">&#39;the modes, because when scrolling is on command recall is not.&#39;,&amp;</span>
-<a name="ln-199"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-200"></a><span class="s2">&#39;When in Normal mode your interaction with the program is suspended,&#39;,&amp;</span>
-<a name="ln-201"></a><span class="s2">&#39;so you want to return to the original mode or you cannot enter commands&#39;,&amp;</span>
-<a name="ln-202"></a><span class="s2">&#39;in the gdb pane and cannot see new output or enter input in Normal mode.&#39;,&amp;</span>
-<a name="ln-203"></a><span class="s2">&#39;To leave scrollable mode (enter &quot;</span><span class="n">i</span><span class="s2">&quot;) in the pane.&#39;,&amp;</span>
-<a name="ln-204"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-205"></a><span class="s2">&#39;Check out :help window-moving for more information on changing the&#39;,&amp;</span>
-<a name="ln-206"></a><span class="s2">&#39;window layout.&#39;,&amp;</span>
-<a name="ln-207"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-208"></a><span class="s2">&#39;MORE INFO&#39;,&amp;</span>
+<a name="ln-197"></a><span class="s2">&#39;     :tnoremap &lt;F1&gt; &lt;C-W&gt;N&#39;,&amp;</span>
+<a name="ln-198"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-199"></a><span class="s2">&#39;In the gdb window in particular, you probably want to toggle between&#39;,&amp;</span>
+<a name="ln-200"></a><span class="s2">&#39;the modes, because when scrolling is on command recall is not.&#39;,&amp;</span>
+<a name="ln-201"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-202"></a><span class="s2">&#39;When in Normal mode your interaction with the program is suspended,&#39;,&amp;</span>
+<a name="ln-203"></a><span class="s2">&#39;so you want to return to the original mode or you cannot enter commands&#39;,&amp;</span>
+<a name="ln-204"></a><span class="s2">&#39;in the gdb pane and cannot see new output or enter input in Normal mode.&#39;,&amp;</span>
+<a name="ln-205"></a><span class="s2">&#39;To leave scrollable mode (enter &quot;</span><span class="n">i</span><span class="s2">&quot;) in the pane.&#39;,&amp;</span>
+<a name="ln-206"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-207"></a><span class="s2">&#39;Check out :help window-moving for more information on changing the&#39;,&amp;</span>
+<a name="ln-208"></a><span class="s2">&#39;window layout.&#39;,&amp;</span>
 <a name="ln-209"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-210"></a><span class="s2">&#39;General gdb instructions are beyond the scope of this discussion, but&#39;,&amp;</span>
-<a name="ln-211"></a><span class="s2">&#39;&quot;</span><span class="n">help</span><span class="s2">&quot; in the gdb pane can get you started.&#39;,&amp;</span>
-<a name="ln-212"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-213"></a><span class="s2">&#39;For the vim(1) terminal help go to the rightmost vim(1) window and enter&#39;,&amp;</span>
-<a name="ln-214"></a><span class="s2">&#39;&quot;</span><span class="p">:</span><span class="n">help</span> <span class="n">terminal</span><span class="o">-</span><span class="n">debug</span><span class="s2">&quot;.&#39;,&amp;</span>
-<a name="ln-215"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-216"></a><span class="s2">&#39;EXAMPLES&#39;,&amp;</span>
-<a name="ln-217"></a><span class="s2">&#39;     fpm gdb&#39;,&amp;</span>
-<a name="ln-218"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-219"></a><span class="s2">&#39;     fpm gdb --compiler gfortran&#39;,&amp;</span>
+<a name="ln-210"></a><span class="s2">&#39;MORE INFO&#39;,&amp;</span>
+<a name="ln-211"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-212"></a><span class="s2">&#39;General gdb instructions are beyond the scope of this discussion, but&#39;,&amp;</span>
+<a name="ln-213"></a><span class="s2">&#39;&quot;</span><span class="n">help</span><span class="s2">&quot; in the gdb pane can get you started.&#39;,&amp;</span>
+<a name="ln-214"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-215"></a><span class="s2">&#39;For the vim(1) terminal help go to the rightmost vim(1) window and enter&#39;,&amp;</span>
+<a name="ln-216"></a><span class="s2">&#39;&quot;</span><span class="p">:</span><span class="n">help</span> <span class="n">terminal</span><span class="o">-</span><span class="n">debug</span><span class="s2">&quot;.&#39;,&amp;</span>
+<a name="ln-217"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-218"></a><span class="s2">&#39;EXAMPLES&#39;,&amp;</span>
+<a name="ln-219"></a><span class="s2">&#39;     fpm gdb&#39;,&amp;</span>
 <a name="ln-220"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-221"></a><span class="s2">&#39;     # run with initial gdb(1) commands in a file&#39;,&amp;</span>
-<a name="ln-222"></a><span class="s2">&#39;     fpm gdb -wide -gdb &#39;&#39;source mycmds.gdb&#39;&#39;&#39;,&amp;</span>
-<a name="ln-223"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-224"></a><span class="s2">&#39;     fpm gdb --example demo1&#39;,&amp;</span>
+<a name="ln-221"></a><span class="s2">&#39;     fpm gdb --compiler gfortran&#39;,&amp;</span>
+<a name="ln-222"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-223"></a><span class="s2">&#39;     # run with initial gdb(1) commands in a file&#39;,&amp;</span>
+<a name="ln-224"></a><span class="s2">&#39;     fpm gdb -wide -gdb &#39;&#39;source mycmds.gdb&#39;&#39;&#39;,&amp;</span>
 <a name="ln-225"></a><span class="s2">&#39;&#39;,&amp;</span>
-<a name="ln-226"></a><span class="s2">&#39;SEE ALSO&#39;,&amp;</span>
-<a name="ln-227"></a><span class="s2">&#39;    gdb(1), fpm(1), vim(1)&#39;,&amp;</span>
-<a name="ln-228"></a><span class="s2">&#39;&#39;]</span>
-<a name="ln-229"></a><span class="s2">!&gt;</span>
-<a name="ln-230"></a><span class="s2">!!##NAME</span>
-<a name="ln-231"></a><span class="s2">!!    fpm-gdb(1f) - [FUNIX:FILESYSTEM] launch gdb(1) in vim(1) from fpm(1)</span>
-<a name="ln-232"></a><span class="s2">!!    (LICENSE:MIT)</span>
-<a name="ln-233"></a><span class="s2">!!</span>
-<a name="ln-234"></a><span class="s2">!!##SYNOPSIS</span>
+<a name="ln-226"></a><span class="s2">&#39;     fpm gdb --example demo1&#39;,&amp;</span>
+<a name="ln-227"></a><span class="s2">&#39;&#39;,&amp;</span>
+<a name="ln-228"></a><span class="s2">&#39;SEE ALSO&#39;,&amp;</span>
+<a name="ln-229"></a><span class="s2">&#39;    gdb(1), fpm(1), vim(1)&#39;,&amp;</span>
+<a name="ln-230"></a><span class="s2">&#39;&#39;]</span>
+<a name="ln-231"></a><span class="s2">!&gt;</span>
+<a name="ln-232"></a><span class="s2">!!##NAME</span>
+<a name="ln-233"></a><span class="s2">!!    fpm-gdb(1f) - [FUNIX:FILESYSTEM] launch gdb(1) in vim(1) from fpm(1)</span>
+<a name="ln-234"></a><span class="s2">!!    (LICENSE:MIT)</span>
 <a name="ln-235"></a><span class="s2">!!</span>
-<a name="ln-236"></a><span class="s2">!!     fpm-gdb [PROGRAM][OPTIONS][ --help|--version]</span>
+<a name="ln-236"></a><span class="s2">!!##SYNOPSIS</span>
 <a name="ln-237"></a><span class="s2">!!</span>
-<a name="ln-238"></a><span class="s2">!!##DESCRIPTION</span>
-<a name="ln-239"></a><span class="s2">!!    fpm-gdb(1f) is an fpm(1) plugin that starts up gdb(1) in the vim(1)</span>
-<a name="ln-240"></a><span class="s2">!!    editor.</span>
-<a name="ln-241"></a><span class="s2">!!</span>
-<a name="ln-242"></a><span class="s2">!!    It uses the vim(1) terminal feature. The terminal feature is optional.</span>
-<a name="ln-243"></a><span class="s2">!!    Enter this in vim(1) to check if your version has it:</span>
-<a name="ln-244"></a><span class="s2">!!</span>
-<a name="ln-245"></a><span class="s2">!!        :echo has(&#39;terminal&#39;)</span>
+<a name="ln-238"></a><span class="s2">!!     fpm-gdb [PROGRAM][OPTIONS][ --help|--version]</span>
+<a name="ln-239"></a><span class="s2">!!</span>
+<a name="ln-240"></a><span class="s2">!!##DESCRIPTION</span>
+<a name="ln-241"></a><span class="s2">!!    fpm-gdb(1f) is an fpm(1) plugin that starts up gdb(1) in the vim(1)</span>
+<a name="ln-242"></a><span class="s2">!!    editor.</span>
+<a name="ln-243"></a><span class="s2">!!</span>
+<a name="ln-244"></a><span class="s2">!!    It uses the vim(1) terminal feature. The terminal feature is optional.</span>
+<a name="ln-245"></a><span class="s2">!!    Enter this in vim(1) to check if your version has it:</span>
 <a name="ln-246"></a><span class="s2">!!</span>
-<a name="ln-247"></a><span class="s2">!!    If the result is &quot;</span><span class="mi">1</span><span class="s2">&quot; you have it.</span>
+<a name="ln-247"></a><span class="s2">!!        :echo has(&#39;terminal&#39;)</span>
 <a name="ln-248"></a><span class="s2">!!</span>
-<a name="ln-249"></a><span class="s2">!!</span>
-<a name="ln-250"></a><span class="s2">!!##OPTIONS</span>
-<a name="ln-251"></a><span class="s2">!!     PROGRAM       if more than one application is built by the package</span>
-<a name="ln-252"></a><span class="s2">!!                   the name must be specified. Unlike with the &quot;</span><span class="n">fpm</span> <span class="n">run</span><span class="s2">&quot;</span>
-<a name="ln-253"></a><span class="s2">!!                   command wildcards are not permitted.</span>
-<a name="ln-254"></a><span class="s2">!!     --gdb CMDS    pass initial commands to gdb(1)</span>
-<a name="ln-255"></a><span class="s2">!!     -wide,-w      assume a wide screen width. Wide mode places the</span>
-<a name="ln-256"></a><span class="s2">!!                   code in a window on the left of the screen. &lt;C-W&gt;</span>
-<a name="ln-257"></a><span class="s2">!!                   followed by one of {RHKLJ} can change the window</span>
-<a name="ln-258"></a><span class="s2">!!                   layout.</span>
-<a name="ln-259"></a><span class="s2">!!     --test        use subcommand &quot;</span><span class="n">test</span><span class="s2">&quot; instead of the default &quot;</span><span class="n">run</span><span class="s2">&quot;</span>
-<a name="ln-260"></a><span class="s2">!!                   in order to select test programs. If --test is specified</span>
-<a name="ln-261"></a><span class="s2">!!                   --example is ignored.</span>
-<a name="ln-262"></a><span class="s2">!!</span>
-<a name="ln-263"></a><span class="s2">!!     --verbose,-V  verbose mode</span>
-<a name="ln-264"></a><span class="s2">!!     --version,-v  Print version information on standard output then</span>
-<a name="ln-265"></a><span class="s2">!!                   exit successfully.</span>
-<a name="ln-266"></a><span class="s2">!!     --help,-h     Print usage information on standard output then</span>
+<a name="ln-249"></a><span class="s2">!!    If the result is &quot;</span><span class="mi">1</span><span class="s2">&quot; you have it.</span>
+<a name="ln-250"></a><span class="s2">!!</span>
+<a name="ln-251"></a><span class="s2">!!</span>
+<a name="ln-252"></a><span class="s2">!!##OPTIONS</span>
+<a name="ln-253"></a><span class="s2">!!     PROGRAM       if more than one application is built by the package</span>
+<a name="ln-254"></a><span class="s2">!!                   the name must be specified. Unlike with the &quot;</span><span class="n">fpm</span> <span class="n">run</span><span class="s2">&quot;</span>
+<a name="ln-255"></a><span class="s2">!!                   command wildcards are not permitted.</span>
+<a name="ln-256"></a><span class="s2">!!     --gdb CMDS    pass initial commands to gdb(1)</span>
+<a name="ln-257"></a><span class="s2">!!     -wide,-w      assume a wide screen width. Wide mode places the</span>
+<a name="ln-258"></a><span class="s2">!!                   code in a window on the left of the screen. &lt;C-W&gt;</span>
+<a name="ln-259"></a><span class="s2">!!                   followed by one of {RHKLJ} can change the window</span>
+<a name="ln-260"></a><span class="s2">!!                   layout.</span>
+<a name="ln-261"></a><span class="s2">!!     --test        use subcommand &quot;</span><span class="n">test</span><span class="s2">&quot; instead of the default &quot;</span><span class="n">run</span><span class="s2">&quot;</span>
+<a name="ln-262"></a><span class="s2">!!                   in order to select test programs. If --test is specified</span>
+<a name="ln-263"></a><span class="s2">!!                   --example is ignored.</span>
+<a name="ln-264"></a><span class="s2">!!</span>
+<a name="ln-265"></a><span class="s2">!!     --verbose,-V  verbose mode</span>
+<a name="ln-266"></a><span class="s2">!!     --version,-v  Print version information on standard output then</span>
 <a name="ln-267"></a><span class="s2">!!                   exit successfully.</span>
-<a name="ln-268"></a><span class="s2">!!</span>
-<a name="ln-269"></a><span class="s2">!!    In addition, the following options from the fpm(1) &quot;</span><span class="n">run</span><span class="s2">&quot; subcommand</span>
-<a name="ln-270"></a><span class="s2">!!    are supported, noting that &quot;</span><span class="o">--</span><span class="n">profile</span> <span class="n">debug</span><span class="s2">&quot; is always specified as</span>
-<a name="ln-271"></a><span class="s2">!!    well ...</span>
-<a name="ln-272"></a><span class="s2">!!</span>
-<a name="ln-273"></a><span class="s2">!!        --example    --no-prune  --link-flag  --flag</span>
-<a name="ln-274"></a><span class="s2">!!        --directory  --compiler  --c-flag     --c-compiler</span>
-<a name="ln-275"></a><span class="s2">!!        --archiver</span>
-<a name="ln-276"></a><span class="s2">!!</span>
-<a name="ln-277"></a><span class="s2">!!##GETTING STARTED</span>
-<a name="ln-278"></a><span class="s2">!! Lets start in a terminal at least 132 characters wide and enter</span>
-<a name="ln-279"></a><span class="s2">!!</span>
-<a name="ln-280"></a><span class="s2">!!      fpm gdb --wide</span>
+<a name="ln-268"></a><span class="s2">!!     --help,-h     Print usage information on standard output then</span>
+<a name="ln-269"></a><span class="s2">!!                   exit successfully.</span>
+<a name="ln-270"></a><span class="s2">!!</span>
+<a name="ln-271"></a><span class="s2">!!    In addition, the following options from the fpm(1) &quot;</span><span class="n">run</span><span class="s2">&quot; subcommand</span>
+<a name="ln-272"></a><span class="s2">!!    are supported, noting that &quot;</span><span class="o">--</span><span class="n">profile</span> <span class="n">debug</span><span class="s2">&quot; is always specified as</span>
+<a name="ln-273"></a><span class="s2">!!    well ...</span>
+<a name="ln-274"></a><span class="s2">!!</span>
+<a name="ln-275"></a><span class="s2">!!        --example    --no-prune  --link-flag  --flag</span>
+<a name="ln-276"></a><span class="s2">!!        --directory  --compiler  --c-flag     --c-compiler</span>
+<a name="ln-277"></a><span class="s2">!!        --archiver</span>
+<a name="ln-278"></a><span class="s2">!!</span>
+<a name="ln-279"></a><span class="s2">!!##GETTING STARTED</span>
+<a name="ln-280"></a><span class="s2">!! Lets start in a terminal at least 132 characters wide and enter</span>
 <a name="ln-281"></a><span class="s2">!!</span>
-<a name="ln-282"></a><span class="s2">!! and then in the gdb(1) command window enter</span>
+<a name="ln-282"></a><span class="s2">!!      fpm gdb --wide</span>
 <a name="ln-283"></a><span class="s2">!!</span>
-<a name="ln-284"></a><span class="s2">!!     b main</span>
-<a name="ln-285"></a><span class="s2">!!     list</span>
-<a name="ln-286"></a><span class="s2">!!     b 40</span>
-<a name="ln-287"></a><span class="s2">!!     run</span>
-<a name="ln-288"></a><span class="s2">!!</span>
-<a name="ln-289"></a><span class="s2">!! This will set a breakpoint at the beginning of the program, start listing</span>
-<a name="ln-290"></a><span class="s2">!! the program, set some other breakpoint and then start running the program</span>
-<a name="ln-291"></a><span class="s2">!! (with optional arguments).  Clicking on &quot;</span><span class="n">next</span><span class="s2">&quot; would take you to the</span>
-<a name="ln-292"></a><span class="s2">!! next breakpoint.</span>
-<a name="ln-293"></a><span class="s2">!!</span>
-<a name="ln-294"></a><span class="s2">!! For some compilers &quot;</span><span class="n">b</span> <span class="mi">1</span><span class="s2">&quot;(e.g. Intel) might be required instead of &quot;</span><span class="n">b</span>
-<a name="ln-295"></a><span class="c">!! main&quot;(e.g gfortran).</span>
-<a name="ln-296"></a><span class="c">!!</span>
-<a name="ln-297"></a><span class="c">!! Many other commands exist.  Assuming you are at your next breakpoint,</span>
-<a name="ln-298"></a><span class="c">!! you can ask where you are, list local variables and print the value of</span>
-<a name="ln-299"></a><span class="c">!! some variable, like &quot;i&quot;</span>
+<a name="ln-284"></a><span class="s2">!! and then in the gdb(1) command window enter</span>
+<a name="ln-285"></a><span class="s2">!!</span>
+<a name="ln-286"></a><span class="s2">!!     b main</span>
+<a name="ln-287"></a><span class="s2">!!     info sources</span>
+<a name="ln-288"></a><span class="s2">!!     info functions</span>
+<a name="ln-289"></a><span class="s2">!!     b file.F90:routine</span>
+<a name="ln-290"></a><span class="s2">!!     run</span>
+<a name="ln-291"></a><span class="s2">!!</span>
+<a name="ln-292"></a><span class="s2">!! This will set a breakpoint at the beginning of the program, list the files</span>
+<a name="ln-293"></a><span class="s2">!! in scope for debugging, list the procedures, set some other breakpoint</span>
+<a name="ln-294"></a><span class="s2">!! in file &quot;</span><span class="k">file</span><span class="p">.</span><span class="n">F90</span><span class="s2">&quot; at top of procedure &quot;</span><span class="n">routine</span><span class="s2">&quot; and then start running</span>
+<a name="ln-295"></a><span class="s2">!! the program (with optional arguments).  Clicking on &quot;</span><span class="n">next</span><span class="s2">&quot; would take</span>
+<a name="ln-296"></a><span class="s2">!! you to the next breakpoint.</span>
+<a name="ln-297"></a><span class="s2">!!</span>
+<a name="ln-298"></a><span class="s2">!! For some compilers &quot;</span><span class="n">b</span> <span class="mi">1</span><span class="s2">&quot;(e.g. Intel) might be required instead of &quot;</span><span class="n">b</span>
+<a name="ln-299"></a><span class="c">!! main&quot;(e.g gfortran).</span>
 <a name="ln-300"></a><span class="c">!!</span>
-<a name="ln-301"></a><span class="c">!!     where</span>
-<a name="ln-302"></a><span class="c">!!     info locals</span>
-<a name="ln-303"></a><span class="c">!!     print i</span>
+<a name="ln-301"></a><span class="c">!! Many other commands exist.  Assuming you are at your next breakpoint,</span>
+<a name="ln-302"></a><span class="c">!! you can ask where you are, list local variables and print the value of</span>
+<a name="ln-303"></a><span class="c">!! some variable, like &quot;i&quot;</span>
 <a name="ln-304"></a><span class="c">!!</span>
-<a name="ln-305"></a><span class="c">!!##USING THE MOUSE</span>
-<a name="ln-306"></a><span class="c">!!</span>
-<a name="ln-307"></a><span class="c">!! Assuming your terminal window supports vim(1) mouse mode, you can use</span>
-<a name="ln-308"></a><span class="c">!! the mouse in various ways. For example</span>
-<a name="ln-309"></a><span class="c">!!</span>
-<a name="ln-310"></a><span class="c">!!    TO SET BREAK POINTS</span>
-<a name="ln-311"></a><span class="c">!!</span>
-<a name="ln-312"></a><span class="c">!!    If you click the right mouse in the code file you should get an option</span>
-<a name="ln-313"></a><span class="c">!!    menu for setting and clearing breakpoints.</span>
-<a name="ln-314"></a><span class="c">!!</span>
-<a name="ln-315"></a><span class="c">!!    TO EVALATE VARIABLES</span>
-<a name="ln-316"></a><span class="c">!!</span>
-<a name="ln-317"></a><span class="c">!!    click on variables to highlight them and click the [eval] icon.</span>
+<a name="ln-305"></a><span class="c">!!     where</span>
+<a name="ln-306"></a><span class="c">!!     info locals</span>
+<a name="ln-307"></a><span class="c">!!     print i</span>
+<a name="ln-308"></a><span class="c">!!</span>
+<a name="ln-309"></a><span class="c">!!##USING THE MOUSE</span>
+<a name="ln-310"></a><span class="c">!!</span>
+<a name="ln-311"></a><span class="c">!! Assuming your terminal window supports vim(1) mouse mode, you can use</span>
+<a name="ln-312"></a><span class="c">!! the mouse in various ways. For example</span>
+<a name="ln-313"></a><span class="c">!!</span>
+<a name="ln-314"></a><span class="c">!!    TO SET BREAK POINTS</span>
+<a name="ln-315"></a><span class="c">!!</span>
+<a name="ln-316"></a><span class="c">!!    If you click the right mouse in the code file you should get an option</span>
+<a name="ln-317"></a><span class="c">!!    menu for setting and clearing breakpoints.</span>
 <a name="ln-318"></a><span class="c">!!</span>
-<a name="ln-319"></a><span class="c">!!##SCROLLING</span>
+<a name="ln-319"></a><span class="c">!!    TO EVALATE VARIABLES</span>
 <a name="ln-320"></a><span class="c">!!</span>
-<a name="ln-321"></a><span class="c">!! The gdb and output windows will not be in Normal mode and so</span>
-<a name="ln-322"></a><span class="c">!! will not scroll by default. When focus is on the window that will not</span>
-<a name="ln-323"></a><span class="c">!! scroll enter &quot;ctrl-W N&quot; to go to scrollable, and enter &quot;i&quot; to return</span>
-<a name="ln-324"></a><span class="c">!! to the original mode.</span>
-<a name="ln-325"></a><span class="c">!!</span>
-<a name="ln-326"></a><span class="c">!! On some platforms instead of &quot;ctrl-W&quot; followed by capital &quot;N&quot; you can</span>
-<a name="ln-327"></a><span class="c">!! define which key goes to Normal mode. For example, to define F1 to</span>
-<a name="ln-328"></a><span class="c">!! switch to Terminal-Normal mode:</span>
+<a name="ln-321"></a><span class="c">!!    click on variables to highlight them and click the [eval] icon.</span>
+<a name="ln-322"></a><span class="c">!!</span>
+<a name="ln-323"></a><span class="c">!!##SCROLLING</span>
+<a name="ln-324"></a><span class="c">!!</span>
+<a name="ln-325"></a><span class="c">!! The gdb and output windows will not be in Normal mode and so</span>
+<a name="ln-326"></a><span class="c">!! will not scroll by default. When focus is on the window that will not</span>
+<a name="ln-327"></a><span class="c">!! scroll enter &quot;ctrl-W N&quot; to go to scrollable, and enter &quot;i&quot; to return</span>
+<a name="ln-328"></a><span class="c">!! to the original mode.</span>
 <a name="ln-329"></a><span class="c">!!</span>
-<a name="ln-330"></a><span class="c">!!      :tnoremap &lt;F1&gt; &lt;C-W&gt;N</span>
-<a name="ln-331"></a><span class="c">!!</span>
-<a name="ln-332"></a><span class="c">!! In the gdb window in particular, you probably want to toggle between</span>
-<a name="ln-333"></a><span class="c">!! the modes, because when scrolling is on command recall is not.</span>
-<a name="ln-334"></a><span class="c">!!</span>
-<a name="ln-335"></a><span class="c">!! When in Normal mode your interaction with the program is suspended,</span>
-<a name="ln-336"></a><span class="c">!! so you want to return to the original mode or you cannot enter commands</span>
-<a name="ln-337"></a><span class="c">!! in the gdb pane and cannot see new output or enter input in Normal mode.</span>
-<a name="ln-338"></a><span class="c">!! To leave scrollable mode (enter &quot;i&quot;) in the pane.</span>
-<a name="ln-339"></a><span class="c">!!</span>
-<a name="ln-340"></a><span class="c">!! Check out :help window-moving for more information on changing the</span>
-<a name="ln-341"></a><span class="c">!! window layout.</span>
-<a name="ln-342"></a><span class="c">!!</span>
-<a name="ln-343"></a><span class="c">!!##MORE INFO</span>
-<a name="ln-344"></a><span class="c">!!</span>
-<a name="ln-345"></a><span class="c">!! General gdb instructions are beyond the scope of this discussion, but</span>
-<a name="ln-346"></a><span class="c">!! &quot;help&quot; in the gdb pane can get you started.</span>
-<a name="ln-347"></a><span class="c">!!</span>
-<a name="ln-348"></a><span class="c">!! For the vim(1) terminal help go to the rightmost vim(1) window and enter</span>
-<a name="ln-349"></a><span class="c">!! &quot;:help terminal-debug&quot;.</span>
-<a name="ln-350"></a><span class="c">!!</span>
-<a name="ln-351"></a><span class="c">!!##EXAMPLES</span>
-<a name="ln-352"></a><span class="c">!!</span>
-<a name="ln-353"></a><span class="c">!!      fpm gdb</span>
+<a name="ln-330"></a><span class="c">!! On some platforms instead of &quot;ctrl-W&quot; followed by capital &quot;N&quot; you can</span>
+<a name="ln-331"></a><span class="c">!! define which key goes to Normal mode. For example, to define F1 to</span>
+<a name="ln-332"></a><span class="c">!! switch to Terminal-Normal mode:</span>
+<a name="ln-333"></a><span class="c">!!</span>
+<a name="ln-334"></a><span class="c">!!      :tnoremap &lt;F1&gt; &lt;C-W&gt;N</span>
+<a name="ln-335"></a><span class="c">!!</span>
+<a name="ln-336"></a><span class="c">!! In the gdb window in particular, you probably want to toggle between</span>
+<a name="ln-337"></a><span class="c">!! the modes, because when scrolling is on command recall is not.</span>
+<a name="ln-338"></a><span class="c">!!</span>
+<a name="ln-339"></a><span class="c">!! When in Normal mode your interaction with the program is suspended,</span>
+<a name="ln-340"></a><span class="c">!! so you want to return to the original mode or you cannot enter commands</span>
+<a name="ln-341"></a><span class="c">!! in the gdb pane and cannot see new output or enter input in Normal mode.</span>
+<a name="ln-342"></a><span class="c">!! To leave scrollable mode (enter &quot;i&quot;) in the pane.</span>
+<a name="ln-343"></a><span class="c">!!</span>
+<a name="ln-344"></a><span class="c">!! Check out :help window-moving for more information on changing the</span>
+<a name="ln-345"></a><span class="c">!! window layout.</span>
+<a name="ln-346"></a><span class="c">!!</span>
+<a name="ln-347"></a><span class="c">!!##MORE INFO</span>
+<a name="ln-348"></a><span class="c">!!</span>
+<a name="ln-349"></a><span class="c">!! General gdb instructions are beyond the scope of this discussion, but</span>
+<a name="ln-350"></a><span class="c">!! &quot;help&quot; in the gdb pane can get you started.</span>
+<a name="ln-351"></a><span class="c">!!</span>
+<a name="ln-352"></a><span class="c">!! For the vim(1) terminal help go to the rightmost vim(1) window and enter</span>
+<a name="ln-353"></a><span class="c">!! &quot;:help terminal-debug&quot;.</span>
 <a name="ln-354"></a><span class="c">!!</span>
-<a name="ln-355"></a><span class="c">!!      fpm gdb --compiler gfortran</span>
+<a name="ln-355"></a><span class="c">!!##EXAMPLES</span>
 <a name="ln-356"></a><span class="c">!!</span>
-<a name="ln-357"></a><span class="c">!!      # run with initial gdb(1) commands in a file</span>
-<a name="ln-358"></a><span class="c">!!      fpm gdb -wide -gdb &#39;source mycmds.gdb&#39;</span>
-<a name="ln-359"></a><span class="c">!!</span>
-<a name="ln-360"></a><span class="c">!!      fpm gdb --example demo1</span>
-<a name="ln-361"></a><span class="c">!!</span>
-<a name="ln-362"></a><span class="c">!!##SEE ALSO</span>
-<a name="ln-363"></a><span class="c">!!     gdb(1), fpm(1), vim(1)</span>
-<a name="ln-364"></a><span class="n">version</span><span class="o">=</span><span class="p">[</span> <span class="kt">CHARACTER</span><span class="p">(</span><span class="nb">LEN</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span> <span class="kd">::</span> <span class="p">&amp;</span>
-<a name="ln-365"></a><span class="s1">&#39;PRODUCT:        GPF (General Purpose Fortran) utilities and examples&#39;</span><span class="p">,&amp;</span>
-<a name="ln-366"></a><span class="s1">&#39;PROGRAM:        fpm-gdb(1f)&#39;</span><span class="p">,&amp;</span>
-<a name="ln-367"></a><span class="s1">&#39;DESCRIPTION:    fpm(1) plugin that launches gdb(1)&#39;</span><span class="p">,&amp;</span>
-<a name="ln-368"></a><span class="s1">&#39;VERSION:        2.0, 2022-04-29&#39;</span><span class="p">,&amp;</span>
-<a name="ln-369"></a><span class="s1">&#39;AUTHOR:         John S. Urban&#39;</span><span class="p">,&amp;</span>
-<a name="ln-370"></a><span class="s1">&#39;LICENSE:        MIT&#39;</span><span class="p">,&amp;</span>
-<a name="ln-371"></a><span class="s1">&#39;&#39;</span><span class="p">]</span>
-<a name="ln-372"></a><span class="k">end subroutine </span><span class="n">setup</span>
-<a name="ln-373"></a><span class="k">end program </span><span class="n">gdb</span>
+<a name="ln-357"></a><span class="c">!!      fpm gdb</span>
+<a name="ln-358"></a><span class="c">!!</span>
+<a name="ln-359"></a><span class="c">!!      fpm gdb --compiler gfortran</span>
+<a name="ln-360"></a><span class="c">!!</span>
+<a name="ln-361"></a><span class="c">!!      # run with initial gdb(1) commands in a file</span>
+<a name="ln-362"></a><span class="c">!!      fpm gdb -wide -gdb &#39;source mycmds.gdb&#39;</span>
+<a name="ln-363"></a><span class="c">!!</span>
+<a name="ln-364"></a><span class="c">!!      fpm gdb --example demo1</span>
+<a name="ln-365"></a><span class="c">!!</span>
+<a name="ln-366"></a><span class="c">!!##SEE ALSO</span>
+<a name="ln-367"></a><span class="c">!!     gdb(1), fpm(1), vim(1)</span>
+<a name="ln-368"></a><span class="n">version</span><span class="o">=</span><span class="p">[</span> <span class="kt">CHARACTER</span><span class="p">(</span><span class="nb">LEN</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span> <span class="kd">::</span> <span class="p">&amp;</span>
+<a name="ln-369"></a><span class="s1">&#39;PRODUCT:        GPF (General Purpose Fortran) utilities and examples&#39;</span><span class="p">,&amp;</span>
+<a name="ln-370"></a><span class="s1">&#39;PROGRAM:        fpm-gdb(1f)&#39;</span><span class="p">,&amp;</span>
+<a name="ln-371"></a><span class="s1">&#39;DESCRIPTION:    fpm(1) plugin that launches gdb(1)&#39;</span><span class="p">,&amp;</span>
+<a name="ln-372"></a><span class="s1">&#39;VERSION:        2.0, 2022-04-29&#39;</span><span class="p">,&amp;</span>
+<a name="ln-373"></a><span class="s1">&#39;AUTHOR:         John S. Urban&#39;</span><span class="p">,&amp;</span>
+<a name="ln-374"></a><span class="s1">&#39;LICENSE:        MIT&#39;</span><span class="p">,&amp;</span>
+<a name="ln-375"></a><span class="s1">&#39;&#39;</span><span class="p">]</span>
+<a name="ln-376"></a><span class="k">end subroutine </span><span class="n">setup</span>
+<a name="ln-377"></a><span class="k">end program </span><span class="n">gdb</span>
 </pre></div>
 
     </section>
@@ -648,7 +652,7 @@
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2022-07-06 20:41  
+             on 2022-07-12 19:43  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> fpm-gdb was developed by John S. Urban</p></div>

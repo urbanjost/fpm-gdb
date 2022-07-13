@@ -2,7 +2,7 @@
 
 This is a fpm(1) plugin for POSIX systems. 
 
-It launchs the GNU debugger gdb(1) on a simple fpm(1) project using vim(1) terminal mode.
+It launchs the GNU debugger gdb(1) on a fpm(1) application project using vim(1) terminal mode.
 
 if you build and install this as "fpm-gdb" in your path, then in other
 fpm(1) projects that build an application you can enter:

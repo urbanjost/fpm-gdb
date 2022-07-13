@@ -125,15 +125,14 @@
 		  
           <h1>fpm-gdb</h1>
           <h3 id="fpm-toolsfpm-gdb"><a href="https://github.com/search?q=&quot;fpm-tools&quot;%20in:topic%20language:fortran">fpm-tools</a>:<a href="https://urbanjost.github.io/fpm-gdb/fpm-gdb.1.html">fpm-gdb</a></h3>
-<p>plugin on POSIX systems to launch gdb(1) on a simple fpm(1) project.</p>
-<p>A WIP (Work In Progress).
-if you build 
-and install this as &ldquo;fpm-gdb&rdquo; in your path, then in other simple fpm(1)
-projects that build an application you can enter:</p>
+<p>This is a fpm(1) plugin for POSIX systems. </p>
+<p>It launchs the GNU debugger gdb(1) on a fpm(1) application project using vim(1) terminal mode.</p>
+<p>if you build and install this as &ldquo;fpm-gdb&rdquo; in your path, then in other
+fpm(1) projects that build an application you can enter:</p>
 <div class="codehilite"><pre><span></span><code>fpm gdb
 </code></pre></div>
 
-<p>and launch gdb(1) on your program. </p>
+<p>and launch gdb(1) on your program(s). </p>
 <div class="codehilite"><pre><span></span><code>fpm gdb --help
 </code></pre></div>
 
@@ -144,7 +143,11 @@ editor, launching the screen mode with the mouse activated. For example:</p>
 </code></pre></div>
 
 <p><img alt="gdb" src="docs/images/fpm-gdb.1.gif"></p>
-<h1 id="getting-started">GETTING STARTED</h1>
+<p>The man-page is available on-line at <a href="https://urbanjost.github.io/fpm-gdb/fpm-gdb.1.html">fpm-gdb</a></p>
+<p>Please leave usage tips on the <a href="https://github.com/urbanjost/fpm-gdb/wiki">wiki</a>; 
+<a href="https://github.com/urbanjost/fpm-gdb/discussions">discuss</a> general possibilities for the plug-in;
+and report <a href="https://github.com/urbanjost/fpm-gdb/issues">issues</a>.</p>
+<h1 id="getting-started">Getting started</h1>
 <p>We will set a breakpoint at the beginning of the program, list the
 program, set some other breakpoint and then start running the program
 (with optional arguments).  Clicking on &ldquo;next&rdquo; would take you to the
@@ -170,30 +173,58 @@ info locals
 print i
 </code></pre></div>
 
-<h1 id="using-the-mouse-to-set-break-points">USING THE MOUSE TO SET BREAK POINTS</h1>
+<h1 id="using-the-mouse-to-set-break-points">Using the mouse to set break points</h1>
 <p>If you click the right mouse in the code file you should get an option
 menu for setting and clearing breakpoints.</p>
 <p>Assuming your terminal window supports vim(1) mouse mode, you can use the
 mouse in various ways. For example, You can click on variables and the
 [eval] button.</p>
-<p>SCROLLING
-The gdb and output windows will not be in Normal mode and so
+<h1 id="scrolling">Scrolling</h1>
+<p>The gdb and output windows will not be in Normal mode and so
 will not scroll by default. When focus is on the window that will not
 scroll enter &ldquo;ctrl-W N&rdquo; to go to scrollable, and enter &ldquo;i&rdquo; to return
 to the original mode.</p>
 <p>On some platforms instead of &ldquo;ctrl-W&rdquo; followed by capital &ldquo;N&rdquo; you can
 define which key goes to Normal mode.</p>
+<p>As an example function key 1 has been defined to do that using the
+vim(1) command </p>
+<div class="codehilite"><pre><span></span><code>  :tnoremap &lt;F1&gt; &lt;C-W&gt;N
+</code></pre></div>
+
+<p>Note that whether this example key definition works depends on your
+keyboard layout and your terminfo file for the terminal emulator you
+are using.</p>
 <p>In the gdb window in particular, you probably want to toggle between
 the modes, because when scrolling is on command recall is not.</p>
-<p>When in Normal mode your interaction with the program is suspended,
-so you want to return to the original mode or you cannot enter commands
-in the gdb pane and cannot see new output or enter input in Normal mode.
+<p>When in Normal mode your interaction with the program is suspended, so
+you want to return to the original mode or you cannot enter commands in
+the gdb pane and cannot see new output or enter input in Normal mode.
 To leave scrollable mode (enter &ldquo;i&rdquo;) in the pane.</p>
-<h1 id="more-info">MORE INFO</h1>
-<p>General gdb instructions are beyond the scope of this discussion, but
-&ldquo;help&rdquo; in the gdb pane can get you started.</p>
+<h1 id="installation">Installation</h1>
+<p>If you have the fpm-tools(1) plugin enter:</p>
+<div class="codehilite"><pre><span></span><code>   fpm tools urbanjost/fpm-gdb
+</code></pre></div>
+
+<p>or clone the repository and use fpm(1) to build and install the application.</p>
+<div class="codehilite"><pre><span></span><code>git clone https://github.com/urbanjost/fpm-gdb.git
+<span class="nb">cd</span> fpm-gdb
+<span class="c1"># assuming the default installation directory is OK; otherwise see </span>
+<span class="c1">#    &quot;fpm help install &quot;.</span>
+fpm install
+<span class="c1"># and then you may remove the fpm-gdb directory</span>
+</code></pre></div>
+
+<h1 id="more-info">More info</h1>
+<p>General gdb(1) instructions are beyond the scope of this discussion, but
+&ldquo;help&rdquo; in the gdb(1) pane can get you started.</p>
 <p>For the vim(1) terminal help go to the rightmost vim(1) window and enter
 &ldquo;:help terminal-debug&rdquo;.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://github.com/fortran-lang/fpm">Fortran Package Manager</a> </li>
+<li><a href="https://www.vim.org/">vim</a></li>
+<li><a href="https://www.sourceware.org/gdb/">gdb</a></li>
+</ul>
         </div>
 		  
         <div class="col-md-4">
@@ -263,7 +294,7 @@ To leave scrollable mode (enter &ldquo;i&rdquo;) in the pane.</p>
           <p class="text-right">
             Documentation generated by 
             <a href="https://github.com/cmacmackin/ford">FORD</a>
-             on 2022-07-06 20:41  
+             on 2022-07-12 19:43  
           </p>
         </div>
         <div class="col-xs-12 col-md-4 col-md-pull-4"><p class="text-center"> fpm-gdb was developed by John S. Urban</p></div>
