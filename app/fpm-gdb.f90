@@ -210,7 +210,9 @@ help=[ CHARACTER(LEN=128) :: &
 'MORE INFO',&
 '',&
 'General gdb instructions are beyond the scope of this discussion, but',&
-'"help" in the gdb pane can get you started.',&
+'"help" in the gdb pane can get you started. At least look at watch,',&
+'display, list, break, info, where, print, set, next, step, and info after',&
+'you get started with the basics.',&
 '',&
 'For the vim(1) terminal help go to the rightmost vim(1) window and enter',&
 '":help terminal-debug".',&
@@ -227,6 +229,11 @@ help=[ CHARACTER(LEN=128) :: &
 '',&
 'SEE ALSO',&
 '    gdb(1), fpm(1), vim(1)',&
+'',&
+'    + fpm run --runner ddd',&
+'    + fpm run --runner gdbgui',&
+'    + fpm run --runner gdbtui',&
+'    + fpm run --runner gdb',&
 '']
 !>
 !!##NAME
@@ -347,7 +354,9 @@ help=[ CHARACTER(LEN=128) :: &
 !!##MORE INFO
 !!
 !! General gdb instructions are beyond the scope of this discussion, but
-!! "help" in the gdb pane can get you started.
+!! "help" in the gdb pane can get you started. At least look at watch,
+!! display, list, break, info, where, print, set, next, step, and info after
+!! you get started with the basics.
 !!
 !! For the vim(1) terminal help go to the rightmost vim(1) window and enter
 !! ":help terminal-debug".
@@ -365,6 +374,11 @@ help=[ CHARACTER(LEN=128) :: &
 !!
 !!##SEE ALSO
 !!     gdb(1), fpm(1), vim(1)
+!!
+!!     + fpm run --runner ddd
+!!     + fpm run --runner gdbgui
+!!     + fpm run --runner gdbtui
+!!     + fpm run --runner gdb
 version=[ CHARACTER(LEN=128) :: &
 'PRODUCT:        GPF (General Purpose Fortran) utilities and examples',&
 'PROGRAM:        fpm-gdb(1f)',&
