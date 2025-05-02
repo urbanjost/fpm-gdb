@@ -20,7 +20,8 @@ provides more information. *Assumes you are familiar with gdb(1)*.
 Basically, it figures out where the binary is and runs the vim(1)
 editor, launching the screen mode with the mouse activated. For example:
 ```bash
-fpm run --runner "vim -c 'set mouse=a'  -c 'packadd termdebug'  -c 'resize +10'  -c 'Termdebug build/gfortran_2A42023B310FA28D/app/fpm-gdb' app*.f90"
+fpm run --runner "vim -c 'set mouse=a'  -c 'packadd termdebug'  -c 'resize +10' \
+-c 'Termdebug build/gfortran_2A42023B310FA28D/app/fpm-gdb' app*.f90"
 ```
 ![gdb](docs/images/fpm-gdb.1.gif)
 
