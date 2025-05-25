@@ -233,6 +233,7 @@ help=[ CHARACTER(LEN=128) :: &
 '    + fpm run --runner ddd',&
 '    + fpm run --runner gdbgui',&
 '    + fpm run --runner gdbtui',&
+'    + fpm run --runner seergdb',&
 '    + fpm run --runner gdb',&
 '']
 !>
@@ -378,6 +379,7 @@ help=[ CHARACTER(LEN=128) :: &
 !!     + fpm run --runner ddd
 !!     + fpm run --runner gdbgui
 !!     + fpm run --runner gdbtui
+!!     + fpm run --runner seergdb
 !!     + fpm run --runner gdb
 version=[ CHARACTER(LEN=128) :: &
 'PRODUCT:        GPF (General Purpose Fortran) utilities and examples',&

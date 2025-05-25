@@ -235,6 +235,7 @@ SEE ALSO
     + fpm run --runner ddd
     + fpm run --runner gdbgui
     + fpm run --runner gdbtui
+    + fpm run --runner seergdb
     + fpm run --runner gdb
 $ENDBLOCK
 $!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
