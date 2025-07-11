@@ -1,0 +1,893 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="fpm(1) plugin for launching gdb(1)">
+    <meta name="author" content="John S. Urban" >
+    <link rel="icon" href="../favicon.png">
+
+    <title>gdb &ndash; fpm-gdb</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+    <link href="../css/fontawesome.min.css" rel="stylesheet">
+    <link href="../css/brands.min.css" rel="stylesheet">
+    <link href="../css/regular.min.css" rel="stylesheet">
+    <link href="../css/solid.min.css" rel="stylesheet">
+    <link href="../css/v4-font-face.min.css" rel="stylesheet">
+    <link href="../css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async
+            integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw=" crossorigin="anonymous"></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="../css/local.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html">fpm-gdb </a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon">
+          </button>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../sourcefile/fpm-gdb.f90.html">Source File</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../program/gdb.html">Program</a>
+                </li>
+            </ul>
+              <div class="d-flex align-items-end flex-grow-1">
+                <form action="../search.html" role="search" class="ms-auto">
+                  <input type="text" class="form-control" aria-label="Search" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+                </form>
+              </div>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>gdb      <small>Program</small>
+      
+    </h1>
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
+        <ul class="list-inline" style="margin-bottom:0px;display:inline">
+
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                 title="100.0% of total for programs.">79 statements</a>
+            </li>
+
+            <li class="list-inline-item" id="source-file">
+              <i class="fa fa-code"></i>
+              <a href="../src/fpm-gdb.f90"> Source File</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/fpm-gdb.f90.html'>fpm-gdb.f90</a></li>
+            <li class="breadcrumb-item active" aria-current="page">gdb</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Enable Bootstrap tooltips
+    (function () {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    })();
+  </script>
+
+  </div>
+  
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">
+      <div id="sidebar">
+      <h3>Contents</h3>
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#vars-0"
+         aria-expanded="false" aria-controls="vars-0">
+         <h4 class="card-header bg-primary text-white">Variables</h4>
+      </a>
+      <div id="vars-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../program/gdb.html#variable-cmd">cmd</a>
+            <a class="list-group-item" href="../program/gdb.html#variable-cmd_gdb">cmd_gdb</a>
+            <a class="list-group-item" href="../program/gdb.html#variable-common_options">common_options</a>
+            <a class="list-group-item" href="../program/gdb.html#variable-dir">dir</a>
+            <a class="list-group-item" href="../program/gdb.html#variable-fp">fp</a>
+            <a class="list-group-item" href="../program/gdb.html#variable-help">help</a>
+            <a class="list-group-item" href="../program/gdb.html#variable-i">i</a>
+            <a class="list-group-item" href="../program/gdb.html#variable-ierr">ierr</a>
+            <a class="list-group-item" href="../program/gdb.html#variable-line">line</a>
+            <a class="list-group-item" href="../program/gdb.html#variable-options">options</a>
+            <a class="list-group-item" href="../program/gdb.html#variable-sub_command">sub_command</a>
+            <a class="list-group-item" href="../program/gdb.html#variable-verbose">verbose</a>
+            <a class="list-group-item" href="../program/gdb.html#variable-version">version</a>
+            <a class="list-group-item" href="../program/gdb.html#variable-wide">wide</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#subs-0"
+         aria-expanded="false" aria-controls="subs-0">
+         <h4 class="card-header bg-primary text-white">Subroutines</h4>
+      </a>
+      <div id="subs-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../program/gdb.html#proc-setup">setup</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+    <div class="card card-primary">
+      <div class="card-header text-left"><h3 class="card-title">Source Code</h3></div>
+      <div class="list-group">
+        <a class="list-group-item" href="../program/gdb.html#src">gdb</a>
+      </div>
+    </div>
+
+
+  </div>
+
+    </div>
+    
+    <div class="col-md-9" id='text'>
+        <div class="card mb-4">
+      <h3 class="card-header card-title bg-light">Uses</h3>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <ul class="list-inline">
+                  <li class="list-inline-item">M_CLI2</li>
+                  <li class="list-inline-item">M_process</li>
+              </ul>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+    
+
+
+    <section>
+    <h2>Variables</h2>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+<th></th><th scope="col">Initial</th>        <th scope="col"></th>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-cmd"></span>
+              character(len=:),
+            </td>
+            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>cmd</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-cmd_gdb"></span>
+              character(len=:),
+            </td>
+            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>cmd_gdb</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-common_options"></span>
+              character(len=*),
+            </td>
+            <td>
+parameter               
+            </td>
+            <td>::</td>
+            <td><strong>common_options</strong></td>
+<td> =</td>
+                <td>&#39; --example F --test F --no-prune F --link-flag &#34; &#34; --flag &#34; &#34; --directory:C &#34; &#34; --compiler &#34;gfortran&#34; --c-flag &#34; &#34; --c-compiler &#34; &#34; --archiver &#34; &#34; --gdb &#34; &#34; &#39;</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dir"></span>
+              character(len=:),
+            </td>
+            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>dir</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-fp"></span>
+              type(streampointer)
+            </td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>fp</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-help"></span>
+              character(len=:),
+            </td>
+            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>help</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-i"></span>
+              integer
+            </td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>i</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-ierr"></span>
+              integer
+            </td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>ierr</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-line"></span>
+              character(len=4096)
+            </td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>line</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-options"></span>
+              character(len=:),
+            </td>
+            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>options</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-sub_command"></span>
+              character(len=:),
+            </td>
+            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>sub_command</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-verbose"></span>
+              logical
+            </td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>verbose</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-version"></span>
+              character(len=:),
+            </td>
+            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>version</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-wide"></span>
+              integer
+            </td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>wide</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    </section>
+    <br>
+    
+    
+    
+
+    
+
+
+    <section>
+    <h2>Subroutines</h2>
+      <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-setup"></span> <h3> subroutine <a href='../proc/setup.html'>setup</a>()  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Lets start in a terminal at least 132 characters wide and enter</p><a href="../proc/setup.html" class="pull-right"><emph>Read more&hellip;</emph></a>
+
+  <h4>Arguments</h4>
+    <em>None</em>
+
+    </div>
+  </div>
+
+    </section>    
+    
+
+    <section>
+    <h2 id="src">Source Code</h2>
+    <div class="hl codehilite"><pre><span></span><span class="k">program </span><span class="n">gdb</span><span class="w"></span>
+<span class="k">use </span><span class="n">M_CLI2</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">set_args</span><span class="p">,</span><span class="w"> </span><span class="n">sgets</span><span class="p">,</span><span class="w"> </span><span class="n">sget</span><span class="p">,</span><span class="w"> </span><span class="n">iget</span><span class="p">,</span><span class="w"> </span><span class="n">rget</span><span class="p">,</span><span class="w"> </span><span class="n">dget</span><span class="p">,</span><span class="w"> </span><span class="n">lget</span><span class="p">,</span><span class="w"> </span><span class="n">leafs</span><span class="o">=&gt;</span><span class="n">unnamed</span><span class="p">,</span><span class="w"> </span><span class="n">specified</span><span class="w"></span>
+<span class="k">use </span><span class="n">M_process</span><span class="w"> </span><span class="p">,</span><span class="k">ONLY</span><span class="p">:</span><span class="w"> </span><span class="n">process_open_read</span><span class="p">,</span><span class="w"> </span><span class="n">process_readline</span><span class="p">,</span><span class="w"> </span><span class="n">streampointer</span><span class="p">,</span><span class="w"> </span><span class="n">process_close</span><span class="w"></span>
+<span class="k">implicit none</span>
+<span class="kt">logical</span><span class="w">                      </span><span class="kd">::</span><span class="w"> </span><span class="n">verbose</span><span class="w"></span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">help</span><span class="p">(:),</span><span class="n">version</span><span class="p">(:)</span><span class="w"></span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">cmd</span><span class="w"></span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">dir</span><span class="w"></span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">cmd_gdb</span><span class="w"></span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">sub_command</span><span class="w"></span>
+<span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">wide</span><span class="w"></span>
+<span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span><span class="w"></span>
+<span class="k">type</span><span class="p">(</span><span class="n">streampointer</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">fp</span><span class="w"> </span><span class="c">! C file pointer returned by process_open()</span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="mi">4096</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">line</span><span class="w"></span>
+<span class="kt">integer </span><span class="n">ierr</span><span class="w"></span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=*</span><span class="p">),</span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">common_options</span><span class="o">=</span><span class="s1">&#39;&amp;</span>
+<span class="s1"> --example F &amp;</span>
+<span class="s1"> --test F &amp;</span>
+<span class="s1"> --no-prune F &amp;</span>
+<span class="s1"> --link-flag &quot; &quot; &amp;</span>
+<span class="s1"> --flag &quot; &quot; &amp;</span>
+<span class="s1"> --directory:C &quot; &quot; &amp;</span>
+<span class="s1"> --compiler &quot;gfortran&quot; &amp;</span>
+<span class="s1"> --c-flag &quot; &quot; &amp;</span>
+<span class="s1"> --c-compiler &quot; &quot; &amp;</span>
+<span class="s1"> --archiver &quot; &quot; &amp;</span>
+<span class="s1"> --gdb &quot; &quot; &#39;</span><span class="w"></span>
+<span class="kt">character</span><span class="p">(</span><span class="nb">len</span><span class="o">=</span><span class="p">:),</span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="k">options</span><span class="w"></span>
+<span class="w">   </span><span class="c">! process command-line options</span>
+<span class="w">   </span><span class="k">call </span><span class="n">setup</span><span class="p">()</span><span class="w"></span>
+<span class="w">   </span><span class="k">call </span><span class="n">set_args</span><span class="p">(</span><span class="s1">&#39; --wide:w F &#39;</span><span class="o">//</span><span class="n">common_options</span><span class="p">,</span><span class="n">help</span><span class="p">,</span><span class="n">version</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="n">verbose</span><span class="o">=</span><span class="n">lget</span><span class="p">(</span><span class="s1">&#39;verbose&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="n">cmd_gdb</span><span class="o">=</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;gdb&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="k">options</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;no-prune&#39;</span><span class="p">)</span><span class="w">  </span><span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --noprune &#39;</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;directory&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --directory &#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;directory&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;compiler&#39;</span><span class="p">)</span><span class="w">  </span><span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --compiler &#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;compiler&#39;</span><span class="p">)</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;link-flag&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --link-flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;link-flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;flag&#39;</span><span class="p">)</span><span class="w">      </span><span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;c-flag&#39;</span><span class="p">)</span><span class="w">    </span><span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --c-flag &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;c-flag&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;archiver&#39;</span><span class="p">)</span><span class="w">  </span><span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --archiver &quot;&#39;</span><span class="o">//</span><span class="n">sget</span><span class="p">(</span><span class="s1">&#39;archiver&#39;</span><span class="p">)</span><span class="o">//</span><span class="s1">&#39;&quot;&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">lget</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="k">then</span>
+<span class="k">      </span><span class="n">sub_command</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="w"></span>
+<span class="w">   </span><span class="k">else</span>
+<span class="k">      </span><span class="n">sub_command</span><span class="o">=</span><span class="s1">&#39;run&#39;</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">specified</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">)</span><span class="w">   </span><span class="p">)</span><span class="k">options</span><span class="o">=</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --example &#39;</span><span class="w"></span>
+<span class="w">   </span><span class="k">endif</span>
+
+<span class="k">   if</span><span class="p">(</span><span class="w"> </span><span class="n">size</span><span class="p">(</span><span class="n">leafs</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">)</span><span class="n">leafs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">]</span><span class="w"></span>
+<span class="w">   </span><span class="k">do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">(</span><span class="n">leafs</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">      </span><span class="c">! need to make a call to the fpm API to get the program cleanly.</span>
+<span class="w">      </span><span class="n">cmd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;fpm &#39;</span><span class="o">//</span><span class="n">sub_command</span><span class="o">//</span><span class="s1">&#39; &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">leafs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="o">//</span><span class="k">options</span><span class="o">//</span><span class="s2">&quot; --profile debug --runner|grep &#39;^build&#39;&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="c">! note the process_* procedures are currently available only on POSIX platforms</span>
+<span class="w">      </span><span class="c">! could use system commands based on OS or possibly get M_process to support</span>
+<span class="w">      </span><span class="c">! more platforms</span>
+<span class="w">      </span><span class="k">call </span><span class="n">process_open_read</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span><span class="w"> </span><span class="c">! open process to read from</span>
+<span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">ierr</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">)</span><span class="k">then</span>
+<span class="k">        call </span><span class="n">process_readline</span><span class="p">(</span><span class="n">line</span><span class="p">,</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span><span class="w"> </span><span class="c">! read a line from the process</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">ierr</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="k">stop</span><span class="w"> </span><span class="s1">&#39;error processing command&#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">call </span><span class="n">process_close</span><span class="p">(</span><span class="n">fp</span><span class="p">,</span><span class="n">ierr</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="k">endif</span>
+<span class="k">      </span><span class="n">cmd</span><span class="o">=</span><span class="s1">&#39;fpm &#39;</span><span class="o">//</span><span class="n">sub_command</span><span class="o">//</span><span class="s1">&#39; &#39;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">leafs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="o">//</span><span class="k">options</span><span class="o">//</span><span class="s1">&#39; --profile debug --runner &quot;&#39;</span><span class="w"></span>
+<span class="w">      </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot;vim -c &#39;set mouse=a&#39; &quot;</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">lget</span><span class="p">(</span><span class="s1">&#39;wide&#39;</span><span class="p">)</span><span class="w"> </span><span class="p">)</span><span class="k">then</span>
+<span class="k">          </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;let g:termdebug_wide=1&#39;&quot;</span><span class="w"></span>
+<span class="w">      </span><span class="k">endif</span>
+<span class="k">      </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;packadd termdebug&#39; &quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;resize +10&#39; &quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;:tnoremap &lt;F1&gt; &lt;C-W&gt;N&#39; &quot;</span><span class="w"></span>
+<span class="w">      </span><span class="n">cmd</span><span class="o">=</span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot; -c &#39;Termdebug &quot;</span><span class="o">//</span><span class="nb">trim</span><span class="p">(</span><span class="n">line</span><span class="p">)</span><span class="o">//</span><span class="s2">&quot;&#39; &quot;</span><span class="w"></span>
+<span class="w">      </span><span class="k">if</span><span class="p">(</span><span class="w"> </span><span class="n">cmd_gdb</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w"> </span><span class="p">)</span><span class="k">then</span>
+<span class="k">         </span><span class="n">cmd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cmd</span><span class="o">//</span><span class="s2">&quot;-c \&quot;&quot;</span><span class="k">call </span><span class="n">TermDebugSendCommand</span><span class="p">(</span><span class="s1">&#39;&quot;//cmd_gdb//&quot;&#39;</span><span class="p">)</span><span class="err">\</span><span class="s2">&quot;&quot;</span><span class="w"> </span><span class="s2">&quot;</span>
+<span class="s2">      endif</span>
+<span class="s2">      ! assuming in app/ and that .f90 or .F90 file; could leave this off or generalize</span>
+<span class="s2">      if( sub_command == &#39;test&#39; )then</span>
+<span class="s2">              dir=&#39;test&#39;</span>
+<span class="s2">      elseif( specified(&#39;example&#39;) )then</span>
+<span class="s2">              dir=&#39;example&#39;</span>
+<span class="s2">      else</span>
+<span class="s2">              dir=&#39;app&#39;</span>
+<span class="s2">      endif</span>
+<span class="s2">      if( leafs(i) == &#39;&#39; )then</span>
+<span class="s2">         cmd=cmd//&#39; &#39;//dir//&#39;/*.[fF]90&quot;</span><span class="s1">&#39;</span>
+<span class="s1">      else</span>
+<span class="s1">         cmd=cmd//&#39;</span><span class="w"> </span><span class="s1">&#39;//dir//&#39;</span><span class="o">/</span><span class="s1">&#39;//leafs(i)//&#39;</span><span class="p">.[</span><span class="n">fF</span><span class="p">]</span><span class="mi">90</span><span class="s2">&quot;&#39;</span>
+<span class="s2">      endif</span>
+<span class="s2">      if( lget(&#39;verbose&#39;) )then</span>
+<span class="s2">         write(*,*)trim(cmd)</span>
+<span class="s2">      endif</span>
+<span class="s2">      call execute_command_line(cmd)</span>
+<span class="s2">   enddo</span>
+<span class="s2">contains</span>
+<span class="s2">subroutine setup()</span>
+<span class="s2">help=[ CHARACTER(LEN=128) :: &amp;</span>
+<span class="s2">&#39;NAME&#39;,&amp;</span>
+<span class="s2">&#39;   fpm-gdb(1f) - [FUNIX:FILESYSTEM] launch gdb(1) in vim(1) from fpm(1)&#39;,&amp;</span>
+<span class="s2">&#39;   (LICENSE:MIT)&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;SYNOPSIS&#39;,&amp;</span>
+<span class="s2">&#39;    fpm-gdb [PROGRAM][OPTIONS][ --help|--version]&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;DESCRIPTION&#39;,&amp;</span>
+<span class="s2">&#39;   fpm-gdb(1f) is an fpm(1) plugin that starts up gdb(1) in the vim(1)&#39;,&amp;</span>
+<span class="s2">&#39;   editor.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;   It uses the vim(1) terminal feature. The terminal feature is optional.&#39;,&amp;</span>
+<span class="s2">&#39;   Enter this in vim(1) to check if your version has it:&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;       :echo has(&#39;&#39;terminal&#39;&#39;)&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;   If the result is &quot;</span><span class="mi">1</span><span class="s2">&quot; you have it.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;OPTIONS&#39;,&amp;</span>
+<span class="s2">&#39;    PROGRAM       if more than one application is built by the package&#39;,&amp;</span>
+<span class="s2">&#39;                  the name must be specified. Unlike with the &quot;</span><span class="n">fpm</span><span class="w"> </span><span class="n">run</span><span class="s2">&quot;&#39;,&amp;</span>
+<span class="s2">&#39;                  command wildcards are not permitted.&#39;,&amp;</span>
+<span class="s2">&#39;    --gdb CMDS    pass initial commands to gdb(1)&#39;,&amp;</span>
+<span class="s2">&#39;    -wide,-w      assume a wide screen width. Wide mode places the&#39;,&amp;</span>
+<span class="s2">&#39;                  code in a window on the left of the screen. &lt;C-W&gt;&#39;,&amp;</span>
+<span class="s2">&#39;                  followed by one of {RHKLJ} can change the window&#39;,&amp;</span>
+<span class="s2">&#39;                  layout.&#39;,&amp;</span>
+<span class="s2">&#39;    --test        use subcommand &quot;</span><span class="n">test</span><span class="s2">&quot; instead of the default &quot;</span><span class="n">run</span><span class="s2">&quot;&#39;,&amp;</span>
+<span class="s2">&#39;                  in order to select test programs. If --test is specified&#39;,&amp;</span>
+<span class="s2">&#39;                  --example is ignored.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;    --verbose,-V  verbose mode&#39;,&amp;</span>
+<span class="s2">&#39;    --version,-v  Print version information on standard output then&#39;,&amp;</span>
+<span class="s2">&#39;                  exit successfully.&#39;,&amp;</span>
+<span class="s2">&#39;    --help,-h     Print usage information on standard output then&#39;,&amp;</span>
+<span class="s2">&#39;                  exit successfully.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;   In addition, the following options from the fpm(1) &quot;</span><span class="n">run</span><span class="s2">&quot; subcommand&#39;,&amp;</span>
+<span class="s2">&#39;   are supported, noting that &quot;</span><span class="o">--</span><span class="n">profile</span><span class="w"> </span><span class="n">debug</span><span class="s2">&quot; is always specified as&#39;,&amp;</span>
+<span class="s2">&#39;   well ...&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;       --example    --no-prune  --link-flag  --flag&#39;,&amp;</span>
+<span class="s2">&#39;       --directory  --compiler  --c-flag     --c-compiler&#39;,&amp;</span>
+<span class="s2">&#39;       --archiver&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;GETTING STARTED&#39;,&amp;</span>
+<span class="s2">&#39;Lets start in a terminal at least 132 characters wide and enter&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;     fpm gdb --wide&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;and then in the gdb(1) command window enter&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;    b main&#39;,&amp;</span>
+<span class="s2">&#39;    info sources&#39;,&amp;</span>
+<span class="s2">&#39;    info functions&#39;,&amp;</span>
+<span class="s2">&#39;    b file.F90:routine&#39;,&amp;</span>
+<span class="s2">&#39;    run&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;This will set a breakpoint at the beginning of the program, list the files&#39;,&amp;</span>
+<span class="s2">&#39;in scope for debugging, list the procedures, set some other breakpoint&#39;,&amp;</span>
+<span class="s2">&#39;in file &quot;</span><span class="k">file</span><span class="p">.</span><span class="n">F90</span><span class="s2">&quot; at top of procedure &quot;</span><span class="n">routine</span><span class="s2">&quot; and then start running&#39;,&amp;</span>
+<span class="s2">&#39;the program (with optional arguments).  Clicking on &quot;</span><span class="n">next</span><span class="s2">&quot; would take&#39;,&amp;</span>
+<span class="s2">&#39;you to the next breakpoint.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;For some compilers &quot;</span><span class="n">b</span><span class="w"> </span><span class="mi">1</span><span class="s2">&quot;(e.g. Intel) might be required instead of &quot;</span><span class="n">b</span><span class="s1">&#39;,&amp;</span>
+<span class="s1">&#39;</span><span class="n">main</span><span class="s2">&quot;(e.g gfortran).&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;Many other commands exist.  Assuming you are at your next breakpoint,&#39;,&amp;</span>
+<span class="s2">&#39;you can ask where you are, list local variables and print the value of&#39;,&amp;</span>
+<span class="s2">&#39;some variable, like &quot;</span><span class="n">i</span><span class="s2">&quot;&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;    where&#39;,&amp;</span>
+<span class="s2">&#39;    info locals&#39;,&amp;</span>
+<span class="s2">&#39;    print i&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;USING THE MOUSE&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;Assuming your terminal window supports vim(1) mouse mode, you can use&#39;,&amp;</span>
+<span class="s2">&#39;the mouse in various ways. For example&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;   TO SET BREAK POINTS&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;   If you click the right mouse in the code file you should get an option&#39;,&amp;</span>
+<span class="s2">&#39;   menu for setting and clearing breakpoints.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;   TO EVALATE VARIABLES&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;   click on variables to highlight them and click the [eval] icon.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;SCROLLING&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;The gdb and output windows will not be in Normal mode and so&#39;,&amp;</span>
+<span class="s2">&#39;will not scroll by default. When focus is on the window that will not&#39;,&amp;</span>
+<span class="s2">&#39;scroll enter &quot;</span><span class="n">ctrl</span><span class="o">-</span><span class="n">W</span><span class="w"> </span><span class="n">N</span><span class="s2">&quot; to go to scrollable, and enter &quot;</span><span class="n">i</span><span class="s2">&quot; to return&#39;,&amp;</span>
+<span class="s2">&#39;to the original mode.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;On some platforms instead of &quot;</span><span class="n">ctrl</span><span class="o">-</span><span class="n">W</span><span class="s2">&quot; followed by capital &quot;</span><span class="n">N</span><span class="s2">&quot; you can&#39;,&amp;</span>
+<span class="s2">&#39;define which key goes to Normal mode. For example, to define F1 to&#39;,&amp;</span>
+<span class="s2">&#39;switch to Terminal-Normal mode:&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;     :tnoremap &lt;F1&gt; &lt;C-W&gt;N&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;In the gdb window in particular, you probably want to toggle between&#39;,&amp;</span>
+<span class="s2">&#39;the modes, because when scrolling is on command recall is not.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;When in Normal mode your interaction with the program is suspended,&#39;,&amp;</span>
+<span class="s2">&#39;so you want to return to the original mode or you cannot enter commands&#39;,&amp;</span>
+<span class="s2">&#39;in the gdb pane and cannot see new output or enter input in Normal mode.&#39;,&amp;</span>
+<span class="s2">&#39;To leave scrollable mode (enter &quot;</span><span class="n">i</span><span class="s2">&quot;) in the pane.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;Check out :help window-moving for more information on changing the&#39;,&amp;</span>
+<span class="s2">&#39;window layout.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;MORE INFO&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;General gdb instructions are beyond the scope of this discussion, but&#39;,&amp;</span>
+<span class="s2">&#39;&quot;</span><span class="n">help</span><span class="s2">&quot; in the gdb pane can get you started. At least look at watch,&#39;,&amp;</span>
+<span class="s2">&#39;display, list, break, info, where, print, set, next, step, and info after&#39;,&amp;</span>
+<span class="s2">&#39;you get started with the basics.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;For the vim(1) terminal help go to the rightmost vim(1) window and enter&#39;,&amp;</span>
+<span class="s2">&#39;&quot;</span><span class="p">:</span><span class="n">help</span><span class="w"> </span><span class="n">terminal</span><span class="o">-</span><span class="n">debug</span><span class="s2">&quot;.&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;EXAMPLES&#39;,&amp;</span>
+<span class="s2">&#39;     fpm gdb&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;     fpm gdb --compiler gfortran&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;     # run with initial gdb(1) commands in a file&#39;,&amp;</span>
+<span class="s2">&#39;     fpm gdb -wide -gdb &#39;&#39;source mycmds.gdb&#39;&#39;&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;     fpm gdb --example demo1&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;SEE ALSO&#39;,&amp;</span>
+<span class="s2">&#39;    gdb(1), fpm(1), vim(1)&#39;,&amp;</span>
+<span class="s2">&#39;&#39;,&amp;</span>
+<span class="s2">&#39;    + fpm run --runner ddd&#39;,&amp;</span>
+<span class="s2">&#39;    + fpm run --runner gdbgui&#39;,&amp;</span>
+<span class="s2">&#39;    + fpm run --runner gdbtui&#39;,&amp;</span>
+<span class="s2">&#39;    + fpm run --runner gdb&#39;,&amp;</span>
+<span class="s2">&#39;&#39;]</span>
+<span class="s2">!&gt;</span>
+<span class="s2">!!##NAME</span>
+<span class="s2">!!    fpm-gdb(1f) - [FUNIX:FILESYSTEM] launch gdb(1) in vim(1) from fpm(1)</span>
+<span class="s2">!!    (LICENSE:MIT)</span>
+<span class="s2">!!</span>
+<span class="s2">!!##SYNOPSIS</span>
+<span class="s2">!!</span>
+<span class="s2">!!     fpm-gdb [PROGRAM][OPTIONS][ --help|--version]</span>
+<span class="s2">!!</span>
+<span class="s2">!!##DESCRIPTION</span>
+<span class="s2">!!    fpm-gdb(1f) is an fpm(1) plugin that starts up gdb(1) in the vim(1)</span>
+<span class="s2">!!    editor.</span>
+<span class="s2">!!</span>
+<span class="s2">!!    It uses the vim(1) terminal feature. The terminal feature is optional.</span>
+<span class="s2">!!    Enter this in vim(1) to check if your version has it:</span>
+<span class="s2">!!</span>
+<span class="s2">!!        :echo has(&#39;terminal&#39;)</span>
+<span class="s2">!!</span>
+<span class="s2">!!    If the result is &quot;</span><span class="mi">1</span><span class="s2">&quot; you have it.</span>
+<span class="s2">!!</span>
+<span class="s2">!!</span>
+<span class="s2">!!##OPTIONS</span>
+<span class="s2">!!     PROGRAM       if more than one application is built by the package</span>
+<span class="s2">!!                   the name must be specified. Unlike with the &quot;</span><span class="n">fpm</span><span class="w"> </span><span class="n">run</span><span class="s2">&quot;</span>
+<span class="s2">!!                   command wildcards are not permitted.</span>
+<span class="s2">!!     --gdb CMDS    pass initial commands to gdb(1)</span>
+<span class="s2">!!     -wide,-w      assume a wide screen width. Wide mode places the</span>
+<span class="s2">!!                   code in a window on the left of the screen. &lt;C-W&gt;</span>
+<span class="s2">!!                   followed by one of {RHKLJ} can change the window</span>
+<span class="s2">!!                   layout.</span>
+<span class="s2">!!     --test        use subcommand &quot;</span><span class="n">test</span><span class="s2">&quot; instead of the default &quot;</span><span class="n">run</span><span class="s2">&quot;</span>
+<span class="s2">!!                   in order to select test programs. If --test is specified</span>
+<span class="s2">!!                   --example is ignored.</span>
+<span class="s2">!!</span>
+<span class="s2">!!     --verbose,-V  verbose mode</span>
+<span class="s2">!!     --version,-v  Print version information on standard output then</span>
+<span class="s2">!!                   exit successfully.</span>
+<span class="s2">!!     --help,-h     Print usage information on standard output then</span>
+<span class="s2">!!                   exit successfully.</span>
+<span class="s2">!!</span>
+<span class="s2">!!    In addition, the following options from the fpm(1) &quot;</span><span class="n">run</span><span class="s2">&quot; subcommand</span>
+<span class="s2">!!    are supported, noting that &quot;</span><span class="o">--</span><span class="n">profile</span><span class="w"> </span><span class="n">debug</span><span class="s2">&quot; is always specified as</span>
+<span class="s2">!!    well ...</span>
+<span class="s2">!!</span>
+<span class="s2">!!        --example    --no-prune  --link-flag  --flag</span>
+<span class="s2">!!        --directory  --compiler  --c-flag     --c-compiler</span>
+<span class="s2">!!        --archiver</span>
+<span class="s2">!!</span>
+<span class="s2">!!##GETTING STARTED</span>
+<span class="s2">!! Lets start in a terminal at least 132 characters wide and enter</span>
+<span class="s2">!!</span>
+<span class="s2">!!      fpm gdb --wide</span>
+<span class="s2">!!</span>
+<span class="s2">!! and then in the gdb(1) command window enter</span>
+<span class="s2">!!</span>
+<span class="s2">!!     b main</span>
+<span class="s2">!!     info sources</span>
+<span class="s2">!!     info functions</span>
+<span class="s2">!!     b file.F90:routine</span>
+<span class="s2">!!     run</span>
+<span class="s2">!!</span>
+<span class="s2">!! This will set a breakpoint at the beginning of the program, list the files</span>
+<span class="s2">!! in scope for debugging, list the procedures, set some other breakpoint</span>
+<span class="s2">!! in file &quot;</span><span class="k">file</span><span class="p">.</span><span class="n">F90</span><span class="s2">&quot; at top of procedure &quot;</span><span class="n">routine</span><span class="s2">&quot; and then start running</span>
+<span class="s2">!! the program (with optional arguments).  Clicking on &quot;</span><span class="n">next</span><span class="s2">&quot; would take</span>
+<span class="s2">!! you to the next breakpoint.</span>
+<span class="s2">!!</span>
+<span class="s2">!! For some compilers &quot;</span><span class="n">b</span><span class="w"> </span><span class="mi">1</span><span class="s2">&quot;(e.g. Intel) might be required instead of &quot;</span><span class="n">b</span><span class="w"></span>
+<span class="c">!! main&quot;(e.g gfortran).</span>
+<span class="c">!!</span>
+<span class="c">!! Many other commands exist.  Assuming you are at your next breakpoint,</span>
+<span class="c">!! you can ask where you are, list local variables and print the value of</span>
+<span class="c">!! some variable, like &quot;i&quot;</span>
+<span class="c">!!</span>
+<span class="c">!!     where</span>
+<span class="c">!!     info locals</span>
+<span class="c">!!     print i</span>
+<span class="c">!!</span>
+<span class="c">!!##USING THE MOUSE</span>
+<span class="c">!!</span>
+<span class="c">!! Assuming your terminal window supports vim(1) mouse mode, you can use</span>
+<span class="c">!! the mouse in various ways. For example</span>
+<span class="c">!!</span>
+<span class="c">!!    TO SET BREAK POINTS</span>
+<span class="c">!!</span>
+<span class="c">!!    If you click the right mouse in the code file you should get an option</span>
+<span class="c">!!    menu for setting and clearing breakpoints.</span>
+<span class="c">!!</span>
+<span class="c">!!    TO EVALATE VARIABLES</span>
+<span class="c">!!</span>
+<span class="c">!!    click on variables to highlight them and click the [eval] icon.</span>
+<span class="c">!!</span>
+<span class="c">!!##SCROLLING</span>
+<span class="c">!!</span>
+<span class="c">!! The gdb and output windows will not be in Normal mode and so</span>
+<span class="c">!! will not scroll by default. When focus is on the window that will not</span>
+<span class="c">!! scroll enter &quot;ctrl-W N&quot; to go to scrollable, and enter &quot;i&quot; to return</span>
+<span class="c">!! to the original mode.</span>
+<span class="c">!!</span>
+<span class="c">!! On some platforms instead of &quot;ctrl-W&quot; followed by capital &quot;N&quot; you can</span>
+<span class="c">!! define which key goes to Normal mode. For example, to define F1 to</span>
+<span class="c">!! switch to Terminal-Normal mode:</span>
+<span class="c">!!</span>
+<span class="c">!!      :tnoremap &lt;F1&gt; &lt;C-W&gt;N</span>
+<span class="c">!!</span>
+<span class="c">!! In the gdb window in particular, you probably want to toggle between</span>
+<span class="c">!! the modes, because when scrolling is on command recall is not.</span>
+<span class="c">!!</span>
+<span class="c">!! When in Normal mode your interaction with the program is suspended,</span>
+<span class="c">!! so you want to return to the original mode or you cannot enter commands</span>
+<span class="c">!! in the gdb pane and cannot see new output or enter input in Normal mode.</span>
+<span class="c">!! To leave scrollable mode (enter &quot;i&quot;) in the pane.</span>
+<span class="c">!!</span>
+<span class="c">!! Check out :help window-moving for more information on changing the</span>
+<span class="c">!! window layout.</span>
+<span class="c">!!</span>
+<span class="c">!!##MORE INFO</span>
+<span class="c">!!</span>
+<span class="c">!! General gdb instructions are beyond the scope of this discussion, but</span>
+<span class="c">!! &quot;help&quot; in the gdb pane can get you started. At least look at watch,</span>
+<span class="c">!! display, list, break, info, where, print, set, next, step, and info after</span>
+<span class="c">!! you get started with the basics.</span>
+<span class="c">!!</span>
+<span class="c">!! For the vim(1) terminal help go to the rightmost vim(1) window and enter</span>
+<span class="c">!! &quot;:help terminal-debug&quot;.</span>
+<span class="c">!!</span>
+<span class="c">!!##EXAMPLES</span>
+<span class="c">!!</span>
+<span class="c">!!      fpm gdb</span>
+<span class="c">!!</span>
+<span class="c">!!      fpm gdb --compiler gfortran</span>
+<span class="c">!!</span>
+<span class="c">!!      # run with initial gdb(1) commands in a file</span>
+<span class="c">!!      fpm gdb -wide -gdb &#39;source mycmds.gdb&#39;</span>
+<span class="c">!!</span>
+<span class="c">!!      fpm gdb --example demo1</span>
+<span class="c">!!</span>
+<span class="c">!!##SEE ALSO</span>
+<span class="c">!!     gdb(1), fpm(1), vim(1)</span>
+<span class="c">!!</span>
+<span class="c">!!     + fpm run --runner ddd</span>
+<span class="c">!!     + fpm run --runner gdbgui</span>
+<span class="c">!!     + fpm run --runner gdbtui</span>
+<span class="c">!!     + fpm run --runner gdb</span>
+<span class="n">version</span><span class="o">=</span><span class="p">[</span><span class="w"> </span><span class="kt">CHARACTER</span><span class="p">(</span><span class="nb">LEN</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="p">&amp;</span><span class="w"></span>
+<span class="s1">&#39;PRODUCT:        GPF (General Purpose Fortran) utilities and examples&#39;</span><span class="p">,&amp;</span><span class="w"></span>
+<span class="s1">&#39;PROGRAM:        fpm-gdb(1f)&#39;</span><span class="p">,&amp;</span><span class="w"></span>
+<span class="s1">&#39;DESCRIPTION:    fpm(1) plugin that launches gdb(1)&#39;</span><span class="p">,&amp;</span><span class="w"></span>
+<span class="s1">&#39;VERSION:        2.0, 2022-04-29&#39;</span><span class="p">,&amp;</span><span class="w"></span>
+<span class="s1">&#39;AUTHOR:         John S. Urban&#39;</span><span class="p">,&amp;</span><span class="w"></span>
+<span class="s1">&#39;LICENSE:        MIT&#39;</span><span class="p">,&amp;</span><span class="w"></span>
+<span class="s1">&#39;&#39;</span><span class="p">]</span><span class="w"></span>
+<span class="k">end subroutine </span><span class="n">setup</span><span class="w"></span>
+<span class="k">end program </span><span class="n">gdb</span><span class="w"></span>
+</pre></div>
+
+    </section>
+    
+    </div>
+  </div>
+
+      <hr>
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              fpm-gdb
+ was developed by John S. Urban<br>              &copy; 2025 
+</p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+ on 2025-07-11 00:06 +0000             </p>
+          </div>
+        </div>
+        <br>
+      </div> <!-- /container -->
+    </footer>
+  </body>
+</html>

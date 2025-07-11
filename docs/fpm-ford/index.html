@@ -1,0 +1,260 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="fpm(1) plugin for launching gdb(1)">
+    <meta name="author" content="John S. Urban" >
+    <link rel="icon" href="./favicon.png">
+
+    <title> fpm-gdb </title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- Font Awesome -->
+    <link href="./css/fontawesome.min.css" rel="stylesheet">
+    <link href="./css/brands.min.css" rel="stylesheet">
+    <link href="./css/regular.min.css" rel="stylesheet">
+    <link href="./css/solid.min.css" rel="stylesheet">
+    <link href="./css/v4-font-face.min.css" rel="stylesheet">
+    <link href="./css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML" async
+            integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw=" crossorigin="anonymous"></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="./css/local.css" rel="stylesheet">
+    <link href="./css/pygments.css" rel="stylesheet">
+    <script src="./js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="./index.html">fpm-gdb </a>
+          <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon">
+          </button>
+
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="./sourcefile/fpm-gdb.f90.html">Source File</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="./program/gdb.html">Program</a>
+                </li>
+            </ul>
+              <div class="d-flex align-items-end flex-grow-1">
+                <form action="./search.html" role="search" class="ms-auto">
+                  <input type="text" class="form-control" aria-label="Search" placeholder="Search" name="q" id="tipue_search_input" autocomplete="off" required>
+                </form>
+              </div>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <!-- Main component for a primary marketing message or call to action -->
+    <div class="p-5 mb-4 bg-light border rounded-3" id="jumbotron">
+      <p>fpm(1) plugin for launching gdb(1)</p>
+        <p> Find us on&hellip;</p>
+      <p>
+        <a class="btn btn-lg btn-primary" href="https://github.com/urbanjost/fpm-gdb" role="button">GitHub</a>
+        
+        
+        
+        
+      </p>
+    </div>
+
+      <div class="row" id='text'>
+        <div class=col-md-8>
+          <h1>fpm-gdb</h1>
+          <h3 id="fpm-toolsfpm-gdb"><a href="https://github.com/search?q=&quot;fpm-tools&quot;%20in:topic%20language:fortran">fpm-tools</a>:<a href="https://urbanjost.github.io/fpm-gdb/fpm-gdb.1.html">fpm-gdb</a></h3>
+<p>This is a fpm(1) plugin for POSIX systems. </p>
+<p>It launchs the GNU debugger gdb(1) on a fpm(1) application project using vim(1) terminal mode.</p>
+<p>if you build and install this as &ldquo;fpm-gdb&rdquo; in your path, then in other
+fpm(1) projects that build an application you can enter:</p>
+<div class="codehilite"><pre><span></span><code>fpm gdb
+</code></pre></div>
+
+<p>and launch gdb(1) on your program(s). </p>
+<div class="codehilite"><pre><span></span><code>fpm gdb --help
+</code></pre></div>
+
+<p>provides more information. <em>Assumes you are familiar with gdb(1)</em>.</p>
+<p>Basically, it figures out where the binary is and runs the vim(1)
+editor, launching the screen mode with the mouse activated. For example:</p>
+<div class="codehilite"><pre><span></span><code>fpm run --runner <span class="s2">&quot;vim -c &#39;set mouse=a&#39;  -c &#39;packadd termdebug&#39;  -c &#39;resize +10&#39; \</span>
+<span class="s2">-c &#39;Termdebug build/gfortran_2A42023B310FA28D/app/fpm-gdb&#39; app*.f90&quot;</span>
+</code></pre></div>
+
+<p><img alt="gdb" src="docs/images/fpm-gdb.1.gif"></p>
+<p>The man-page is available on-line at <a href="https://urbanjost.github.io/fpm-gdb/fpm-gdb.1.html">fpm-gdb</a></p>
+<p>Please leave usage tips on the <a href="https://github.com/urbanjost/fpm-gdb/wiki">wiki</a>; 
+<a href="https://github.com/urbanjost/fpm-gdb/discussions">discuss</a> general possibilities for the plug-in;
+and report <a href="https://github.com/urbanjost/fpm-gdb/issues">issues</a>.</p>
+<h1 id="getting-started">Getting started</h1>
+<p>We will set a breakpoint at the beginning of the program, list the
+program, set some other breakpoint and then start running the program
+(with optional arguments).  Clicking on &ldquo;next&rdquo; would take you to the
+next breakpoint.</p>
+<p>Lets start in a terminal 132 characters wide and enter</p>
+<div class="codehilite"><pre><span></span><code>fpm gdb --wide 
+</code></pre></div>
+
+<p>and then in the gdb(1) command window enter</p>
+<div class="codehilite"><pre><span></span><code>b main
+list
+b 40
+run  
+</code></pre></div>
+
+<p>For some compilers &ldquo;b 1&rdquo;(e.g. Intel) might be required instead of &ldquo;b
+main&rdquo;(e.g gfortran).</p>
+<p>Many other commands exist.  Assuming you are at your next breakpoint,
+you can ask where you are, list local variables and print the value of
+some variable, like &ldquo;i&rdquo;</p>
+<div class="codehilite"><pre><span></span><code>where
+info locals
+print i
+</code></pre></div>
+
+<h1 id="using-the-mouse-to-set-break-points">Using the mouse to set break points</h1>
+<p>If you click the right mouse in the code file you should get an option
+menu for setting and clearing breakpoints.</p>
+<p>Assuming your terminal window supports vim(1) mouse mode, you can use the
+mouse in various ways. For example, You can click on variables and the
+[eval] button.</p>
+<h1 id="scrolling">Scrolling</h1>
+<p>The gdb and output windows will not be in Normal mode and so
+will not scroll by default. When focus is on the window that will not
+scroll enter &ldquo;ctrl-W N&rdquo; to go to scrollable, and enter &ldquo;i&rdquo; to return
+to the original mode.</p>
+<p>On some platforms instead of &ldquo;ctrl-W&rdquo; followed by capital &ldquo;N&rdquo; you can
+define which key goes to Normal mode.</p>
+<p>As an example function key 1 has been defined to do that using the
+vim(1) command </p>
+<div class="codehilite"><pre><span></span><code>  :tnoremap &lt;F1&gt; &lt;C-W&gt;N
+</code></pre></div>
+
+<p>Note that whether this example key definition works depends on your
+keyboard layout and your terminfo file for the terminal emulator you
+are using.</p>
+<p>In the gdb window in particular, you probably want to toggle between
+the modes, because when scrolling is on command recall is not.</p>
+<p>When in Normal mode your interaction with the program is suspended, so
+you want to return to the original mode or you cannot enter commands in
+the gdb pane and cannot see new output or enter input in Normal mode.
+To leave scrollable mode (enter &ldquo;i&rdquo;) in the pane.</p>
+<h1 id="installation">Installation</h1>
+<p>If you have the fpm-tools(1) plugin enter:</p>
+<div class="codehilite"><pre><span></span><code>   fpm tools urbanjost/fpm-gdb
+</code></pre></div>
+
+<p>or clone the repository and use fpm(1) to build and install the application.</p>
+<div class="codehilite"><pre><span></span><code>git clone https://github.com/urbanjost/fpm-gdb.git
+<span class="nb">cd</span> fpm-gdb
+<span class="c1"># assuming the default installation directory is OK; otherwise see </span>
+<span class="c1">#    &quot;fpm help install &quot;.</span>
+fpm install
+<span class="c1"># and then you may remove the fpm-gdb directory</span>
+</code></pre></div>
+
+<h1 id="more-info">More info</h1>
+<p>General gdb(1) instructions are beyond the scope of this discussion, but
+&ldquo;help&rdquo; in the gdb(1) pane can get you started.</p>
+<p>For the vim(1) terminal help go to the rightmost vim(1) window and enter
+&ldquo;:help terminal-debug&rdquo;.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://github.com/fortran-lang/fpm">Fortran Package Manager</a> </li>
+<li><a href="https://www.vim.org/">vim</a></li>
+<li><a href="https://www.sourceware.org/gdb/">gdb</a></li>
+</ul>
+        </div>
+          <div class="col-md-4">
+            <div class="card card-body bg-light">
+              <h2 class="card-title">Developer Info</h2>
+              <h4 class="card-text">John S. Urban</h4>
+              <p class="card-text"></p>
+                <div class="text-center"><div class="btn-group" role="group">
+                    
+                    <a class="btn btn-lg btn-primary" href="https://github.com/urbanjost/fpm-gdb"><i class="fa fa-github fa-lg"></i></a>
+                    
+                    
+                    
+                    
+                    
+                    
+                </div></div>
+            </div>
+          </div>
+      </div>
+        <div class="row">
+          <hr>
+          <div class="col-xs-6 col-sm-6">
+            <div>
+              <h3>Source Files</h3>
+              <ul><li><a href='sourcefile/fpm-gdb.f90.html'>fpm-gdb.f90</a></li></ul>
+            </div>
+            <div>
+              <ul>
+                <li><a href="./lists/files.html"><em>All source files&hellip;</em></a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-6">
+            <div>
+              <h3>Procedures</h3>
+              <ul><li><a href='proc/setup.html'>setup</a></li></ul>
+            </div>
+            <div>
+              <ul>
+                <li><a href="./lists/procedures.html"><em>All procedures&hellip;</em></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <hr>
+    </div> <!-- /container -->
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              fpm-gdb
+ was developed by John S. Urban<br>              &copy; 2025 
+</p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+ on 2025-07-11 00:06 +0000             </p>
+          </div>
+        </div>
+        <br>
+      </div> <!-- /container -->
+    </footer>
+  </body>
+</html>
